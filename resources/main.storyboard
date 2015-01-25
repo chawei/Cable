@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dlX-wh-nbu">
+    <dependencies>
+        <deployment version="1792" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="P2L-iN-3Ty">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="vNV-BD-yBe" customClass="ProfileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KnK-jl-oL9"/>
+                        <viewControllerLayoutGuide type="bottom" id="RVq-hv-pgk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eow-bT-ku1">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-667h.png" translatesAutoresizingMaskIntoConstraints="NO" id="cC3-zV-Ygi" userLabel="Profile Image View">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="C5v-Cu-ums"/>
+                                    <constraint firstAttribute="width" constant="100" id="OhE-U7-N6Z"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="C5v-Cu-ums"/>
+                                        <exclude reference="OhE-U7-N6Z"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="C5v-Cu-ums"/>
+                                        <include reference="OhE-U7-N6Z"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwX-pL-Sa4">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="12 favorite songs">
+                                        <attributes>
+                                            <color key="NSColor" red="0.49753736413043481" green="0.49753736413043481" blue="0.49753736413043481" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="14" name="OpenSans-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="155" y="177" width="290" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-IB-EWr">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Will Hunting">
+                                        <attributes>
+                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <font key="NSFont" size="20" name="OpenSans-Light"/>
+                                            <font key="NSOriginalFont" size="17" name="OpenSans-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="254" y="148" width="93" height="21"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xod-OZ-qHD">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Setting">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="517" y="40" width="49" height="30"/>
+                                </variation>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Xn3-IB-EWr" firstAttribute="top" secondItem="cC3-zV-Ygi" secondAttribute="bottom" constant="10" id="4M9-7j-ZsJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xod-OZ-qHD" secondAttribute="trailing" constant="20" id="Cm3-un-iNO"/>
+                            <constraint firstAttribute="centerX" secondItem="cC3-zV-Ygi" secondAttribute="centerX" id="ENO-kd-nBb"/>
+                            <constraint firstItem="xwX-pL-Sa4" firstAttribute="top" secondItem="Xn3-IB-EWr" secondAttribute="bottom" constant="8" id="IMd-IM-Byi"/>
+                            <constraint firstAttribute="centerX" secondItem="xwX-pL-Sa4" secondAttribute="centerX" id="RF0-f1-TrO"/>
+                            <constraint firstItem="xod-OZ-qHD" firstAttribute="top" secondItem="KnK-jl-oL9" secondAttribute="bottom" constant="20" id="RdE-Op-EuG"/>
+                            <constraint firstItem="cC3-zV-Ygi" firstAttribute="top" secondItem="KnK-jl-oL9" secondAttribute="bottom" constant="20" id="WGT-no-Zpz"/>
+                            <constraint firstAttribute="centerX" secondItem="Xn3-IB-EWr" secondAttribute="centerX" id="wAm-KO-zEe"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="cC3-zV-Ygi"/>
+                                <exclude reference="xwX-pL-Sa4"/>
+                                <exclude reference="Xn3-IB-EWr"/>
+                                <exclude reference="xod-OZ-qHD"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="IMd-IM-Byi"/>
+                                <exclude reference="RF0-f1-TrO"/>
+                                <exclude reference="ENO-kd-nBb"/>
+                                <exclude reference="WGT-no-Zpz"/>
+                                <exclude reference="4M9-7j-ZsJ"/>
+                                <exclude reference="wAm-KO-zEe"/>
+                                <exclude reference="Cm3-un-iNO"/>
+                                <exclude reference="RdE-Op-EuG"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="cC3-zV-Ygi"/>
+                                <include reference="xwX-pL-Sa4"/>
+                                <include reference="Xn3-IB-EWr"/>
+                                <include reference="xod-OZ-qHD"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="IMd-IM-Byi"/>
+                                <include reference="RF0-f1-TrO"/>
+                                <include reference="ENO-kd-nBb"/>
+                                <include reference="WGT-no-Zpz"/>
+                                <include reference="4M9-7j-ZsJ"/>
+                                <include reference="wAm-KO-zEe"/>
+                                <include reference="Cm3-un-iNO"/>
+                                <include reference="RdE-Op-EuG"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SLv-VF-nGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="716" y="-285"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="Q01-NQ-cIn">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="dlX-wh-nbu" customClass="HomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pxY-3l-o1i"/>
+                        <viewControllerLayoutGuide type="bottom" id="OkH-77-rHN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IJ9-KO-Cma">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWh-fg-BEa">
+                                <rect key="frame" x="261" y="250" width="79" height="99"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhQ-Qi-ud6">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Profile">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="29" y="28" width="44" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="open_profile:" destination="dlX-wh-nbu" eventType="touchUpInside" id="qfO-p3-2kc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc1-JQ-zfE">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Events">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="open_events:" destination="dlX-wh-nbu" eventType="touchUpInside" id="O14-Of-lml"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hc1-JQ-zfE" firstAttribute="trailing" secondItem="IJ9-KO-Cma" secondAttribute="trailingMargin" id="TVC-QX-MSc"/>
+                            <constraint firstAttribute="centerX" secondItem="MWh-fg-BEa" secondAttribute="centerX" id="czR-YY-OX2"/>
+                            <constraint firstItem="hc1-JQ-zfE" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="8" id="d9h-Sc-Tec"/>
+                            <constraint firstAttribute="centerY" secondItem="MWh-fg-BEa" secondAttribute="centerY" id="vI1-DI-cXO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="NhQ-Qi-ud6"/>
+                                <exclude reference="hc1-JQ-zfE"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="TVC-QX-MSc"/>
+                                <exclude reference="d9h-Sc-Tec"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="NhQ-Qi-ud6"/>
+                                <include reference="hc1-JQ-zfE"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="TVC-QX-MSc"/>
+                                <include reference="d9h-Sc-Tec"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="events_button" destination="hc1-JQ-zfE" id="eIw-st-N2l"/>
+                        <outlet property="profile_button" destination="NhQ-Qi-ud6" id="Kkc-ic-9WS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HoC-g9-2Mc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="716" y="415.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Default-667h.png" width="375" height="667"/>
+    </resources>
+</document>
