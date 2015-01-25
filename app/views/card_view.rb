@@ -1,0 +1,3 @@
+class CardView < UIView
+  
+end

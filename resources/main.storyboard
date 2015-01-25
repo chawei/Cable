@@ -3,6 +3,7 @@
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -15,6 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="RVq-hv-pgk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eow-bT-ku1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-667h.png" translatesAutoresizingMaskIntoConstraints="NO" id="cC3-zV-Ygi" userLabel="Profile Image View">
@@ -49,9 +51,6 @@
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="155" y="177" width="290" height="21"/>
-                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-IB-EWr">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -68,7 +67,7 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular" misplaced="YES">
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <rect key="frame" x="254" y="148" width="93" height="21"/>
+                                    <rect key="frame" x="262" y="150" width="78" height="17"/>
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xod-OZ-qHD">
@@ -76,9 +75,6 @@
                                 <state key="normal" title="Setting">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="517" y="40" width="49" height="30"/>
-                                </variation>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,14 +96,14 @@
                                 <exclude reference="xod-OZ-qHD"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="IMd-IM-Byi"/>
-                                <exclude reference="RF0-f1-TrO"/>
-                                <exclude reference="ENO-kd-nBb"/>
-                                <exclude reference="WGT-no-Zpz"/>
                                 <exclude reference="4M9-7j-ZsJ"/>
                                 <exclude reference="wAm-KO-zEe"/>
+                                <exclude reference="IMd-IM-Byi"/>
+                                <exclude reference="RF0-f1-TrO"/>
                                 <exclude reference="Cm3-un-iNO"/>
                                 <exclude reference="RdE-Op-EuG"/>
+                                <exclude reference="ENO-kd-nBb"/>
+                                <exclude reference="WGT-no-Zpz"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -118,14 +114,14 @@
                                 <include reference="xod-OZ-qHD"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="IMd-IM-Byi"/>
-                                <include reference="RF0-f1-TrO"/>
-                                <include reference="ENO-kd-nBb"/>
-                                <include reference="WGT-no-Zpz"/>
                                 <include reference="4M9-7j-ZsJ"/>
                                 <include reference="wAm-KO-zEe"/>
+                                <include reference="IMd-IM-Byi"/>
+                                <include reference="RF0-f1-TrO"/>
                                 <include reference="Cm3-un-iNO"/>
                                 <include reference="RdE-Op-EuG"/>
+                                <include reference="ENO-kd-nBb"/>
+                                <include reference="WGT-no-Zpz"/>
                             </mask>
                         </variation>
                     </view>
@@ -146,40 +142,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWh-fg-BEa">
-                                <rect key="frame" x="261" y="250" width="79" height="99"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhQ-Qi-ud6">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NhQ-Qi-ud6">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Profile">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="MlZ-wE-L9b"/>
+                                    <constraint firstAttribute="width" constant="32" id="aBv-uU-Nn4"/>
+                                </constraints>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="29" y="28" width="44" height="30"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MlZ-wE-L9b"/>
+                                        <exclude reference="aBv-uU-Nn4"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="16" y="38" width="32" height="32"/>
+                                    <mask key="constraints">
+                                        <include reference="MlZ-wE-L9b"/>
+                                        <include reference="aBv-uU-Nn4"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <action selector="open_profile:" destination="dlX-wh-nbu" eventType="touchUpInside" id="qfO-p3-2kc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc1-JQ-zfE">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc1-JQ-zfE">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Events">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="1i9-fs-fcY"/>
+                                    <constraint firstAttribute="width" constant="32" id="mCb-sB-6kK"/>
+                                </constraints>
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1i9-fs-fcY"/>
+                                        <exclude reference="mCb-sB-6kK"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="1i9-fs-fcY"/>
+                                        <include reference="mCb-sB-6kK"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="open_events:" destination="dlX-wh-nbu" eventType="touchUpInside" id="O14-Of-lml"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hc1-JQ-zfE" firstAttribute="trailing" secondItem="IJ9-KO-Cma" secondAttribute="trailingMargin" id="TVC-QX-MSc"/>
-                            <constraint firstAttribute="centerX" secondItem="MWh-fg-BEa" secondAttribute="centerX" id="czR-YY-OX2"/>
-                            <constraint firstItem="hc1-JQ-zfE" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="8" id="d9h-Sc-Tec"/>
-                            <constraint firstAttribute="centerY" secondItem="MWh-fg-BEa" secondAttribute="centerY" id="vI1-DI-cXO"/>
+                            <constraint firstAttribute="trailing" secondItem="hc1-JQ-zfE" secondAttribute="trailing" constant="10" id="7CN-oR-3KN">
+                                <variation key="heightClass=regular" constant="20"/>
+                            </constraint>
+                            <constraint firstItem="NhQ-Qi-ud6" firstAttribute="leading" secondItem="IJ9-KO-Cma" secondAttribute="leading" constant="10" id="HDu-S0-BSx">
+                                <variation key="heightClass=regular" constant="20"/>
+                            </constraint>
+                            <constraint firstItem="hc1-JQ-zfE" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="8" id="d9h-Sc-Tec">
+                                <variation key="heightClass=regular" constant="20"/>
+                            </constraint>
+                            <constraint firstItem="NhQ-Qi-ud6" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="20" id="dVC-eS-UuM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -187,7 +213,9 @@
                                 <exclude reference="hc1-JQ-zfE"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="TVC-QX-MSc"/>
+                                <exclude reference="HDu-S0-BSx"/>
+                                <exclude reference="dVC-eS-UuM"/>
+                                <exclude reference="7CN-oR-3KN"/>
                                 <exclude reference="d9h-Sc-Tec"/>
                             </mask>
                         </variation>
@@ -197,7 +225,9 @@
                                 <include reference="hc1-JQ-zfE"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="TVC-QX-MSc"/>
+                                <include reference="HDu-S0-BSx"/>
+                                <include reference="dVC-eS-UuM"/>
+                                <include reference="7CN-oR-3KN"/>
                                 <include reference="d9h-Sc-Tec"/>
                             </mask>
                         </variation>

@@ -4,7 +4,21 @@ class HomeViewController < CBUIViewController
   outlet :profile_button
   outlet :events_button
   
-  attr_reader :profile_view_controller
+  def viewDidLoad
+    super
+    
+    self.view.backgroundColor = UIColor.colorWithPatternImage UIImage.imageNamed("assets/pattern_background.png")
+    
+    set_buttons
+  end
+  
+  def set_buttons
+    user_icon_image = UIImage.imageNamed "assets/icon_user_profile"
+    profile_button.setBackgroundImage user_icon_image, forState:UIControlStateNormal
+    
+    events_image = UIImage.imageNamed "assets/icon_events"
+    events_button.setBackgroundImage events_image, forState:UIControlStateNormal
+  end
   
   def open_profile(sender)
     if @profile_view_controller.nil?
@@ -12,7 +26,7 @@ class HomeViewController < CBUIViewController
       bottom_margin = 20
       left_margin   = 20
     
-      storyboard              = UIStoryboard.storyboardWithName("main", bundle: nil)
+      storyboard               = UIStoryboard.storyboardWithName("main", bundle: nil)
       @profile_view_controller = storyboard.instantiateViewControllerWithIdentifier "ProfileViewController"
       @profile_view_controller.view.frame = [
         [view.frame.origin.x+left_margin, view.frame.origin.y+top_margin], 
