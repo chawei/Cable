@@ -1,0 +1,5 @@
+CBYouTubeIconImage = UIImage.imageNamed "assets/icon_youtube_large"
+CBSpotifyIconImage = UIImage.imageNamed "assets/icon_spotify_large"
+CBLikeIconImage    = UIImage.imageNamed "assets/button_icon_like"
+CBLikedIconImage   = UIImage.imageNamed "assets/button_icon_liked"
+CBShareIconImage   = UIImage.imageNamed "assets/button_icon_share"

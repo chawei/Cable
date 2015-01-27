@@ -51,6 +51,9 @@
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="245" y="175" width="111" height="17"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-IB-EWr">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -67,7 +70,7 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular" misplaced="YES">
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <rect key="frame" x="262" y="150" width="78" height="17"/>
+                                    <rect key="frame" x="261" y="150" width="78" height="17"/>
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xod-OZ-qHD">
@@ -157,8 +160,7 @@
                                         <exclude reference="aBv-uU-Nn4"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="16" y="38" width="32" height="32"/>
+                                <variation key="heightClass=regular">
                                     <mask key="constraints">
                                         <include reference="MlZ-wE-L9b"/>
                                         <include reference="aBv-uU-Nn4"/>
@@ -203,9 +205,9 @@
                                 <variation key="heightClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="hc1-JQ-zfE" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="8" id="d9h-Sc-Tec">
-                                <variation key="heightClass=regular" constant="20"/>
+                                <variation key="heightClass=regular" constant="10"/>
                             </constraint>
-                            <constraint firstItem="NhQ-Qi-ud6" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="20" id="dVC-eS-UuM"/>
+                            <constraint firstItem="NhQ-Qi-ud6" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="10" id="dVC-eS-UuM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
