@@ -1,4 +1,17 @@
 class ProfileViewController < CBUIViewController
+  extend IB
+  
+  outlet :setting_button
+  
+  include Style
+  
+  def viewDidLoad
+    super
+    
+    apply_rounded_corner
+    
+    setting_button.setImage CBShareIconImage, forState:UIControlStateNormal
+  end
   
   def toggle_display
     if view.isHidden

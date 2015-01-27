@@ -1,4 +1,5 @@
 class CardView < UIView
+  include Style
   
   def init_with_origin(origin)
     @song_object = nil
@@ -70,7 +71,7 @@ class CardView < UIView
     add_buttons
     add_pan_recognizer
     
-    apply_styling
+    apply_rounded_corner
   end
   
   def add_labels_after_view(view)
@@ -121,45 +122,35 @@ class CardView < UIView
     self.addGestureRecognizer @pan_recognizer
   end
   
-  def apply_styling
-    self.layer.setCornerRadius 2.0
-    self.layer.setShadowColor UIColor.blackColor.CGColor
-    self.layer.setShadowOpacity 0.24
-    self.layer.setShadowRadius 4.0
-    self.layer.setShadowOffset CGSizeMake(0, 1.0)
-    self.layer.shouldRasterize = true
-    # Don't forget the rasterization scale
-    # I spent days trying to figure out why retina display assets weren't working as expected
-    self.layer.rasterizationScale = UIScreen.mainScreen.scale
-  end
-  
   def add_liked_users_after_view(view)    
-    liked_users_view = UIView.alloc.initWithFrame [[card_padding, view.frame.origin.y+view.size.height+20],
+    @liked_users_view = UIView.alloc.initWithFrame [[card_padding, view.frame.origin.y+view.size.height+20],
       [card_width-card_padding*2, 32]]
       
-    user_pic_urls = ["assets/test/david.jpg", "assets/test/ann.jpg"]
-    user_pic_urls.each_index do |index|
-      user_pic_url     = user_pic_urls[index]
-      user_image       = UIImage.imageNamed user_pic_url
-      heart_icon_image = UIImage.imageNamed "assets/icon_friend_like"
+    if song_object  
+      liked_users = song_object.liked_users
+      liked_users.each_index do |index|
+        user_pic_url     = liked_users[index][:user_profile_url]
+        user_image       = UIImage.imageNamed user_pic_url
+        heart_icon_image = UIImage.imageNamed "assets/icon_friend_like"
     
-      new_size = CGSizeMake(64, 64)
-      UIGraphicsBeginImageContext(new_size)
-      user_image.drawInRect CGRectMake(0,6,52,52)
-      heart_icon_image.drawInRect CGRectMake(40,40,24,24), blendMode:KCGBlendModeNormal, alpha:1.0
-      blended_image = UIGraphicsGetImageFromCurrentImageContext()
-      UIGraphicsEndImageContext()
+        new_size = CGSizeMake(64, 64)
+        UIGraphicsBeginImageContext(new_size)
+        user_image.drawInRect CGRectMake(0,6,52,52)
+        heart_icon_image.drawInRect CGRectMake(40,40,24,24), blendMode:KCGBlendModeNormal, alpha:1.0
+        blended_image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
     
-      user_button       = UIButton.buttonWithType UIButtonTypeCustom
-      user_button.frame = [[(32+5)*index, 0], [32, 32]]
-      user_button.setImage blended_image, forState:UIControlStateNormal
-      user_button.addTarget self, action:"press_user_button", forControlEvents:UIControlEventTouchUpInside
+        user_button       = UIButton.buttonWithType UIButtonTypeCustom
+        user_button.frame = [[(32+5)*index, 0], [32, 32]]
+        user_button.setImage blended_image, forState:UIControlStateNormal
+        user_button.addTarget self, action:"press_user_button", forControlEvents:UIControlEventTouchUpInside
       
-      liked_users_view.addSubview user_button
+        @liked_users_view.addSubview user_button
+      end
     end
     
-    self.addSubview liked_users_view
-    self.sendSubviewToBack liked_users_view
+    self.addSubview @liked_users_view
+    self.sendSubviewToBack @liked_users_view
   end
   
   def song_object=(song_object)
@@ -167,6 +158,10 @@ class CardView < UIView
     update
     
     add_liked_users_after_view @subtitle_label
+  end
+  
+  def song_object
+    @song_object
   end
   
   def update
