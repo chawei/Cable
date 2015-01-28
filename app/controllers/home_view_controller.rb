@@ -49,11 +49,13 @@ class HomeViewController < CBUIViewController
       bottom_margin = 20
       left_margin   = 20
     
-      storyboard               = UIStoryboard.storyboardWithName("main", bundle: nil)
-      @profile_view_controller = storyboard.instantiateViewControllerWithIdentifier "ProfileViewController"
+      #storyboard               = UIStoryboard.storyboardWithName("main", bundle: nil)
+      #@profile_view_controller = storyboard.instantiateViewControllerWithIdentifier "ProfileViewController"
+      @profile_view_controller = ProfileViewController.alloc.init
       @profile_view_controller.view.frame = [
         [view.frame.origin.x+left_margin, view.frame.origin.y+top_margin], 
-        [view.size.width-left_margin*2, view.size.height-top_margin-bottom_margin]]
+        [view.size.width-left_margin*2, view.size.height-top_margin-bottom_margin]
+      ]
     
       self.addChildViewController @profile_view_controller
       self.view.addSubview @profile_view_controller.view

@@ -7,7 +7,7 @@ module Style
       layer = self.layer
     end
     
-    layer.setCornerRadius 2.0
+    layer.setCornerRadius CBRoundedCornerRadius
     layer.setShadowColor UIColor.blackColor.CGColor
     layer.setShadowOpacity 0.24
     layer.setShadowRadius 4.0

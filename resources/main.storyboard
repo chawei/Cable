@@ -39,7 +39,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwX-pL-Sa4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwX-pL-Sa4" userLabel="Status Label">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <attributedString key="attributedText">
                                     <fragment content="12 favorite songs">
@@ -55,7 +55,7 @@
                                     <rect key="frame" x="245" y="185" width="111" height="17"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-IB-EWr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn3-IB-EWr" userLabel="Name Label">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Will Hunting">
@@ -147,6 +147,7 @@
                     </view>
                     <connections>
                         <outlet property="setting_button" destination="xod-OZ-qHD" id="Fxs-7j-Y4R"/>
+                        <outlet property="status_label" destination="xwX-pL-Sa4" id="dgJ-Dy-kXa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLv-VF-nGN" userLabel="First Responder" sceneMemberID="firstResponder"/>
