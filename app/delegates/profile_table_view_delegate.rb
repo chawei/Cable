@@ -47,6 +47,7 @@ module ProfileTableViewDelegate
     cell.update_images_with_source object[:source]                
     cell.title_label.text    = object[:title]
     cell.subtitle_label.text = object[:subtitle]
+    cell.update_labels
 
     cell
   end

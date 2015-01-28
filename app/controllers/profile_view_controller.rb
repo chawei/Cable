@@ -17,7 +17,7 @@ class ProfileViewController < CBUIViewController
     apply_rounded_corner
     
     @objects = [{
-      :title => 'House of Cards', :subtitle => 'Radiohead', :source => 'youtube',
+      :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', :source => 'youtube',
       :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
     }, {
       :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
@@ -42,7 +42,7 @@ class ProfileViewController < CBUIViewController
     @name_label.frame = [[CBDefaultMargin, @profile_image_view.frame.origin.y+@profile_image_view.size.height+CBDefaultMargin],
       [card_width-CBDefaultMargin*2, 20]]
     @status_label.frame = [[CBDefaultMargin, @name_label.frame.origin.y+@name_label.size.height+5],
-      [card_width-CBDefaultMargin*2, 15]]
+      [card_width-CBDefaultMargin*2, 16]]
     @setting_button.frame = [[card_width-CBDefaultMargin-button_width, CBDefaultMargin],
         [button_width, button_width]]
     @segmented_control.frame = [[CBDefaultMargin, @status_label.frame.origin.y+@status_label.size.height+CBDefaultMargin], 
