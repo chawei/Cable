@@ -54,6 +54,9 @@ class SongTableCell < UITableViewCell
     elsif source == 'spotify'
       @source_image_view.image = CBSpotifyIconImage
       @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+    else
+      @source_image_view.image = nil
+      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
     end
   end
 end

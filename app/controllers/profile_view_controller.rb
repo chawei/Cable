@@ -12,23 +12,11 @@ class ProfileViewController < CBUIViewController
     add_status_label
     add_setting_button
     add_segmented_control
-    add_table_view
+    add_table_views
     
     apply_rounded_corner
     
-    @objects = [{
-      :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', :source => 'youtube',
-      :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
-    }, {
-      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
-      :image_url => 'http://ecx.images-amazon.com/images/I/41jZQc6jSwL._SS280.jpg'
-    }, {
-      :title => 'House of Cards', :subtitle => 'Radiohead', :source => 'youtube',
-      :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
-    }, {
-      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
-      :image_url => 'http://ecx.images-amazon.com/images/I/41jZQc6jSwL._SS280.jpg'
-    }]
+    @objects = fetch_song_objects
   end
   
   def viewWillLayoutSubviews
@@ -44,12 +32,15 @@ class ProfileViewController < CBUIViewController
     @status_label.frame = [[CBDefaultMargin, @name_label.frame.origin.y+@name_label.size.height+5],
       [card_width-CBDefaultMargin*2, 16]]
     @setting_button.frame = [[card_width-CBDefaultMargin-button_width, CBDefaultMargin],
-        [button_width, button_width]]
+      [button_width, button_width]]
     @segmented_control.frame = [[CBDefaultMargin, @status_label.frame.origin.y+@status_label.size.height+CBDefaultMargin], 
-        [view.size.width-CBDefaultMargin*2, 34]]
+      [view.size.width-CBDefaultMargin*2, 34]]
+      
     table_origin_y = @segmented_control.frame.origin.y+@segmented_control.size.height+CBDefaultMargin
-    @table_view.frame = [[0, table_origin_y], 
-        [view.size.width, view.size.height-table_origin_y-CBRoundedCornerRadius]]
+    @fav_table_view.frame = [[0, table_origin_y], 
+      [view.size.width, view.size.height-table_origin_y-CBRoundedCornerRadius]]
+    @event_table_view.frame = [[0, table_origin_y], 
+      [view.size.width, view.size.height-table_origin_y-CBRoundedCornerRadius]]
   end
   
   def add_profile_image_view
@@ -92,21 +83,71 @@ class ProfileViewController < CBUIViewController
     @segmented_control = UISegmentedControl.alloc.initWithItems item_array
     @segmented_control.segmentedControlStyle = UISegmentedControlStylePlain
     @segmented_control.tintColor = tint_color
-    @segmented_control.addTarget self, action:"segmented_control_changed", forControlEvents:UIControlEventValueChanged
+    @segmented_control.addTarget self, action:"segmented_control_changed:", forControlEvents:UIControlEventValueChanged
     @segmented_control.selectedSegmentIndex = 0
     @segmented_control.setTitleTextAttributes attributes, forState:UIControlStateNormal
     view.addSubview @segmented_control
   end
   
-  def add_table_view
-    @table_view = UITableView.alloc.init
-    @table_view.delegate   = self
-    @table_view.dataSource = self
-    view.addSubview @table_view
+  def add_table_views
+    @fav_table_view = UITableView.alloc.init
+    @fav_table_view.delegate   = self
+    @fav_table_view.dataSource = self
+    view.addSubview @fav_table_view
+    
+    @event_table_view = UITableView.alloc.init
+    @event_table_view.delegate   = self
+    @event_table_view.dataSource = self
+    @event_table_view.hidden = true
+    view.addSubview @event_table_view
   end
   
-  def segmented_control_changed
-    
+  def fetch_song_objects
+    [{
+      :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', :source => 'youtube',
+      :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
+    }, {
+      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
+      :image_url => 'http://ecx.images-amazon.com/images/I/41jZQc6jSwL._SS280.jpg'
+    }, {
+      :title => 'House of Cards', :subtitle => 'Radiohead', :source => 'youtube',
+      :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
+    }, {
+      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
+      :image_url => 'http://ecx.images-amazon.com/images/I/41jZQc6jSwL._SS280.jpg'
+    }]
+  end
+  
+  def fetch_event_objects
+    [{
+      :title => "The Von Trapps at The Chapel (January 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
+      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
+    }, {
+      :title => 'The View from the Afternoon', :subtitle => 'Arctic Monkeys', :source => 'songkick',
+      :image_url => 'http://userserve-ak.last.fm/serve/126/32760011.png'
+    }, {
+      :title => 'Paula Harris at Club Fox (January 28, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
+      :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
+    }, {
+      :title => 'Sunny Afternoon', :subtitle => 'The Kinks', :source => 'songkick',
+      :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
+    }]
+  end
+  
+  def segmented_control_changed(sender)
+    selected_segment = sender.selectedSegmentIndex
+    case selected_segment
+    when 0
+      @objects = fetch_song_objects
+      @fav_table_view.reloadData
+      @fav_table_view.hidden   = false
+      @event_table_view.hidden = true
+    when 1
+      @objects = fetch_event_objects
+      @event_table_view.reloadData
+      @fav_table_view.hidden   = true
+      @event_table_view.hidden = false
+    end
   end
   
   def press_setting_button

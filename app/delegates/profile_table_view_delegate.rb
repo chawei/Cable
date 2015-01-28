@@ -19,7 +19,13 @@ module ProfileTableViewDelegate
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
-    # do something here...
+    tableView.deselectRowAtIndexPath indexPath, animated:true
+    
+    if tableView == @fav_table_view
+      NSLog "play song"
+    elsif tableView == @event_table_view
+      NSLog "show event"
+    end
   end
   
   def tableView(tableView, heightForHeaderInSection:section)
@@ -39,11 +45,11 @@ module ProfileTableViewDelegate
     cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
       SongTableCell.alloc.init
     end
-    
+  
     object = @objects[indexPath.row]
     cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
                    placeholderImage:nil
-    
+  
     cell.update_images_with_source object[:source]                
     cell.title_label.text    = object[:title]
     cell.subtitle_label.text = object[:subtitle]
