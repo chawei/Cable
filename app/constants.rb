@@ -8,6 +8,7 @@ CBTestProfileImage = UIImage.imageNamed "assets/test/david.jpg"
 
 CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
 
+CBHomeViewPadding     = 15
 CBDefaultMargin       = 16
 CBCellLabelTopMargin  = 12
 CBRoundedCornerRadius = 2

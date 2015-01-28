@@ -4,9 +4,8 @@ class CardView < UIView
   def init_with_origin(origin)
     @song_object = nil
     
-    card_left_margin = 20
+    card_left_margin = CBDefaultMargin
     card_view_width  = App.screen_width - card_left_margin*2
-    #card_view_height = App.screen_height * 0.6
     
     initWithFrame [origin, [card_view_width, card_height]]
     @origin       = self.frame.origin
@@ -38,7 +37,7 @@ class CardView < UIView
   end
   
   def card_padding
-    20
+    CBDefaultMargin
   end
   
   def card_top_padding
@@ -52,7 +51,7 @@ class CardView < UIView
   def setup_view
     self.backgroundColor = UIColor.whiteColor
     
-    msb_right_margin = 20
+    msb_right_margin = CBDefaultMargin
     msb_width        = 24
     
     @media_source_button       = UIButton.buttonWithType UIButtonTypeCustom
@@ -99,8 +98,8 @@ class CardView < UIView
   def add_buttons
     action_button_width  = 32
     action_button_height = 32
-    button_bottom_margin = 20
-    button_left_margin   = 20
+    button_bottom_margin = CBDefaultMargin
+    button_left_margin   = CBDefaultMargin
     
     @like_button       = UIButton.buttonWithType UIButtonTypeCustom
     @like_button.frame = [[card_width-card_padding-action_button_width, card_height-action_button_height-button_bottom_margin],
@@ -123,7 +122,7 @@ class CardView < UIView
   end
   
   def add_liked_users_after_view(view)    
-    @liked_users_view = UIView.alloc.initWithFrame [[card_padding, view.frame.origin.y+view.size.height+20],
+    @liked_users_view = UIView.alloc.initWithFrame [[card_padding, view.frame.origin.y+view.size.height+CBDefaultMargin],
       [card_width-card_padding*2, 32]]
       
     if song_object  
@@ -174,7 +173,7 @@ class CardView < UIView
     
     if @song_object.subtitle
       card_width       = self.size.width
-      card_padding     = 20
+      card_padding     = CBDefaultMargin
       @subtitle_label.frame = [[card_padding, @title_label.frame.origin.y+@title_label.size.height+10], 
         [card_width-card_padding*2, 50]]
       @subtitle_label.text = @song_object.subtitle

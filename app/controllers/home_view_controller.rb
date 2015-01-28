@@ -16,13 +16,13 @@ class HomeViewController < CBUIViewController
                     
     song_object = SongObject.new(params)
     offset = CardView.default_height * 0.04
-    card_view   = CardView.alloc.init_with_origin([20, card_origin_y+offset])
+    card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y+offset])
     card_view.song_object = song_object
     card_view.transform = CGAffineTransformMakeScale(0.95, 0.95)
     view.addSubview card_view
     
     song_object = SongObject.new(params)
-    card_view   = CardView.alloc.init_with_origin([20, card_origin_y])
+    card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y])
     card_view.song_object = song_object
     view.addSubview card_view
   end
@@ -46,8 +46,8 @@ class HomeViewController < CBUIViewController
   def open_profile(sender)
     if @profile_view_controller.nil?
       top_margin    = card_origin_y
-      bottom_margin = 20
-      left_margin   = 20
+      bottom_margin = CBHomeViewPadding
+      left_margin   = CBHomeViewPadding
     
       #storyboard               = UIStoryboard.storyboardWithName("main", bundle: nil)
       #@profile_view_controller = storyboard.instantiateViewControllerWithIdentifier "ProfileViewController"
