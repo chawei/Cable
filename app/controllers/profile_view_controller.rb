@@ -53,7 +53,7 @@ class ProfileViewController < CBUIViewController
     @name_label.numberOfLines = 1
     @name_label.textAlignment = NSTextAlignmentCenter
     @name_label.textColor     = UIColor.blackColor
-    @name_label.setFont UIFont.fontWithName("OpenSans-Light", size:18.0)
+    @name_label.setFont UIFont.fontWithName(CBRegularFontName, size:18.0)
     @name_label.text = "David Hsu"
     view.addSubview @name_label
   end
@@ -63,8 +63,8 @@ class ProfileViewController < CBUIViewController
     @status_label.numberOfLines = 1
     @status_label.textAlignment = NSTextAlignmentCenter
     @status_label.textColor     = UIColor.grayColor
-    @status_label.setFont UIFont.fontWithName("OpenSans-Light", size:12.0)
-    @status_label.text = "12 favorite songs / 12 event bookmarkers"
+    @status_label.setFont UIFont.fontWithName(CBLightFontName, size:12.0)
+    @status_label.text = "12 favorite songs / 33 event bookmarkers"
     view.addSubview @status_label
   end
   
@@ -76,7 +76,7 @@ class ProfileViewController < CBUIViewController
   end
   
   def add_segmented_control
-    font       = UIFont.fontWithName("OpenSans", size:14.0)
+    font       = UIFont.fontWithName(CBRegularFontName, size:14.0)
     attributes = NSDictionary.dictionaryWithObject font, forKey:NSFontAttributeName
     tint_color = UIColor.colorWithRed 253/255.0, green:195/255.0, blue:0/255.0, alpha:1.0
     item_array = ["FAVORITES", "EVENTS"]

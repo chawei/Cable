@@ -11,17 +11,20 @@ class HomeViewController < CBUIViewController
     
     set_buttons
     
-    params      = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
-                    :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'spotify' }
+    song1 = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
+              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube' }
+              
+    song2 = { :title => "Don't Think Twice It's Alright", 
+              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'spotify' }
                     
-    song_object = SongObject.new(params)
+    song_object = SongObject.new(song1)
     offset = CardView.default_height * 0.04
     card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y+offset])
     card_view.song_object = song_object
     card_view.transform = CGAffineTransformMakeScale(0.95, 0.95)
     view.addSubview card_view
     
-    song_object = SongObject.new(params)
+    song_object = SongObject.new(song2)
     card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y])
     card_view.song_object = song_object
     view.addSubview card_view

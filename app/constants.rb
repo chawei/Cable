@@ -8,8 +8,12 @@ CBTestProfileImage = UIImage.imageNamed "assets/test/david.jpg"
 
 CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
 
-CBHomeViewPadding     = 15
-CBDefaultMargin       = 16
-CBCellLabelTopMargin  = 12
-CBRoundedCornerRadius = 2
-CBTitleLabelHeight    = 50
+CBHomeViewPadding         = 15
+CBDefaultMargin           = 16
+CBCellLabelTopMargin      = 14
+CBRoundedCornerRadius     = 2
+CBTitleLabelHeight        = 50
+CBCardTitleLabelMaxHeight = 50
+
+CBRegularFontName = "ProximaNova-Regular"
+CBLightFontName   = "ProximaNova-Light"

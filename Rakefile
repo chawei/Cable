@@ -14,6 +14,7 @@ Motion::Project::App.setup do |app|
   app.deployment_target = '7.0'
   
   app.fonts = ['fonts/OpenSans-Regular.ttf', 'fonts/OpenSans-Light.ttf']
+  app.fonts += ['fonts/ProximaNova-Regular.ttf', 'fonts/ProximaNova-Light.ttf']
   
   app.pods do
     pod 'SDWebImage'

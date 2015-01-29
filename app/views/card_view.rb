@@ -73,23 +73,20 @@ class CardView < UIView
     apply_rounded_corner
   end
   
-  def add_labels_after_view(view)
-    label_max_height = 70
-    
-    @title_label = UILabel.alloc.initWithFrame [[card_padding, view.frame.origin.y+view.size.height+10],
-      [card_width-card_padding*2, label_max_height]]
+  def add_labels_after_view(view)    
+    @title_label = UILabel.alloc.initWithFrame [[card_padding, view.frame.origin.y+view.size.height+CBDefaultMargin],
+      [card_width-card_padding*2, CBCardTitleLabelMaxHeight]]
     @title_label.numberOfLines = 2
     @title_label.textColor = UIColor.blackColor
-    @title_label.setFont UIFont.fontWithName("OpenSans-Light", size:18.0)
+    @title_label.setFont UIFont.fontWithName(CBRegularFontName, size:18.0)
     @title_label.text = "Unknown"
-    @title_label.setVerticalAlignmentTopWithHeight(label_max_height)
     self.addSubview @title_label
     
-    @subtitle_label = UILabel.alloc.initWithFrame [[card_padding, @title_label.frame.origin.y+@title_label.size.height+10],
-      [card_width-card_padding*2, 50]]
+    @subtitle_label = UILabel.alloc.initWithFrame [[card_padding, @title_label.frame.origin.y+@title_label.size.height+CBDefaultMargin],
+      [card_width-card_padding*2, CBCardTitleLabelMaxHeight]]
     @subtitle_label.numberOfLines = 0
     @subtitle_label.textColor = UIColor.grayColor
-    @subtitle_label.setFont UIFont.fontWithName("OpenSans-Light", size:12.0)
+    @subtitle_label.setFont UIFont.fontWithName(CBLightFontName, size:12.0)
     @subtitle_label.text = "Unknown Artist / 0 min 0 sec"
     @subtitle_label.sizeToFit
     self.addSubview @subtitle_label
@@ -168,16 +165,16 @@ class CardView < UIView
     
     if @song_object.title
       @title_label.text = @song_object.title
-      @title_label.setVerticalAlignmentTopWithHeight(70)
+      @title_label.setVerticalAlignmentTopWithHeight(CBCardTitleLabelMaxHeight)
     end
     
     if @song_object.subtitle
       card_width       = self.size.width
       card_padding     = CBDefaultMargin
       @subtitle_label.frame = [[card_padding, @title_label.frame.origin.y+@title_label.size.height+10], 
-        [card_width-card_padding*2, 50]]
+        [card_width-card_padding*2, CBCardTitleLabelMaxHeight]]
       @subtitle_label.text = @song_object.subtitle
-      @subtitle_label.setVerticalAlignmentTopWithHeight(50)
+      @subtitle_label.setVerticalAlignmentTopWithHeight(CBCardTitleLabelMaxHeight)
     end
     
     if @song_object.source == 'spotify'
