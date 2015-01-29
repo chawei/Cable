@@ -41,9 +41,11 @@ class HomeViewController < CBUIViewController
   def set_buttons
     user_icon_image = UIImage.imageNamed "assets/icon_user_profile"
     profile_button.setBackgroundImage user_icon_image, forState:UIControlStateNormal
+    profile_button.alpha = CBInactiveAlphaValue
     
     events_image = UIImage.imageNamed "assets/icon_events"
     events_button.setBackgroundImage events_image, forState:UIControlStateNormal
+    events_button.alpha = CBInactiveAlphaValue
   end
   
   def open_profile(sender)
@@ -67,11 +69,52 @@ class HomeViewController < CBUIViewController
       @profile_view_controller.didMoveToParentViewController self
     end
     
-    @profile_view_controller.toggle_display
+    reset_buttons
+    @events_view_controller.view.hidden = true if @events_view_controller
+    #@events_view_controller.hide if @events_view_controller
+    if @profile_view_controller.view.isHidden
+      @profile_view_controller.show
+      profile_button.alpha = 1.0
+    else
+      @profile_view_controller.hide
+      profile_button.alpha = CBInactiveAlphaValue
+    end
   end
   
   def open_events(sender)
-    NSLog "Open events"
+    if @events_view_controller.nil?
+      top_margin    = card_origin_y
+      bottom_margin = CBHomeViewPadding
+      left_margin   = CBHomeViewPadding
+      
+      @events_view_controller = EventsViewController.alloc.init
+      @events_view_controller.view.frame = [
+        [view.frame.origin.x+left_margin, view.frame.origin.y+top_margin], 
+        [view.size.width-left_margin*2, view.size.height-top_margin-bottom_margin]
+      ]
+    
+      self.addChildViewController @events_view_controller
+      self.view.addSubview @events_view_controller.view
+      @events_view_controller.view.hidden = true
+      @events_view_controller.view.alpha  = 0
+      @events_view_controller.didMoveToParentViewController self
+    end
+    
+    reset_buttons
+    @profile_view_controller.view.hidden = true if @profile_view_controller
+    #@profile_view_controller.hide if @profile_view_controller
+    if @events_view_controller.view.isHidden
+      @events_view_controller.show
+      events_button.alpha = 1.0
+    else
+      @events_view_controller.hide
+      events_button.alpha = CBInactiveAlphaValue
+    end
+  end
+  
+  def reset_buttons
+    profile_button.alpha = CBInactiveAlphaValue
+    events_button.alpha  = CBInactiveAlphaValue
   end
   
 end

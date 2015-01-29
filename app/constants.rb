@@ -14,6 +14,7 @@ CBCellLabelTopMargin      = 14
 CBRoundedCornerRadius     = 2
 CBTitleLabelHeight        = 50
 CBCardTitleLabelMaxHeight = 50
+CBInactiveAlphaValue      = 0.4
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
