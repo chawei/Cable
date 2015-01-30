@@ -188,7 +188,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="open_profile:" destination="dlX-wh-nbu" eventType="touchUpInside" id="qfO-p3-2kc"/>
+                                    <action selector="toggle_profile:" destination="dlX-wh-nbu" eventType="touchUpInside" id="LUR-Zm-odU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hc1-JQ-zfE">
@@ -213,7 +213,32 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="open_events:" destination="dlX-wh-nbu" eventType="touchUpInside" id="O14-Of-lml"/>
+                                    <action selector="toggle_events:" destination="dlX-wh-nbu" eventType="touchUpInside" id="EuN-VZ-x3k"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qH-qd-2Ak">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="nXF-KZ-CrD"/>
+                                    <constraint firstAttribute="height" constant="32" id="qZk-DO-brb"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="nXF-KZ-CrD"/>
+                                        <exclude reference="qZk-DO-brb"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="nXF-KZ-CrD"/>
+                                        <include reference="qZk-DO-brb"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="press_logo_button" destination="dlX-wh-nbu" eventType="touchUpInside" id="MPS-08-FKX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -225,19 +250,24 @@
                             <constraint firstItem="NhQ-Qi-ud6" firstAttribute="leading" secondItem="IJ9-KO-Cma" secondAttribute="leading" constant="10" id="HDu-S0-BSx">
                                 <variation key="heightClass=regular" constant="15"/>
                             </constraint>
+                            <constraint firstItem="3qH-qd-2Ak" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="10" id="PPE-UJ-Mgn"/>
                             <constraint firstItem="hc1-JQ-zfE" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="8" id="d9h-Sc-Tec">
                                 <variation key="heightClass=regular" constant="10"/>
                             </constraint>
                             <constraint firstItem="NhQ-Qi-ud6" firstAttribute="top" secondItem="pxY-3l-o1i" secondAttribute="bottom" constant="10" id="dVC-eS-UuM"/>
+                            <constraint firstAttribute="centerX" secondItem="3qH-qd-2Ak" secondAttribute="centerX" id="hK4-X2-OII"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="NhQ-Qi-ud6"/>
                                 <exclude reference="hc1-JQ-zfE"/>
+                                <exclude reference="3qH-qd-2Ak"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="HDu-S0-BSx"/>
                                 <exclude reference="dVC-eS-UuM"/>
+                                <exclude reference="PPE-UJ-Mgn"/>
+                                <exclude reference="hK4-X2-OII"/>
                                 <exclude reference="7CN-oR-3KN"/>
                                 <exclude reference="d9h-Sc-Tec"/>
                             </mask>
@@ -246,10 +276,13 @@
                             <mask key="subviews">
                                 <include reference="NhQ-Qi-ud6"/>
                                 <include reference="hc1-JQ-zfE"/>
+                                <include reference="3qH-qd-2Ak"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="HDu-S0-BSx"/>
                                 <include reference="dVC-eS-UuM"/>
+                                <include reference="PPE-UJ-Mgn"/>
+                                <include reference="hK4-X2-OII"/>
                                 <include reference="7CN-oR-3KN"/>
                                 <include reference="d9h-Sc-Tec"/>
                             </mask>
@@ -257,6 +290,7 @@
                     </view>
                     <connections>
                         <outlet property="events_button" destination="hc1-JQ-zfE" id="eIw-st-N2l"/>
+                        <outlet property="logo_button" destination="3qH-qd-2Ak" id="hyH-Sl-n9Z"/>
                         <outlet property="profile_button" destination="NhQ-Qi-ud6" id="Kkc-ic-9WS"/>
                     </connections>
                 </viewController>

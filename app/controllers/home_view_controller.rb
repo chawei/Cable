@@ -1,6 +1,7 @@
 class HomeViewController < CBUIViewController
   extend IB
   
+  outlet :logo_button
   outlet :profile_button
   outlet :events_button
   
@@ -9,6 +10,7 @@ class HomeViewController < CBUIViewController
     
     self.view.backgroundColor = UIColor.colorWithPatternImage UIImage.imageNamed("assets/pattern_background.png")
     
+    add_background_view
     set_buttons
     
     song1 = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
@@ -38,7 +40,19 @@ class HomeViewController < CBUIViewController
     end
   end
   
+  def add_background_view
+    background_view = UIView.alloc.initWithFrame self.view.frame
+    tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
+    background_view.addGestureRecognizer tap_recognizer
+    view.addSubview background_view
+    view.sendSubviewToBack background_view
+  end
+  
   def set_buttons
+    logo_image = UIImage.imageNamed "assets/icon_logo"
+    logo_button.setBackgroundImage logo_image, forState:UIControlStateNormal
+    logo_button.alpha = 1.0
+    
     user_icon_image = UIImage.imageNamed "assets/icon_user_profile"
     profile_button.setBackgroundImage user_icon_image, forState:UIControlStateNormal
     profile_button.alpha = CBInactiveAlphaValue
@@ -48,7 +62,24 @@ class HomeViewController < CBUIViewController
     events_button.alpha = CBInactiveAlphaValue
   end
   
-  def open_profile(sender)
+  def tap_background
+    if @profile_view_controller
+      @profile_view_controller.hide
+    end
+    
+    if @events_view_controller
+      @events_view_controller.hide
+    end
+    
+    reset_buttons
+    logo_button.alpha = 1.0
+  end
+  
+  def press_logo_button
+    tap_background
+  end
+  
+  def toggle_profile(sender)
     if @profile_view_controller.nil?
       top_margin    = card_origin_y
       bottom_margin = CBHomeViewPadding
@@ -81,7 +112,7 @@ class HomeViewController < CBUIViewController
     end
   end
   
-  def open_events(sender)
+  def toggle_events(sender)
     if @events_view_controller.nil?
       top_margin    = card_origin_y
       bottom_margin = CBHomeViewPadding
@@ -113,6 +144,7 @@ class HomeViewController < CBUIViewController
   end
   
   def reset_buttons
+    logo_button.alpha    = CBInactiveAlphaValue
     profile_button.alpha = CBInactiveAlphaValue
     events_button.alpha  = CBInactiveAlphaValue
   end
