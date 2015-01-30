@@ -16,8 +16,8 @@ class HomeViewController < CBUIViewController
     song1 = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
               :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube', :video_id => 'x3KMLwsS6CQ' }
               
-    song2 = { :title => "Don't Think Twice It's Alright", 
-              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube', :video_id => 'x3KMLwsS6CQ' }
+    song2 = { :title => "Radiohead - Lotus Flower", 
+              :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8' }
                     
     song_object = SongObject.new(song1)
     offset = CardView.default_height * 0.04

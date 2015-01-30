@@ -33,6 +33,7 @@ module VideoPlayer
       @movie_player_controller = MPMoviePlayerController.alloc.initWithContentURL url
       @movie_player_controller.controlStyle = MPMovieControlStyleNone
       @movie_player_controller.prepareToPlay
+      observe_movie_player @movie_player_controller
     else      
       @movie_player_controller.contentURL = url
       @movie_player_controller.prepareToPlay
@@ -90,6 +91,36 @@ module VideoPlayer
       end
     else
       handle_no_video_error
+    end
+  end
+  
+  def observe_movie_player(movie_player)
+    NSNotificationCenter.defaultCenter.addObserver self,
+        selector:"movie_player_playback_finished:",
+        name:MPMoviePlayerPlaybackDidFinishNotification, object:movie_player
+        
+    NSNotificationCenter.defaultCenter.addObserver self,
+        selector:"movie_player_playback_state_changed:",
+        name:MPMoviePlayerPlaybackStateDidChangeNotification, object:movie_player
+        
+    NSNotificationCenter.defaultCenter.addObserver self,
+        selector:"movie_player_load_state_changed:",
+        name:MPMoviePlayerLoadStateDidChangeNotification, object:movie_player    
+  end
+  
+  def movie_player_playback_finished(notification)
+    
+  end
+  
+  def movie_player_playback_state_changed(notification)
+    
+  end
+  
+  def movie_player_load_state_changed(notification)
+    movie_player = notification.object
+    
+    if [MPMovieLoadStatePlaythroughOK, MPMovieLoadStatePlayable].include? movie_player.loadState
+      start_slider_with_max_value movie_player.duration
     end
   end
   
