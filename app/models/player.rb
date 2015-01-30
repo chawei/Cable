@@ -43,7 +43,7 @@ class Player
     end
     
     if object.is_from_youtube?
-      @mediaMode = 'video'
+      @media_mode = 'video'
       play_youtube_object object
     else
       
@@ -58,10 +58,10 @@ class Player
     return if @slider.nil?
     
     @slider.addTarget self, action:"slider_value_changed:", forControlEvents:UIControlEventValueChanged
-    @slider.addTarget self, action:"sliderIsReleased:", forControlEvents:UIControlEventTouchUpInside
-    @slider.addTarget self, action:"sliderIsReleased:", forControlEvents:UIControlEventTouchUpOutside
-    @slider.addTarget self, action:"sliderIsReleased:", forControlEvents:UIControlEventTouchCancel
-    @slider.addTarget self, action:"sliderIsPressed:", forControlEvents:UIControlEventTouchDown
+    @slider.addTarget self, action:"slider_is_released:", forControlEvents:UIControlEventTouchUpInside
+    @slider.addTarget self, action:"slider_is_released:", forControlEvents:UIControlEventTouchUpOutside
+    @slider.addTarget self, action:"slider_is_released:", forControlEvents:UIControlEventTouchCancel
+    @slider.addTarget self, action:"slider_is_pressed:", forControlEvents:UIControlEventTouchDown
     
     @slider.maximumValue = max_value
     
@@ -69,21 +69,13 @@ class Player
   end
   
   def slider_value_changed(sender)
-    #if @mediaMode == 'audio'
-    #  @audioPlayer.seekToTrackPosition @slider.value
-    #else
-    #  # move this part to "sliderIsReleased"
-    #  #if @moviePlayerController
-    #  #  @moviePlayerController.currentPlaybackTime = @slider.value
-    #  #end
-    #end
   end
   
-  def sliderIsPressed(sender)
-    stopSliderTimer
+  def slider_is_pressed(sender)
+    stop_slider_timer
   end
   
-  def sliderIsReleased(sender)
+  def slider_is_released(sender)
     if @movie_player_controller
       @movie_player_controller.currentPlaybackTime = @slider.value
     end
@@ -91,11 +83,10 @@ class Player
   end
   
   def start_slider_timer
-    stopSliderTimer
-    @sliderTime = NSTimer.scheduledTimerWithTimeInterval 1.0, target:self, selector:"updateSlider:", userInfo:nil, repeats:true
+    stop_slider_timer
+    @slider_timer = NSTimer.scheduledTimerWithTimeInterval 1.0, target:self, selector:"update_slider:", userInfo:nil, repeats:true
     
-    @isPlayed = true
-    if @mediaMode == 'video'
+    if @media_mode == 'video'
       if @movie_player_controller
         @movie_player_controller.play
       end
@@ -104,13 +95,13 @@ class Player
     end
   end
   
-  def stopSliderTimer
-    if @sliderTime
-      @sliderTime.invalidate
-      @sliderTime = nil
+  def stop_slider_timer
+    if @slider_timer
+      @slider_timer.invalidate
+      @slider_timer = nil
     end
     
-    if @mediaMode == 'video'
+    if @media_mode == 'video'
       if @movie_player_controller
         @movie_player_controller.pause
       end
@@ -119,18 +110,14 @@ class Player
     end
   end
   
-  def updateSlider(sender)
+  def update_slider(sender)
     if @slider.nil?
       return
     end
     
-    if @mediaMode == 'video'
+    if @media_mode == 'video'
       if @movie_player_controller
         @slider.value = @movie_player_controller.currentPlaybackTime
-        
-        #maxVal = Utility.formatTimeFromSeconds((@slider.maximumValue).to_int)
-        #val    = Utility.formatTimeFromSeconds((@slider.value).to_int)
-        #@timeLabel.text = "#{val} / #{maxVal}"
       end
     else
       @slider.value = @audioPlayer.currentTrackPosition
