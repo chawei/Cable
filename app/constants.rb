@@ -18,3 +18,5 @@ CBInactiveAlphaValue      = 0.4
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
+
+CBMaxNumOfTry = 10

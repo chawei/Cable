@@ -2,6 +2,16 @@
 <signatures version='1.0'>
 <constant const='true' declared_type='NSString*' name='SDWebImageDownloadStartNotification' type='@'/>
 <constant const='true' declared_type='NSString*' name='SDWebImageDownloadStopNotification' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDMetadataKeyLargeThumbnailURL' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDMetadataKeyMediumThumbnailURL' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDMetadataKeySmallThumbnailURL' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDMetadataKeyTitle' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDMoviePlayerPlaybackDidFinishErrorUserInfoKey' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDYouTubeVideoErrorDomain' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDYouTubeVideoPlayerViewControllerDidReceiveMetadataNotification' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDYouTubeVideoPlayerViewControllerDidReceiveVideoNotification' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDYouTubeVideoQualityHTTPLiveStreaming' type='@'/>
+<constant const='true' declared_type='NSString*' name='XCDYouTubeVideoUserInfoKey' type='@'/>
 <enum name='SDImageCacheTypeDisk' value='1'/>
 <enum name='SDImageCacheTypeMemory' value='2'/>
 <enum name='SDImageCacheTypeNone' value='0'/>
@@ -25,6 +35,15 @@
 <enum name='SDWebImageProgressiveDownload' value='8'/>
 <enum name='SDWebImageRefreshCached' value='16'/>
 <enum name='SDWebImageRetryFailed' value='1'/>
+<enum name='XCDYouTubeErrorInvalidVideoIdentifier' value='2'/>
+<enum name='XCDYouTubeErrorNetwork' value='-1'/>
+<enum name='XCDYouTubeErrorNoStreamAvailable' value='-2'/>
+<enum name='XCDYouTubeErrorRemovedVideo' value='100'/>
+<enum name='XCDYouTubeErrorRestrictedPlayback' value='150'/>
+<enum name='XCDYouTubeVideoQualityHD1080' value='23'/>
+<enum name='XCDYouTubeVideoQualityHD720' value='22'/>
+<enum name='XCDYouTubeVideoQualityMedium360' value='18'/>
+<enum name='XCDYouTubeVideoQualitySmall240' value='36'/>
 <function name='SDScaledImageForKey'>
 <arg declared_type='NSString*' name='key' type='@'/>
 <arg declared_type='UIImage*' name='image' type='@'/>
@@ -1091,6 +1110,95 @@
 <retval declared_type='void' type='v'/>
 </method>
 </class>
+<class name='XCDYouTubeClient'>
+<method class_method='true' selector='defaultClient'>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='getVideoWithIdentifier:completionHandler:'>
+<arg declared_type='NSString*' index='0' name='videoIdentifier' type='@'/>
+<arg declared_type='void (^)(XCDYouTubeVideo *, NSError *)' function_pointer='true' index='1' name='completionHandler' null_accepted='false' type='@?'>
+<arg declared_type='XCDYouTubeVideo*' type='@'/>
+<arg declared_type='NSError*' type='@'/>
+<retval declared_type='void' type='v'/>
+</arg>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='initWithLanguageIdentifier:'>
+<arg declared_type='NSString*' index='0' name='languageIdentifier' type='@'/>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='languageIdentifier'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+</class>
+<class name='XCDYouTubeVideo'>
+<method selector='duration'>
+<retval declared_type='NSTimeInterval' type='d'/>
+</method>
+<method selector='identifier'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+<method selector='largeThumbnailURL'>
+<retval declared_type='NSURL*' type='@'/>
+</method>
+<method selector='mediumThumbnailURL'>
+<retval declared_type='NSURL*' type='@'/>
+</method>
+<method selector='smallThumbnailURL'>
+<retval declared_type='NSURL*' type='@'/>
+</method>
+<method selector='streamURLs'>
+<retval declared_type='NSDictionary*' type='@'/>
+</method>
+<method selector='title'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+</class>
+<class name='XCDYouTubeVideoOperation'>
+<method selector='error'>
+<retval declared_type='NSError*' type='@'/>
+</method>
+<method selector='initWithVideoIdentifier:languageIdentifier:'>
+<arg declared_type='NSString*' index='0' name='videoIdentifier' type='@'/>
+<arg declared_type='NSString*' index='1' name='languageIdentifier' type='@'/>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='setError:'>
+<arg declared_type='NSError*' index='0' name='error' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setVideo:'>
+<arg declared_type='XCDYouTubeVideo*' index='0' name='video' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='video'>
+<retval declared_type='XCDYouTubeVideo*' type='@'/>
+</method>
+</class>
+<class name='XCDYouTubeVideoPlayerViewController'>
+<method selector='initWithVideoIdentifier:'>
+<arg declared_type='NSString*' index='0' name='videoIdentifier' type='@'/>
+<retval declared_type='id' type='@'/>
+</method>
+<method selector='preferredVideoQualities'>
+<retval declared_type='NSArray*' type='@'/>
+</method>
+<method selector='presentInView:'>
+<arg declared_type='UIView*' index='0' name='view' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setPreferredVideoQualities:'>
+<arg declared_type='NSArray*' index='0' name='preferredVideoQualities' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='setVideoIdentifier:'>
+<arg declared_type='NSString*' index='0' name='videoIdentifier' type='@'/>
+<retval declared_type='void' type='v'/>
+</method>
+<method selector='videoIdentifier'>
+<retval declared_type='NSString*' type='@'/>
+</method>
+</class>
 <informal_protocol name='SDWebImageManagerDelegate'>
 <method selector='imageManager:shouldDownloadImageForURL:' type='B16@0:4@8@12' type64='B32@0:8@16@24'>
 <arg declared_type='SDWebImageManager*' index='0' name='imageManager' type='@'/>
@@ -1121,6 +1229,11 @@
 <arg declared_type='NSURL*' index='1' name='imageURL' type='@'/>
 <arg declared_type='NSUInteger' index='2' name='finishedCount' type='I' type64='Q'/>
 <arg declared_type='NSUInteger' index='3' name='totalCount' type='I' type64='Q'/>
+<retval declared_type='void' type='v'/>
+</method>
+</informal_protocol>
+<informal_protocol name='XCDYouTubeOperation'>
+<method selector='cancel' type='v8@0:4' type64='v16@0:8'>
 <retval declared_type='void' type='v'/>
 </method>
 </informal_protocol>

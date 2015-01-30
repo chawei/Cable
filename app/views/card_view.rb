@@ -1,5 +1,6 @@
 class CardView < UIView
   include Style
+  include CardViewDelegate
   
   def init_with_origin(origin)
     @song_object = nil
@@ -69,6 +70,7 @@ class CardView < UIView
     add_labels_after_view @media_view
     add_buttons
     add_pan_recognizer
+    add_tap_recognizer
     
     apply_rounded_corner
   end
@@ -116,6 +118,18 @@ class CardView < UIView
   def add_pan_recognizer
     @pan_recognizer = UIPanGestureRecognizer.alloc.initWithTarget self, action:"detect_pan:"
     self.addGestureRecognizer @pan_recognizer
+  end
+  
+  def add_tap_recognizer
+    tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_card_view"
+    self.addGestureRecognizer tap_recognizer
+  end
+  
+  def tap_card_view
+    if @song_object
+      Player.instance.toggle_playing_status_on_object @song_object
+      Player.instance.delegate = self
+    end
   end
   
   def add_liked_users_after_view(view)    

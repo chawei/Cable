@@ -14,10 +14,10 @@ class HomeViewController < CBUIViewController
     set_buttons
     
     song1 = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
-              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube' }
+              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube', :video_id => 'x3KMLwsS6CQ' }
               
     song2 = { :title => "Don't Think Twice It's Alright", 
-              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'spotify' }
+              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube', :video_id => 'x3KMLwsS6CQ' }
                     
     song_object = SongObject.new(song1)
     offset = CardView.default_height * 0.04
