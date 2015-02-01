@@ -17,6 +17,11 @@ class Player
     
     @current_playing_object = nil
     @delegate = nil
+    @slider   = nil
+  end
+  
+  def reset
+    clear_movie_player_view
   end
   
   def toggle_playing_status_on_object(object)

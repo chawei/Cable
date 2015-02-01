@@ -3,17 +3,17 @@ class CardView < UIView
   include CardViewDelegate
   
   def init_with_origin(origin)
-    @song_object = nil
+    @song_object     = nil
+    @is_first_tapped = false
     
     card_left_margin = CBDefaultMargin
     card_view_width  = App.screen_width - card_left_margin*2
     
     initWithFrame [origin, [card_view_width, card_height]]
-    @origin       = self.frame.origin
-    @lastLocation = self.center
+    @origin        = self.frame.origin
+    @last_location = self.center
     
     setup_view
-    set_player
     
     self
   end
@@ -80,6 +80,7 @@ class CardView < UIView
     self.sendSubviewToBack @media_view
     
     #add_labels_after_view @media_view
+    add_cover_art_view_on_view @media_view
     add_media_info_view_on_view @media_view
     add_buttons
     add_pan_recognizer
@@ -105,6 +106,14 @@ class CardView < UIView
     @subtitle_label.text = "Unknown Artist / 0 min 0 sec"
     @subtitle_label.sizeToFit
     self.addSubview @subtitle_label
+  end
+  
+  def add_cover_art_view_on_view(view)
+    @cover_art_view = UIImageView.alloc.initWithFrame([[0, 0], [view.size.width, view.size.height/2]])
+    @cover_art_view.contentMode     = UIViewContentModeScaleAspectFit
+    @cover_art_view.backgroundColor = UIColor.colorWithRed 255/255.0, green:255/255.0, blue:255/255.0, alpha:0.2
+    
+    view.addSubview @cover_art_view
   end
   
   def add_media_info_view_on_view(view)
@@ -196,19 +205,6 @@ class CardView < UIView
     self.addGestureRecognizer tap_recognizer
   end
   
-  def set_player
-    Player.instance.delegate = self
-    if @slider
-      Player.instance.set_slider @slider
-    end
-  end
-  
-  def tap_and_toggle_play
-    if @song_object
-      Player.instance.toggle_playing_status_on_object @song_object
-    end
-  end
-  
   def create_liked_users_view
     @liked_users_view = UIView.alloc.init
       
@@ -262,6 +258,21 @@ class CardView < UIView
     @media_info_view.sendSubviewToBack @liked_users_view
   end
   
+  def tap_and_toggle_play
+    if @song_object
+      # TODO: review this part
+      set_player
+      Player.instance.toggle_playing_status_on_object @song_object
+    end
+  end
+  
+  def set_player
+    Player.instance.delegate = self
+    if @slider
+      Player.instance.set_slider @slider
+    end
+  end
+  
   def song_object=(song_object)
     @song_object = song_object
     update_view
@@ -273,6 +284,11 @@ class CardView < UIView
   
   def update_view
     return if @song_object.nil?
+    
+    if @song_object.image_url
+      @cover_art_view.setImageWithURL NSURL.URLWithString(@song_object.image_url),
+                         placeholderImage:nil
+    end
     
     if @song_object.title
       @title_label.text = @song_object.title
@@ -364,7 +380,7 @@ class CardView < UIView
       
       self.alpha = 1 - (translation.x).abs/1000
 
-      self.center = CGPointMake(@lastLocation.x + translation.x, @lastLocation.y + translation.y)
+      self.center = CGPointMake(@last_location.x + translation.x, @last_location.y + translation.y)
     end
     
     if recognizer.state == UIGestureRecognizerStateEnded
@@ -407,6 +423,8 @@ class CardView < UIView
                          self.center = new_center
                        end),
                      completion:(lambda do |finished|
+                         Player.instance.reset
+                         self.removeFromSuperview
                        end))
   end
 end

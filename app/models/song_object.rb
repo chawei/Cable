@@ -4,12 +4,14 @@ class SongObject
   attr_accessor :subtitle
   attr_accessor :source
   attr_accessor :video_id
+  attr_accessor :image_url
   
   def initialize(params)
-    self.title    = params[:title]
-    self.subtitle = params[:subtitle]
-    self.source   = params[:source]
-    self.video_id = params[:video_id]
+    self.title     = params[:title]
+    self.subtitle  = params[:subtitle]
+    self.source    = params[:source]
+    self.video_id  = params[:video_id]
+    self.image_url = params[:image_url]
   end
   
   def is_from_youtube?

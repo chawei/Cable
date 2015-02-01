@@ -5,6 +5,8 @@ class HomeViewController < CBUIViewController
   outlet :profile_button
   outlet :events_button
   
+  attr_accessor :card_views
+  
   def viewDidLoad
     super
     
@@ -13,11 +15,14 @@ class HomeViewController < CBUIViewController
     add_background_view
     set_buttons
     
+    card_views = []
     song1 = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
-              :subtitle => "Bob Dylan / 3 min 29 sec", :source => 'youtube', :video_id => 'x3KMLwsS6CQ' }
+              :subtitle => "Bob Dylan", :source => 'youtube', :video_id => '2Ar7C6_L3Fg',
+              :image_url => "http://i.ytimg.com/vi/2Ar7C6_L3Fg/mqdefault.jpg" }
               
     song2 = { :title => "Radiohead - Lotus Flower", 
-              :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8' }
+              :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8',
+              :image_url => "http://i.ytimg.com/vi/cfOa1a8hYP8/mqdefault.jpg" }
                     
     song_object = SongObject.new(song1)
     offset = CardView.default_height * 0.04
@@ -25,11 +30,13 @@ class HomeViewController < CBUIViewController
     card_view.song_object = song_object
     card_view.transform = CGAffineTransformMakeScale(0.95, 0.95)
     view.addSubview card_view
+    card_views << card_view
     
     song_object = SongObject.new(song2)
     card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y])
     card_view.song_object = song_object
     view.addSubview card_view
+    card_views << card_view
   end
   
   def card_origin_y

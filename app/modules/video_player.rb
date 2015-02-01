@@ -2,6 +2,7 @@ module VideoPlayer
   attr_accessor :tried_num
   
   def initialize
+    @movie_player_controller = nil
     @tried_num ||= 0
   end
   
@@ -121,6 +122,16 @@ module VideoPlayer
     
     if [MPMovieLoadStatePlaythroughOK, MPMovieLoadStatePlayable].include? movie_player.loadState
       start_slider_with_max_value movie_player.duration
+    end
+  end
+  
+  def clear_movie_player_view
+    if @movie_player_controller
+      @movie_player_controller.pause
+      @movie_player_controller.initialPlaybackTime = -1
+      @movie_player_controller.stop
+      @movie_player_controller.initialPlaybackTime = -1
+      @movie_player_controller.view.removeFromSuperview
     end
   end
   
