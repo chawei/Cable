@@ -6,16 +6,18 @@ class CardView < UIView
     @song_object     = nil
     @is_first_tapped = false
     
-    card_left_margin = CBDefaultMargin
-    card_view_width  = App.screen_width - card_left_margin*2
-    
-    initWithFrame [origin, [card_view_width, card_height]]
+    initWithFrame [origin, [CardView.default_width, card_height]]
     @origin        = self.frame.origin
     @last_location = self.center
     
     setup_view
     
     self
+  end
+  
+  def self.default_width
+    card_left_margin = CBDefaultMargin
+    card_view_width  = App.screen_width - card_left_margin*2
   end
   
   def self.default_height
@@ -378,7 +380,7 @@ class CardView < UIView
       new_transform  = CGAffineTransformMakeRotation rads
       self.transform = new_transform
       
-      self.alpha = 1 - (translation.x).abs/1000
+      #self.alpha = 1 - (translation.x).abs/1000
 
       self.center = CGPointMake(@last_location.x + translation.x, @last_location.y + translation.y)
     end
@@ -425,6 +427,7 @@ class CardView < UIView
                      completion:(lambda do |finished|
                          Player.instance.reset
                          self.removeFromSuperview
+                         App.card_stack_view.update_card_views
                        end))
   end
 end

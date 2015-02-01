@@ -5,7 +5,7 @@ class HomeViewController < CBUIViewController
   outlet :profile_button
   outlet :events_button
   
-  attr_accessor :card_views
+  attr_accessor :card_stack_view
   
   def viewDidLoad
     super
@@ -13,38 +13,8 @@ class HomeViewController < CBUIViewController
     self.view.backgroundColor = UIColor.colorWithPatternImage UIImage.imageNamed("assets/pattern_background.png")
     
     add_background_view
+    add_card_stack_view
     set_buttons
-    
-    card_views = []
-    song1 = { :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
-              :subtitle => "Bob Dylan", :source => 'youtube', :video_id => '2Ar7C6_L3Fg',
-              :image_url => "http://i.ytimg.com/vi/2Ar7C6_L3Fg/mqdefault.jpg" }
-              
-    song2 = { :title => "Radiohead - Lotus Flower", 
-              :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8',
-              :image_url => "http://i.ytimg.com/vi/cfOa1a8hYP8/mqdefault.jpg" }
-                    
-    song_object = SongObject.new(song1)
-    offset = CardView.default_height * 0.04
-    card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y+offset])
-    card_view.song_object = song_object
-    card_view.transform = CGAffineTransformMakeScale(0.95, 0.95)
-    view.addSubview card_view
-    card_views << card_view
-    
-    song_object = SongObject.new(song2)
-    card_view   = CardView.alloc.init_with_origin([CBHomeViewPadding, card_origin_y])
-    card_view.song_object = song_object
-    view.addSubview card_view
-    card_views << card_view
-  end
-  
-  def card_origin_y
-    if App.is_small_screen?
-      80
-    else
-      80
-    end
   end
   
   def add_background_view
@@ -53,6 +23,13 @@ class HomeViewController < CBUIViewController
     background_view.addGestureRecognizer tap_recognizer
     view.addSubview background_view
     view.sendSubviewToBack background_view
+  end
+  
+  def add_card_stack_view
+    @card_stack_view = CardStackView.alloc.initWithFrame self.view.frame
+    view.addSubview @card_stack_view
+    
+    @card_stack_view.fetch_card_views
   end
   
   def set_buttons
@@ -88,7 +65,7 @@ class HomeViewController < CBUIViewController
   
   def toggle_profile(sender)
     if @profile_view_controller.nil?
-      top_margin    = card_origin_y
+      top_margin    = App.card_origin_y
       bottom_margin = CBHomeViewPadding
       left_margin   = CBHomeViewPadding
     
@@ -121,7 +98,7 @@ class HomeViewController < CBUIViewController
   
   def toggle_events(sender)
     if @events_view_controller.nil?
-      top_margin    = card_origin_y
+      top_margin    = App.card_origin_y
       bottom_margin = CBHomeViewPadding
       left_margin   = CBHomeViewPadding
       
