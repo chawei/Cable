@@ -12,22 +12,16 @@ class HomeViewController < CBUIViewController
     
     self.view.backgroundColor = UIColor.colorWithPatternImage UIImage.imageNamed("assets/pattern_background.png")
     
-    add_background_view
     add_card_stack_view
     set_buttons
-  end
-  
-  def add_background_view
-    background_view = UIView.alloc.initWithFrame self.view.frame
-    tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
-    background_view.addGestureRecognizer tap_recognizer
-    view.addSubview background_view
-    view.sendSubviewToBack background_view
   end
   
   def add_card_stack_view
     @card_stack_view = CardStackView.alloc.initWithFrame self.view.frame
     view.addSubview @card_stack_view
+    
+    tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
+    @card_stack_view.addGestureRecognizer tap_recognizer
     
     @card_stack_view.fetch_card_views
   end
