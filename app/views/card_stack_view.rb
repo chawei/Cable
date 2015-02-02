@@ -7,19 +7,7 @@ class CardStackView < UIView
   end
   
   def fetch_card_views
-    songs = [{ 
-      :title => "Don't Think Twice It's Alright [Bob Dylan 1962]", 
-      :subtitle => "Bob Dylan", :source => 'youtube', :video_id => '2Ar7C6_L3Fg',
-      :image_url => "http://i.ytimg.com/vi/2Ar7C6_L3Fg/mqdefault.jpg" 
-    }, { 
-      :title => "Radiohead - Lotus Flower", 
-      :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8',
-      :image_url => "http://i.ytimg.com/vi/cfOa1a8hYP8/mqdefault.jpg" 
-    }, { 
-      :title => "Radiohead - Lotus Flower", 
-      :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8',
-      :image_url => "http://i.ytimg.com/vi/cfOa1a8hYP8/mqdefault.jpg" 
-    }]
+    songs = User.current.streaming_songs
     
     songs.each do |song|
       song_object = SongObject.new song

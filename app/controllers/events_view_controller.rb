@@ -12,7 +12,8 @@ class EventsViewController < CBUIViewController
     
     apply_rounded_corner
     
-    @objects = fetch_recommended_objects
+    @objects = recommended_objects
+    add_observers
   end
   
   def viewWillLayoutSubviews
@@ -56,49 +57,28 @@ class EventsViewController < CBUIViewController
     view.addSubview @bookmarked_table_view
   end
   
-  def fetch_recommended_objects
-    [{
-      :title => 'Sunny Afternoon', :subtitle => 'January 28, 2015', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
-    }, {
-      :title => "The Von Trapps at The Chapel (January 28, 2015)", 
-      :subtitle => 'The Von Trapps / January 28, 2015', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
-    }, {
-      :title => 'The View from the Afternoon', :subtitle => 'Arctic Monkeys / January 30, 2015', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/32760011.png'
-    }, {
-      :title => 'Paula Harris at Club Fox (January 28, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
-    }]
+  def add_observers
+    
   end
   
-  def fetch_bookmarked_objects
-    [{
-      :title => "The Von Trapps at The Chapel (January 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
-    }, {
-      :title => 'The View from the Afternoon', :subtitle => 'Arctic Monkeys', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/32760011.png'
-    }, {
-      :title => 'Paula Harris at Club Fox (January 28, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
-    }, {
-      :title => 'Sunny Afternoon', :subtitle => 'The Kinks', :source => 'songkick',
-      :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
-    }]
+  def recommended_objects
+    User.current.recommended_events
+  end
+  
+  def bookmarked_objects
+    User.current.bookmarked_events
   end
   
   def segmented_control_changed(sender)
     selected_segment = sender.selectedSegmentIndex
     case selected_segment
     when 0
-      @objects = fetch_recommended_objects
+      @objects = recommended_objects
       @recommended_table_view.reloadData
       @recommended_table_view.hidden   = false
       @bookmarked_table_view.hidden = true
     when 1
-      @objects = fetch_bookmarked_objects
+      @objects = bookmarked_objects
       @bookmarked_table_view.reloadData
       @recommended_table_view.hidden   = true
       @bookmarked_table_view.hidden = false
