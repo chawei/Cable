@@ -2,6 +2,8 @@ class CardView < UIView
   include Style
   include CardViewDelegate
   
+  attr_accessor :liked_users_view
+  
   def init_with_origin(origin)
     @song_object     = nil
     @is_first_tapped = false
@@ -84,7 +86,9 @@ class CardView < UIView
     #add_labels_after_view @media_view
     add_cover_art_view_on_view @media_view
     add_media_info_view_on_view @media_view
+    add_liked_users_view
     add_buttons
+    
     add_pan_recognizer
     add_tap_recognizer
     
@@ -207,57 +211,62 @@ class CardView < UIView
     self.addGestureRecognizer tap_recognizer
   end
   
-  def create_liked_users_view
+  def add_liked_users_view
     @liked_users_view = UIView.alloc.init
+    @liked_users_view.frame = [[card_padding, self.size.height-32-CBDefaultMargin],
+      [card_width-card_padding*2, 32]]
       
-    if song_object  
-      liked_users = song_object.liked_users
-      liked_users.each_index do |index|
-        user_pic_url     = liked_users[index][:user_profile_url]
-        user_image       = UIImage.imageNamed user_pic_url
-        heart_icon_image = UIImage.imageNamed "assets/icon_friend_like"
+    if App.is_small_screen?
+      self.addSubview @liked_users_view
+      #self.sendSubviewToBack @liked_users_view
+    else
+      @media_info_view.addSubview @liked_users_view
+      #@media_info_view.sendSubviewToBack @liked_users_view
+    end
+  end
+  
+  def update_liked_users_view
+    if @liked_users_view
+      @liked_users_view.subviews.makeObjectsPerformSelector "removeFromSuperview"
+      if song_object  
+        liked_users = song_object.liked_users
+        liked_users.each_index do |index|
+          user_pic_url     = liked_users[index][:user_profile_url]
+          user_image       = UIImage.imageNamed user_pic_url
+          heart_icon_image = UIImage.imageNamed "assets/icon_friend_like"
     
-        new_size = CGSizeMake(64, 64)
-        UIGraphicsBeginImageContext(new_size)
-        user_image.drawInRect CGRectMake(0,6,52,52)
-        heart_icon_image.drawInRect CGRectMake(40,40,24,24), blendMode:KCGBlendModeNormal, alpha:1.0
-        blended_image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+          new_size = CGSizeMake(64, 64)
+          UIGraphicsBeginImageContext(new_size)
+          user_image.drawInRect CGRectMake(0,6,52,52)
+          heart_icon_image.drawInRect CGRectMake(40,40,24,24), blendMode:KCGBlendModeNormal, alpha:1.0
+          blended_image = UIGraphicsGetImageFromCurrentImageContext()
+          UIGraphicsEndImageContext()
     
-        user_button       = UIButton.buttonWithType UIButtonTypeCustom
-        user_button.frame = [[(32+5)*index, 0], [32, 32]]
-        user_button.setImage blended_image, forState:UIControlStateNormal
-        user_button.addTarget self, action:"press_user_button", forControlEvents:UIControlEventTouchUpInside
+          user_button       = UIButton.buttonWithType UIButtonTypeCustom
+          user_button.frame = [[(32+5)*index, 0], [32, 32]]
+          user_button.setImage blended_image, forState:UIControlStateNormal
+          user_button.addTarget self, action:"press_user_button", forControlEvents:UIControlEventTouchUpInside
       
-        @liked_users_view.addSubview user_button
+          @liked_users_view.addSubview user_button
+        end
+      end
+      
+      if App.is_small_screen?
+        update_liked_users_view_at_the_bottom
+      else
+        update_liked_users_view_after_view @time_slider_view
       end
     end
   end
   
-  def add_liked_users_view
-    if App.is_small_screen?
-      add_liked_users_at_the_bottom
-    else
-      add_liked_users_after_view @time_slider_view
+  def update_liked_users_view_at_the_bottom
+    @liked_users_view.origin = [card_padding, self.size.height-32-CBDefaultMargin]
+  end
+  
+  def update_liked_users_view_after_view(view)
+    if view
+      @liked_users_view.origin = [card_padding, view.frame.origin.y+view.size.height+CBDefaultMargin]
     end
-  end
-  
-  def add_liked_users_at_the_bottom
-    create_liked_users_view
-    
-    @liked_users_view.frame = [[card_padding, self.size.height-32-CBDefaultMargin],
-      [card_width-card_padding*2, 32]]
-    self.addSubview @liked_users_view
-    self.sendSubviewToBack @liked_users_view
-  end
-  
-  def add_liked_users_after_view(view)    
-    create_liked_users_view
-    
-    @liked_users_view.frame = [[card_padding, view.frame.origin.y+view.size.height+CBDefaultMargin],
-      [card_width-card_padding*2, 32]]
-    @media_info_view.addSubview @liked_users_view
-    @media_info_view.sendSubviewToBack @liked_users_view
   end
   
   def tap_and_toggle_play
@@ -308,7 +317,7 @@ class CardView < UIView
       @time_slider_view.size]
     
     update_source_button
-    add_liked_users_view
+    update_liked_users_view
     update_media_info_view
   end
   

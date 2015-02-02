@@ -15,3 +15,6 @@ nbproject
 .sass-cache
 .idea
 .dat*.*
+vendor/Pods
+vendor/*/build-iPhoneSimulator
+vendor/*/build-iPhoneOS
