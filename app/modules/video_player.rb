@@ -122,6 +122,7 @@ module VideoPlayer
     
     if [MPMovieLoadStatePlaythroughOK, MPMovieLoadStatePlayable].include? movie_player.loadState
       start_slider_with_max_value movie_player.duration
+      finish_loading
     end
   end
   

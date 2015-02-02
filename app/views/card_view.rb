@@ -277,6 +277,21 @@ class CardView < UIView
     end
   end
   
+  def loading
+    @loading_view = UIView.alloc.initWithFrame @cover_art_view.frame
+    @loading_view.backgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.24
+    activity_view = UIActivityIndicatorView.alloc.initWithActivityIndicatorStyle UIActivityIndicatorViewStyleWhiteLarge
+    activity_view.center = @loading_view.center
+    activity_view.startAnimating
+    @loading_view.addSubview activity_view
+    
+    @media_view.addSubview @loading_view
+  end
+  
+  def finish_loading
+    @loading_view.removeFromSuperview
+  end
+  
   def set_player
     Player.instance.delegate = self
     if @slider

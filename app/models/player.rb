@@ -40,12 +40,22 @@ class Player
     
   end
   
-  def play_object(object)
-    @current_playing_object = object
-    
+  def loading
     if @delegate && @delegate.respond_to?('loading')
       @delegate.loading
     end
+  end
+  
+  def finish_loading
+    if @delegate && @delegate.respond_to?('finish_loading')
+      @delegate.finish_loading
+    end
+  end
+  
+  def play_object(object)
+    @current_playing_object = object
+    
+    loading
     
     if object.is_from_youtube?
       @media_mode = 'video'
