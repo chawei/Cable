@@ -14,11 +14,14 @@ class HomeViewController < CBUIViewController
     
     add_card_stack_view
     set_buttons
+    
+    add_message_box
   end
   
   def add_card_stack_view
     @card_stack_view = CardStackView.alloc.initWithFrame self.view.frame
     view.addSubview @card_stack_view
+    view.sendSubviewToBack @card_stack_view # necessary for iOS 7
     
     tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
     @card_stack_view.addGestureRecognizer tap_recognizer
@@ -38,6 +41,10 @@ class HomeViewController < CBUIViewController
     events_image = UIImage.imageNamed "assets/icon_events"
     events_button.setBackgroundImage events_image, forState:UIControlStateNormal
     events_button.alpha = CBInactiveAlphaValue
+  end
+  
+  def add_message_box
+    
   end
   
   def tap_background

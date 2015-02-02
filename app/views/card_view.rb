@@ -214,7 +214,7 @@ class CardView < UIView
   def add_liked_users_view
     @liked_users_view = UIView.alloc.init
     @liked_users_view.frame = [[card_padding, self.size.height-32-CBDefaultMargin],
-      [card_width-card_padding*2, 32]]
+      [card_width-card_padding*2, 32+CBDefaultMargin]]
       
     if App.is_small_screen?
       self.addSubview @liked_users_view
@@ -255,6 +255,10 @@ class CardView < UIView
         update_liked_users_view_at_the_bottom
       else
         update_liked_users_view_after_view @time_slider_view
+      end
+      
+      if @liked_users_view.subviews.length == 0
+        @liked_users_view.frame = [@liked_users_view.origin, [0, 0]]
       end
     end
   end
@@ -350,7 +354,7 @@ class CardView < UIView
         @time_slider_view.frame.origin.y+@time_slider_view.size.height+CBDefaultMargin]
     else
       new_size = [@media_info_view.size.width, 
-        @liked_users_view.frame.origin.y+@liked_users_view.size.height+CBDefaultMargin]
+        @liked_users_view.frame.origin.y+@liked_users_view.size.height]
     end
     
     new_origin_y = @media_view.size.height-new_size[1]
