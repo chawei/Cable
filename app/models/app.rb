@@ -35,4 +35,10 @@ class App
     home_view_controller.card_stack_view
   end
   
+  def self.play_object(object)
+    song_object = SongObject.new object
+    card_stack_view.add_card_view_on_top_with_song_object(song_object)
+    card_stack_view.play_top_card_view
+  end
+  
 end

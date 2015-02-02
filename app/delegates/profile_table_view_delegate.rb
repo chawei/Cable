@@ -21,8 +21,11 @@ module ProfileTableViewDelegate
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
     tableView.deselectRowAtIndexPath indexPath, animated:true
     
+    object = @objects[indexPath.row]
     if tableView == @fav_table_view
       NSLog "play song"
+      App.play_object object
+      self.hide
     elsif tableView == @event_table_view
       NSLog "show event"
     end

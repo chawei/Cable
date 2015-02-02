@@ -3,7 +3,7 @@ class CardStackView < UIView
   def willRemoveSubview(subview)
     super
     
-    test_add_card_view
+    #test_add_card_view
   end
   
   def fetch_card_views
@@ -23,7 +23,7 @@ class CardStackView < UIView
     
     songs.each do |song|
       song_object = SongObject.new song
-      add_card_view_with_song_object song_object
+      add_card_view_at_bottom_with_song_object song_object
     end
     
     update_card_views
@@ -36,16 +36,32 @@ class CardStackView < UIView
       :image_url => "http://i.ytimg.com/vi/cfOa1a8hYP8/mqdefault.jpg" 
     }
     song_object = SongObject.new song
-    add_card_view_with_song_object song_object
+    add_card_view_at_bottom_with_song_object song_object
+  end
+  
+  def play_top_card_view
+    if top_card_view = subviews[-1]
+      top_card_view.tap_and_toggle_play
+    end
+  end
+  
+  def add_card_view_on_top_with_song_object(song_object)
+    card_view = add_card_view_with_song_object song_object
+    update_card_views
+  end
+  
+  def add_card_view_at_bottom_with_song_object(song_object)
+    card_view = add_card_view_with_song_object song_object
+    self.sendSubviewToBack card_view
+    update_card_view(card_view)
   end
   
   def add_card_view_with_song_object(song_object)
     card_view = CardView.alloc.init_with_origin([CBHomeViewPadding, App.card_origin_y])
     card_view.song_object = song_object
     self.addSubview card_view
-    self.sendSubviewToBack card_view
     
-    update_card_view(card_view)
+    card_view
   end
   
   def offset_of_card_order(card_order)

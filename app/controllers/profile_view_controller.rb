@@ -104,16 +104,20 @@ class ProfileViewController < CBUIViewController
   
   def fetch_song_objects
     [{
-      :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', :source => 'youtube',
+      :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', 
+      :source => 'youtube', :video_id => '8nTFjVm9sTQ',
       :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
     }, {
-      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
+      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', 
+      :source => 'youtube', :video_id => 'PeRxjkfTmVc',
       :image_url => 'http://ecx.images-amazon.com/images/I/41jZQc6jSwL._SS280.jpg'
     }, {
-      :title => 'House of Cards', :subtitle => 'Radiohead', :source => 'youtube',
+      :title => 'House of Cards', :subtitle => 'Radiohead', 
+      :source => 'youtube', :video_id => '8nTFjVm9sTQ',
       :image_url => 'http://www.creativereview.co.uk/images/uploads/2009/05/radiohead.jpg'
     }, {
-      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers', :source => 'spotify',
+      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers',
+      :source => 'youtube', :video_id => 'PeRxjkfTmVc',
       :image_url => 'http://ecx.images-amazon.com/images/I/41jZQc6jSwL._SS280.jpg'
     }]
   end
