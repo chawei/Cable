@@ -296,6 +296,23 @@ class CardView < UIView
     @loading_view.removeFromSuperview
   end
   
+  def handle_no_video_error
+    finish_loading
+    
+    @status_view = UIView.alloc.initWithFrame @cover_art_view.frame
+    @status_view.backgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.50
+    status_label = UILabel.alloc.initWithFrame [[0, 0], [card_width-CBDefaultMargin*2, 50]]
+    status_label.center = @cover_art_view.center
+    status_label.numberOfLines = 2
+    status_label.textAlignment = NSTextAlignmentCenter
+    status_label.textColor = UIColor.whiteColor
+    status_label.setFont UIFont.fontWithName(CBLightFontName, size:16.0)
+    status_label.text = "Oops, this video is not available due to copyright restrictions."
+    @status_view.addSubview status_label
+    
+    @media_view.addSubview @status_view
+  end
+  
   def set_player
     Player.instance.delegate = self
     if @slider
