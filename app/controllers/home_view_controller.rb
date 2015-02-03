@@ -134,4 +134,8 @@ class HomeViewController < CBUIViewController
     events_button.alpha  = CBInactiveAlphaValue
   end
   
+  def handle_response(response)
+    NSLog response[:message]
+  end
+  
 end
