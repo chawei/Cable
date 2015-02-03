@@ -21,6 +21,7 @@ Motion::Project::App.setup do |app|
   app.pods do
     pod 'SDWebImage'
     pod 'XCDYouTubeKit'
+    pod 'Firebase', '>= 2.1.2'
   end
   
 end

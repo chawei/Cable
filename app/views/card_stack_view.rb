@@ -3,28 +3,28 @@ class CardStackView < UIView
   def willRemoveSubview(subview)
     super
     
-    #test_add_card_view
+    reload_card_views_if_necessary(4)
   end
   
-  def fetch_card_views
-    songs = User.current.streaming_songs
-    
-    songs.each do |song|
-      song_object = SongObject.new song
-      add_card_view_at_bottom_with_song_object song_object
+  def initialize_card_views
+    User.current.stream.fetch do |songs|
+      reload_card_views_if_necessary
     end
-    
-    update_card_views
   end
   
-  def test_add_card_view
-    song = { 
-      :title => "Radiohead - Lotus Flower", 
-      :subtitle => "Radiohead", :source => 'youtube', :video_id => 'cfOa1a8hYP8',
-      :image_url => "http://i.ytimg.com/vi/cfOa1a8hYP8/mqdefault.jpg" 
-    }
-    song_object = SongObject.new song
-    add_card_view_at_bottom_with_song_object song_object
+  def reload_card_views_if_necessary(max_card_view_num=3)
+    return if subviews.length >= max_card_view_num
+    
+    while subviews.length < max_card_view_num
+      if User.current.stream.songs.length == 0
+        break
+      else
+        song = User.current.stream.pop_song
+        song_object = SongObject.new song
+        add_card_view_at_bottom_with_song_object song_object
+      end
+    end
+    update_card_views
   end
   
   def play_top_card_view

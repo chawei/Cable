@@ -1,14 +1,17 @@
 PODS:
+  - Firebase (2.1.2)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
   - XCDYouTubeKit (2.0.3)
 
 DEPENDENCIES:
+  - Firebase (>= 2.1.2)
   - SDWebImage
   - XCDYouTubeKit
 
 SPEC CHECKSUMS:
+  Firebase: 7052c7b7f37d6ba0d3bb1c7c2849864aa5e9d02e
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   XCDYouTubeKit: 840728453f0a22f54e4488ebeb8ee955a30c274c
 

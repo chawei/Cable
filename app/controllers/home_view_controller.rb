@@ -26,7 +26,7 @@ class HomeViewController < CBUIViewController
     tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
     @card_stack_view.addGestureRecognizer tap_recognizer
     
-    @card_stack_view.fetch_card_views
+    @card_stack_view.initialize_card_views
   end
   
   def set_buttons
