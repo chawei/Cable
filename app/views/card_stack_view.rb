@@ -8,6 +8,7 @@ class CardStackView < UIView
   
   def initialize_card_views
     User.current.stream.fetch do |songs|
+      # TODO: review this part (performance)
       reload_card_views_if_necessary
     end
   end

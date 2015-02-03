@@ -20,6 +20,7 @@ class Stream
   end
   
   def save(songs)
+    NSLog "save songs"
     @songs_ref.setValue songs
   end
   
@@ -27,11 +28,27 @@ class Stream
     song = @songs.shift
     save @songs
     
+    request_for_more_songs_if_necessary
+    
     song
   end
   
   def insert(song, index=1)
     @songs.insert(index, song)
+    save @songs
+  end
+  
+  def request_for_more_songs_if_necessary
+    if @songs.length < 5
+      populate_mock_songs
+    end
+  end
+  
+  def populate_mock_songs
+    songs = mock_songs
+    songs.each do |song|
+      @songs << song
+    end
     save @songs
   end
   

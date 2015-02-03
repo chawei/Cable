@@ -29,4 +29,4 @@ CBTimeLabelWidth = 35
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
 
-CBMaxNumOfTry = 10
+CBMaxNumOfTry = 20

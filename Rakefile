@@ -16,7 +16,8 @@ Motion::Project::App.setup do |app|
   app.fonts = ['fonts/OpenSans-Regular.ttf', 'fonts/OpenSans-Light.ttf']
   app.fonts += ['fonts/ProximaNova-Regular.ttf', 'fonts/ProximaNova-Light.ttf']
   
-
+  # LBYouTubeView
+  app.vendor_project('vendor/LBYouTubeView', :static, :cflags => "-fobjc-arc")
   
   app.pods do
     pod 'SDWebImage'

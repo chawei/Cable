@@ -8,6 +8,7 @@ module VideoPlayer
   
   def play_youtube_object(object)
     if youtube_id = object.youtube_id
+      @tried_num = 0
       extract_url_with_youtube_id youtube_id
     end
   end
@@ -42,6 +43,21 @@ module VideoPlayer
     
     @movie_player_controller.play # IMPORTANT: we wanna play first, so if there's an error, the notif can capture it 
     delegate.add_player_view(@movie_player_controller.view) if delegate && delegate.respond_to?('add_player_view')
+  end
+  
+  def extract_url_with_youtube_id_by_lb(youtube_id)
+    url_str   = "http://www.youtube.com/watch?v=#{youtube_id}"
+    url       = NSURL.URLWithString url_str
+    extractor = LBYouTubeExtractor.alloc.initWithURL url, quality:LBYouTubeVideoQualityLarge
+    extractor.extractVideoURLWithCompletionBlock(lambda do |video_url, error|
+      if video_url
+        verify_url video_url.absoluteString
+        break
+      else
+        NSLog "video_url is nil"
+        handle_no_video_error
+      end
+    end)
   end
   
   def extract_url_with_youtube_id(youtube_id)
@@ -91,8 +107,19 @@ module VideoPlayer
         NSLog "No response.URL"
       end
     else
+      retry_url_extraction_using_another_method
+    end
+  end
+  
+  def retry_url_extraction_using_another_method
+    youtube_id = @current_playing_object.youtube_id
+    if @tried_num < CBMaxNumOfTry
+      NSLog "try again #{youtube_id}"
+      extract_url_with_youtube_id_by_lb(youtube_id)
+    else
       handle_no_video_error
     end
+    @tried_num += 1
   end
   
   def observe_movie_player(movie_player)

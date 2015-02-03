@@ -1,0 +1,166 @@
+<?xml version='1.0'?>
+<signatures version='1.0'>
+<constant type64='q' type='i' name='LBYouTubePlayerExtractorErrorCodeInvalidHTML' const='true' declared_type='NSInteger'/>
+<constant type64='q' type='i' name='LBYouTubePlayerExtractorErrorCodeNoJSONData' const='true' declared_type='NSInteger'/>
+<constant type64='q' type='i' name='LBYouTubePlayerExtractorErrorCodeNoStreamURL' const='true' declared_type='NSInteger'/>
+<constant type='@' name='LBYouTubePlayerExtractorErrorDomain' const='true' declared_type='NSString*'/>
+<enum name='LBYouTubeVideoQualityLarge' value='2'/>
+<enum name='LBYouTubeVideoQualityMedium' value='1'/>
+<enum name='LBYouTubeVideoQualitySmall' value='0'/>
+<class name='LBYouTubeExtractor'>
+<method selector='completionBlock'>
+<retval function_pointer='true' type='@?' declared_type='LBYouTubeExtractorCompletionBlock'>
+<arg type='@' declared_type='NSURL*'/>
+<arg type='@' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</retval>
+</method>
+<method selector='delegate'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='extractVideoURLWithCompletionBlock:'>
+<arg function_pointer='true' type='@?' name='completionBlock' index='0' declared_type='LBYouTubeExtractorCompletionBlock'>
+<arg type='@' declared_type='NSURL*'/>
+<arg type='@' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</arg>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='extractedURL'>
+<retval type='@' declared_type='NSURL*'/>
+</method>
+<method selector='extractionExpression'>
+<retval type='@' declared_type='NSString*'/>
+</method>
+<method selector='initWithID:quality:'>
+<arg type='@' name='videoID' index='0' declared_type='NSString*'/>
+<arg type='i' name='quality' index='1' declared_type='LBYouTubeVideoQuality'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithURL:quality:'>
+<arg type='@' name='videoURL' index='0' declared_type='NSURL*'/>
+<arg type='i' name='quality' index='1' declared_type='LBYouTubeVideoQuality'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='quality'>
+<retval type='i' declared_type='LBYouTubeVideoQuality'/>
+</method>
+<method selector='setCompletionBlock:'>
+<arg function_pointer='true' type='@?' name='completionBlock' index='0' declared_type='LBYouTubeExtractorCompletionBlock'>
+<arg type='@' declared_type='NSURL*'/>
+<arg type='@' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</arg>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setDelegate:'>
+<arg type='@' name='delegate' index='0' declared_type='id'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setExtractedURL:'>
+<arg type='@' name='extractedURL' index='0' declared_type='NSURL*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setExtractionExpression:'>
+<arg type='@' name='extractionExpression' index='0' declared_type='NSString*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setYouTubeURL:'>
+<arg type='@' name='youTubeURL' index='0' declared_type='NSURL*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='startExtracting'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='stopExtracting'>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='youTubeURL'>
+<retval type='@' declared_type='NSURL*'/>
+</method>
+</class>
+<class name='LBYouTubePlayerViewController'>
+<method selector='delegate'>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='extractor'>
+<retval type='@' declared_type='LBYouTubeExtractor*'/>
+</method>
+<method selector='initWithYouTubeID:quality:'>
+<arg type='@' name='youTubeID' index='0' declared_type='NSString*'/>
+<arg type='i' name='quality' index='1' declared_type='LBYouTubeVideoQuality'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithYouTubeID:quality:extractionExpression:'>
+<arg type='@' name='youTubeID' index='0' declared_type='NSString*'/>
+<arg type='i' name='quality' index='1' declared_type='LBYouTubeVideoQuality'/>
+<arg type='@' name='expression' index='2' declared_type='NSString*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithYouTubeURL:quality:'>
+<arg type='@' name='youTubeURL' index='0' declared_type='NSURL*'/>
+<arg type='i' name='quality' index='1' declared_type='LBYouTubeVideoQuality'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='initWithYouTubeURL:quality:extractionExpression:'>
+<arg type='@' name='youTubeURL' index='0' declared_type='NSURL*'/>
+<arg type='i' name='quality' index='1' declared_type='LBYouTubeVideoQuality'/>
+<arg type='@' name='expression' index='2' declared_type='NSString*'/>
+<retval type='@' declared_type='id'/>
+</method>
+<method selector='setDelegate:'>
+<arg type='@' name='delegate' index='0' declared_type='id'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='setExtractor:'>
+<arg type='@' name='extractor' index='0' declared_type='LBYouTubeExtractor*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</class>
+<class name='NSObject'>
+<method selector='youTubeExtractor:didSuccessfullyExtractYouTubeURL:'>
+<arg type='@' name='extractor' index='0' declared_type='LBYouTubeExtractor*'/>
+<arg type='@' name='videoURL' index='1' declared_type='NSURL*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='youTubeExtractor:failedExtractingYouTubeURLWithError:'>
+<arg type='@' name='extractor' index='0' declared_type='LBYouTubeExtractor*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='youTubePlayerViewController:didSuccessfullyExtractYouTubeURL:'>
+<arg type='@' name='controller' index='0' declared_type='LBYouTubePlayerViewController*'/>
+<arg type='@' name='videoURL' index='1' declared_type='NSURL*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method selector='youTubePlayerViewController:failedExtractingYouTubeURLWithError:'>
+<arg type='@' name='controller' index='0' declared_type='LBYouTubePlayerViewController*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</class>
+<informal_protocol name='LBYouTubeExtractorDelegate'>
+<method type64='v32@0:8@16@24' type='v16@0:4@8@12' selector='youTubeExtractor:didSuccessfullyExtractYouTubeURL:'>
+<arg type='@' name='extractor' index='0' declared_type='LBYouTubeExtractor*'/>
+<arg type='@' name='videoURL' index='1' declared_type='NSURL*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type64='v32@0:8@16@24' type='v16@0:4@8@12' selector='youTubeExtractor:failedExtractingYouTubeURLWithError:'>
+<arg type='@' name='extractor' index='0' declared_type='LBYouTubeExtractor*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</informal_protocol>
+<informal_protocol name='LBYouTubePlayerControllerDelegate'>
+<method type64='v32@0:8@16@24' type='v16@0:4@8@12' selector='youTubePlayerViewController:didSuccessfullyExtractYouTubeURL:'>
+<arg type='@' name='controller' index='0' declared_type='LBYouTubePlayerViewController*'/>
+<arg type='@' name='videoURL' index='1' declared_type='NSURL*'/>
+<retval type='v' declared_type='void'/>
+</method>
+<method type64='v32@0:8@16@24' type='v16@0:4@8@12' selector='youTubePlayerViewController:failedExtractingYouTubeURLWithError:'>
+<arg type='@' name='controller' index='0' declared_type='LBYouTubePlayerViewController*'/>
+<arg type='@' name='error' index='1' declared_type='NSError*'/>
+<retval type='v' declared_type='void'/>
+</method>
+</informal_protocol>
+</signatures>
