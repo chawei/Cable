@@ -25,7 +25,7 @@ CBSmallMargin  = 10
 CBSliderWidth    = 200
 CBSliderHeight   = 10
 CBTimeLabelWidth = 35
-CBMessageBoxHeight = 50
+CBMessageBoxHeight = CBDefaultMargin*3
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"

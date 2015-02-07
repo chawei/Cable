@@ -1,21 +1,21 @@
 class MessageBox < UIView
   include Style
   
+  attr_accessor :delegate
+  
   def initWithFrame(frame)
     super frame
     
     self.backgroundColor = UIColor.whiteColor
     @original_origin = self.frame.origin
     
-    top_margin   = 10
-    left_margin  = 10
-    right_margin = 10
-    @message_text_field = UITextField.alloc.initWithFrame [[left_margin, top_margin], 
-          [self.size.width-left_margin-right_margin, self.size.height-top_margin*2]]
+    @message_text_field = UITextField.alloc.initWithFrame [[CBDefaultMargin, CBDefaultMargin], 
+          [self.size.width-CBDefaultMargin*2, self.size.height-CBDefaultMargin*2]]
     @message_text_field.clearButtonMode          = UITextFieldViewModeWhileEditing
     @message_text_field.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter
     @message_text_field.textAlignment            = UITextAlignmentLeft
-    @message_text_field.attributedPlaceholder = NSAttributedString.alloc.initWithString CBMessageBoxPlaceholderText, attributes:{ NSForegroundColorAttributeName => UIColor.grayColor }
+    @message_text_field.attributedPlaceholder    = NSAttributedString.alloc.initWithString CBMessageBoxPlaceholderText, 
+          attributes:{ NSForegroundColorAttributeName => UIColor.grayColor }
     @message_text_field.setReturnKeyType UIReturnKeySend
     @message_text_field.setFont UIFont.fontWithName(CBRegularFontName, size:20.0)
     @message_text_field.delegate = self
@@ -75,5 +75,24 @@ class MessageBox < UIView
                             self.origin = @original_origin
                           end),
                          completion:nil
+  end
+  
+  def textFieldShouldReturn(text_field)
+    if text_field.text.strip != ""
+      if @delegate && @delegate.respond_to?('message_box_did_send')
+      end
+    end
+    
+    dismiss_keyboard
+  end
+  
+  def textFieldDidBeginEditing(text_field)
+  end
+  
+  def textFieldDidEndEditing(text_field)
+  end
+  
+  def dismiss_keyboard
+    self.endEditing true
   end
 end
