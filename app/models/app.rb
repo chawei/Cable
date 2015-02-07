@@ -13,7 +13,7 @@ class App
   
   def self.card_origin_y
     if App.is_small_screen?
-      80
+      70
     else
       80
     end
@@ -33,6 +33,14 @@ class App
   
   def self.card_stack_view
     home_view_controller.card_stack_view
+  end
+  
+  def self.messages_view
+    home_view_controller.messages_view
+  end
+  
+  def self.message_box
+    home_view_controller.message_box
   end
   
   def self.play_object(object)

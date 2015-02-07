@@ -102,4 +102,30 @@ class CardStackView < UIView
     end
   end
   
+  def shrink
+    UIView.animateWithDuration 0.3,
+        delay:0.0,
+        usingSpringWithDamping:1.0,
+        initialSpringVelocity:0.0,
+        options:0, 
+        animations:(lambda do
+          self.transform = CGAffineTransformMakeScale(0.9, 0.9)
+          self.alpha     = 0.2
+        end),
+        completion:nil
+  end
+  
+  def normalize
+    UIView.animateWithDuration 0.3,
+        delay:0.0,
+        usingSpringWithDamping:0.5,
+        initialSpringVelocity:0.0,
+        options:0, 
+        animations:(lambda do
+          self.transform = CGAffineTransformMakeScale(1.0, 1.0)
+          self.alpha     = 1.0
+        end),
+        completion:nil
+  end
+  
 end

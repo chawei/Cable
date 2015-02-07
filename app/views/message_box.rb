@@ -45,6 +45,8 @@ class MessageBox < UIView
   end
   
   def keyboard_will_show(notification)
+    show_messages_view
+    
     userInfo          = notification.userInfo    
     startFrame        = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey).CGRectValue
     endFrame          = userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey).CGRectValue
@@ -62,6 +64,8 @@ class MessageBox < UIView
   end
   
   def keyboard_will_hide(notification)
+    hide_messages_view
+    
     userInfo          = notification.userInfo    
     startFrame        = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey).CGRectValue
     endFrame          = userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey).CGRectValue
@@ -75,6 +79,18 @@ class MessageBox < UIView
                             self.origin = @original_origin
                           end),
                          completion:nil
+  end
+  
+  def show_messages_view
+    if @delegate && @delegate.respond_to?('show_message_ui')
+      @delegate.show_message_ui
+    end
+  end
+  
+  def hide_messages_view
+    if @delegate && @delegate.respond_to?('hide_message_ui')
+      @delegate.hide_message_ui
+    end
   end
   
   def textFieldShouldReturn(text_field)

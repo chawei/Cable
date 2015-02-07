@@ -6,6 +6,7 @@ class HomeViewController < CBUIViewController
   outlet :events_button
   
   attr_accessor :card_stack_view
+  attr_accessor :messages_view
   
   def viewDidLoad
     super
@@ -15,6 +16,7 @@ class HomeViewController < CBUIViewController
     add_card_stack_view
     set_buttons
     
+    add_messages_view
     add_message_box
   end
   
@@ -43,11 +45,29 @@ class HomeViewController < CBUIViewController
     events_button.alpha = CBInactiveAlphaValue
   end
   
+  def add_messages_view
+    @messages_view = MessagesView.alloc.initWithFrame [[0, 0], [self.view.size.width, self.view.size.height]]
+    @messages_view.controller = self
+    @messages_view.hidden = true
+    self.view.addSubview @messages_view
+  end
+  
   def add_message_box
     @message_box = MessageBox.alloc.initWithFrame [[CBDefaultMargin, self.view.size.height-CBMessageBoxHeight-CBDefaultMargin], 
         [self.view.size.width-CBDefaultMargin*2, CBMessageBoxHeight]]
-    
+    @message_box.delegate = self
     self.view.addSubview @message_box
+  end
+  
+  def show_message_ui
+    @card_stack_view.shrink
+    @messages_view.hidden = false
+  end
+  
+  def hide_message_ui
+    @card_stack_view.normalize
+    @messages_view.hidden = true
+    @message_box.dismiss_keyboard
   end
   
   def tap_background
