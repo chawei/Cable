@@ -44,7 +44,10 @@ class HomeViewController < CBUIViewController
   end
   
   def add_message_box
+    @message_box = MessageBox.alloc.initWithFrame [[CBDefaultMargin, self.view.size.height-CBMessageBoxHeight-CBDefaultMargin], 
+        [self.view.size.width-CBDefaultMargin*2, CBMessageBoxHeight]]
     
+    self.view.addSubview @message_box
   end
   
   def tap_background

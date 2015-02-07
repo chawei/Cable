@@ -25,8 +25,11 @@ CBSmallMargin  = 10
 CBSliderWidth    = 200
 CBSliderHeight   = 10
 CBTimeLabelWidth = 35
+CBMessageBoxHeight = 50
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
 
 CBMaxNumOfTry = 20
+
+CBMessageBoxPlaceholderText = "Tell me what you want"

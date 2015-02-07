@@ -56,19 +56,19 @@ class Stream
     [{
       :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', 
       :source => 'youtube', :video_id => '8nTFjVm9sTQ',
-      :image_url => 'http://i.ytimg.com/vi/8nTFjVm9sTQ/hqdefault.jpg'
+      :image_url => 'http://i.ytimg.com/vi/8nTFjVm9sTQ/mqdefault.jpg'
     }, {
       :title => '旺福-晴天娃娃', :subtitle => '', 
       :source => 'youtube', :video_id => 'zM46TDpw69U',
-      :image_url => 'http://i.ytimg.com/vi/zM46TDpw69U/hqdefault.jpg'
+      :image_url => 'http://i.ytimg.com/vi/zM46TDpw69U/mqdefault.jpg'
     }, {
       :title => 'John Mayer - Waiting on the World to Change', :subtitle => 'John Mayer', 
       :source => 'youtube', :video_id => 'oBIxScJ5rlY',
-      :image_url => 'http://i.ytimg.com/vi/oBIxScJ5rlY/hqdefault.jpg'
+      :image_url => 'http://i.ytimg.com/vi/oBIxScJ5rlY/mqdefault.jpg'
     }, {
       :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers',
       :source => 'youtube', :video_id => 'PeRxjkfTmVc',
-      :image_url => 'http://i.ytimg.com/vi/PeRxjkfTmVc/hqdefault.jpg'
+      :image_url => 'http://i.ytimg.com/vi/PeRxjkfTmVc/mqdefault.jpg'
     }]
   end
   
