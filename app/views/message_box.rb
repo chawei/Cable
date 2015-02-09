@@ -9,8 +9,8 @@ class MessageBox < UIView
     self.backgroundColor = UIColor.whiteColor
     @original_origin = self.frame.origin
     
-    @message_text_field = UITextField.alloc.initWithFrame [[CBDefaultMargin, CBDefaultMargin], 
-          [self.size.width-CBDefaultMargin*2, self.size.height-CBDefaultMargin*2]]
+    @message_text_field = UITextField.alloc.initWithFrame [[CBDefaultMargin, 0], 
+          [self.size.width-CBDefaultMargin*2, self.size.height]]
     @message_text_field.clearButtonMode          = UITextFieldViewModeWhileEditing
     @message_text_field.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter
     @message_text_field.textAlignment            = UITextAlignmentLeft
@@ -22,10 +22,19 @@ class MessageBox < UIView
     self.addSubview @message_text_field
     
     apply_rounded_corner
-    
     add_keyboard_observers
+    add_tap_recognizer
     
     self
+  end
+  
+  def add_tap_recognizer
+    tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_on_box"
+    self.addGestureRecognizer tap_recognizer
+  end
+  
+  def tap_on_box
+    @message_text_field.becomeFirstResponder
   end
   
   def add_keyboard_observers
@@ -45,13 +54,13 @@ class MessageBox < UIView
   end
   
   def keyboard_will_show(notification)
-    show_messages_view
-    
     userInfo          = notification.userInfo    
     startFrame        = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey).CGRectValue
     endFrame          = userInfo.objectForKey(UIKeyboardFrameEndUserInfoKey).CGRectValue
     animationCurve    = userInfo.objectForKey(UIKeyboardAnimationCurveUserInfoKey).intValue
     animationDuration = userInfo.objectForKey(UIKeyboardAnimationDurationUserInfoKey).doubleValue
+    
+    show_messages_view
     
     UIView.animateWithDuration animationDuration,
                               delay:0,
@@ -59,6 +68,7 @@ class MessageBox < UIView
                          animations:(lambda do
                             self.origin = [@original_origin[0],
                               @original_origin[1] - endFrame.size.height]
+                            update_messages_view_with_keyboard_height(endFrame.size.height)
                           end),
                          completion:nil
   end
@@ -77,8 +87,15 @@ class MessageBox < UIView
                             options:(animationCurve << 16)|UIViewAnimationOptionBeginFromCurrentState,
                          animations:(lambda do
                             self.origin = @original_origin
+                            update_messages_view_with_keyboard_height(0)
                           end),
                          completion:nil
+  end
+  
+  def update_messages_view_with_keyboard_height(height)
+    if @delegate && @delegate.respond_to?('update_frame_with_keyboard_height')
+      @delegate.update_frame_with_keyboard_height(height)
+    end
   end
   
   def show_messages_view
@@ -94,12 +111,13 @@ class MessageBox < UIView
   end
   
   def textFieldShouldReturn(text_field)
-    if text_field.text.strip != ""
+    message = text_field.text.strip
+    if message != ""
+      text_field.text = ""
       if @delegate && @delegate.respond_to?('message_box_did_send')
+        @delegate.message_box_did_send(message)
       end
     end
-    
-    dismiss_keyboard
   end
   
   def textFieldDidBeginEditing(text_field)

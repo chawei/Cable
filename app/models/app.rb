@@ -10,6 +10,9 @@ class App
     screen_height = screen_rect.size.height
   end
   
+  def self.status_bar_height
+    UIApplication.sharedApplication.statusBarFrame.size.height
+  end
   
   def self.card_origin_y
     if App.is_small_screen?
@@ -35,8 +38,8 @@ class App
     home_view_controller.card_stack_view
   end
   
-  def self.messages_view
-    home_view_controller.messages_view
+  def self.messages_view_controller
+    home_view_controller.messages_view_controller
   end
   
   def self.message_box

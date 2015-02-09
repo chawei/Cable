@@ -6,7 +6,7 @@ class HomeViewController < CBUIViewController
   outlet :events_button
   
   attr_accessor :card_stack_view
-  attr_accessor :messages_view
+  attr_accessor :messages_view_controller
   
   def viewDidLoad
     super
@@ -16,7 +16,7 @@ class HomeViewController < CBUIViewController
     add_card_stack_view
     set_buttons
     
-    add_messages_view
+    add_messages_view_controller
     add_message_box
   end
   
@@ -45,11 +45,15 @@ class HomeViewController < CBUIViewController
     events_button.alpha = CBInactiveAlphaValue
   end
   
-  def add_messages_view
-    @messages_view = MessagesView.alloc.initWithFrame [[0, 0], [self.view.size.width, self.view.size.height]]
-    @messages_view.controller = self
-    @messages_view.hidden = true
-    self.view.addSubview @messages_view
+  def add_messages_view_controller
+    @messages_view_controller = MessagesViewController.alloc.init_with_params({
+      :max_width => self.view.size.width - CBDefaultMargin*2,
+      :frame => [[0, App.status_bar_height], 
+        [self.view.size.width, self.view.size.height-App.status_bar_height-CBMessageBoxHeight-CBDefaultMargin*2]]
+    })
+    @messages_view_controller.controller = self
+    @messages_view_controller.collectionView.hidden = true
+    self.view.addSubview @messages_view_controller.collectionView
   end
   
   def add_message_box
@@ -59,15 +63,31 @@ class HomeViewController < CBUIViewController
     self.view.addSubview @message_box
   end
   
+  def message_box_did_send(message)
+    @messages_view_controller.send_message(message)
+  end
+  
+  def update_frame_with_keyboard_height(keyboard_height)
+    @messages_view_controller.update_frame_with_keyboard_height(keyboard_height)
+  end
+  
   def show_message_ui
     @card_stack_view.shrink
-    @messages_view.hidden = false
+    @messages_view_controller.collectionView.hidden = false
+    
+    logo_button.hidden    = true
+    profile_button.hidden = true
+    events_button.hidden  = true
   end
   
   def hide_message_ui
     @card_stack_view.normalize
-    @messages_view.hidden = true
+    @messages_view_controller.collectionView.hidden = true
     @message_box.dismiss_keyboard
+    
+    logo_button.hidden    = false
+    profile_button.hidden = false
+    events_button.hidden  = false
   end
   
   def tap_background

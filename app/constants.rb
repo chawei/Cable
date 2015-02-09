@@ -11,6 +11,7 @@ CBMaxTrackImage    = UIImage.imageNamed "assets/min_track.png", stretchableImage
 CBMinTrackImage    = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 
 CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
+CBMessageCellReuseIdentifier   = "MESSAGE_CELL_IDENTIFIER"
 
 CBHomeViewPadding         = 15
 CBDefaultMargin           = 16
@@ -26,6 +27,12 @@ CBSliderWidth    = 200
 CBSliderHeight   = 10
 CBTimeLabelWidth = 35
 CBMessageBoxHeight = CBDefaultMargin*3
+CBMessagePadding = 8
+CBMessageProfileImageWidth  = 32
+CBMessageProfileImageHeight = 32
+CBMessageTimeLabelWidth  = 50
+CBMessageTimeLabelHeight = 15
+CBMessageMargin = 10
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
