@@ -17,14 +17,14 @@ class MessageViewCell < UICollectionViewCell
     @message_label = UILabel.alloc.initWithFrame [[CBMessageProfileImageWidth, CBMessagePadding], 
       @message_label_constraint_size]
     @message_label.numberOfLines = 0
-    @message_label.textColor = UIColor.blackColor
-    @message_label.setFont UIFont.fontWithName(CBRegularFontName, size:14.0)
+    @message_label.textColor = CBBlackColor
+    @message_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
     @message_label.text = "Hello"
     @message_container.addSubview @message_label
     
     @time_label = UILabel.alloc.initWithFrame [[0, 0], [CBMessageTimeLabelWidth, CBMessageTimeLabelHeight]]
     @time_label.numberOfLines = 1
-    @time_label.textColor = UIColor.whiteColor
+    @time_label.textColor = CBLightWhiteColor
     @time_label.setFont UIFont.fontWithName(CBRegularFontName, size:12.0)
     @time_label.text = "now"
     

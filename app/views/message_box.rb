@@ -15,7 +15,7 @@ class MessageBox < UIView
     @message_text_field.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter
     @message_text_field.textAlignment            = UITextAlignmentLeft
     @message_text_field.attributedPlaceholder    = NSAttributedString.alloc.initWithString CBMessageBoxPlaceholderText, 
-          attributes:{ NSForegroundColorAttributeName => UIColor.grayColor }
+          attributes:{ NSForegroundColorAttributeName => CBLightGrayColor }
     @message_text_field.setReturnKeyType UIReturnKeySend
     @message_text_field.setFont UIFont.fontWithName(CBRegularFontName, size:20.0)
     @message_text_field.delegate = self
