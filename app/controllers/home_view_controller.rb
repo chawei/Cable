@@ -133,10 +133,11 @@ class HomeViewController < CBUIViewController
     #@events_view_controller.hide if @events_view_controller
     if @profile_view_controller.view.isHidden
       @profile_view_controller.show
-      profile_button.alpha = 1.0
+      profile_button.alpha = CBActiveAlphaValue
     else
       @profile_view_controller.hide
       profile_button.alpha = CBInactiveAlphaValue
+      logo_button.alpha    = CBActiveAlphaValue
     end
   end
   
@@ -164,10 +165,11 @@ class HomeViewController < CBUIViewController
     #@profile_view_controller.hide if @profile_view_controller
     if @events_view_controller.view.isHidden
       @events_view_controller.show
-      events_button.alpha = 1.0
+      events_button.alpha = CBActiveAlphaValue
     else
       @events_view_controller.hide
       events_button.alpha = CBInactiveAlphaValue
+      logo_button.alpha   = CBActiveAlphaValue
     end
   end
   

@@ -25,6 +25,7 @@ CBTitleLabelHeight        = 50
 CBCardTitleLabelMaxHeight = 50
 CBDefaultButtonHeight     = 32
 CBSourceButtonHeight      = 24
+CBActiveAlphaValue        = 1.0
 CBInactiveAlphaValue      = 0.4
 CBSmallMargin    = 10
 CBSliderWidth    = 200
