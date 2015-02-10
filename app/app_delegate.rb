@@ -4,6 +4,8 @@ class AppDelegate
     @window.makeKeyAndVisible
     
     @window.rootViewController = App.home_view_controller
+    
+    
 
     true
   end

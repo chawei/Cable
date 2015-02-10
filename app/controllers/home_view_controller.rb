@@ -8,6 +8,11 @@ class HomeViewController < CBUIViewController
   attr_accessor :card_stack_view
   attr_accessor :messages_view_controller
   
+  def viewWillAppear(animated)
+    super
+    
+  end
+  
   def viewDidLoad
     super
     
@@ -18,6 +23,16 @@ class HomeViewController < CBUIViewController
     
     add_messages_view_controller
     add_message_box
+    
+    start
+  end
+  
+  def start
+    Robot.instance.delegate = self
+    
+    unless User.current.is_logged_in?
+      Robot.instance.say_hello
+    end
   end
   
   def add_card_stack_view
@@ -64,6 +79,8 @@ class HomeViewController < CBUIViewController
   end
   
   def message_box_did_send(message)
+    request = { :message => message, :mode => 'message' }
+    Robot.instance.listen request
     @messages_view_controller.send_message(message)
   end
   
@@ -198,7 +215,18 @@ class HomeViewController < CBUIViewController
   end
   
   def handle_response(response)
-    NSLog response[:message]
+    message_object = {
+      :type => 'text',
+      :text => response[:message],
+      :time_text => DateFormatter.toHumanReadableTime(Time.now),
+      :direction => 'left'
+    }
+    Robot.instance.queue_message_object(message_object)
+  end
+  
+  def show_robot_message(message_object)
+    show_message_ui
+    @messages_view_controller.show_message_object(message_object)
   end
   
 end

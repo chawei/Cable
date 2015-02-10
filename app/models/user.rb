@@ -26,6 +26,10 @@ class User
     #fetch_streaming_songs
   end
   
+  def is_logged_in?
+    false
+  end
+  
   def name
     "David Hsu"
   end

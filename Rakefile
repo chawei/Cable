@@ -23,6 +23,7 @@ Motion::Project::App.setup do |app|
     pod 'SDWebImage'
     pod 'XCDYouTubeKit'
     pod 'Firebase', '>= 2.1.2'
+    pod 'KVOController'
   end
   
 end

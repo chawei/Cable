@@ -5,12 +5,11 @@ class MessagesViewController < UICollectionViewController
     @max_width       = params[:max_width]
     @original_frame  = params[:frame]
     @original_height = @original_frame[1][1]
+    @message_objects = []
     
     flow_layout = UICollectionViewFlowLayout.alloc.init
     flow_layout.setItemSize CGSizeMake(@max_width, 100)
     initWithCollectionViewLayout flow_layout
-    
-    mock_message_objects
     
     return self
   end
@@ -49,8 +48,10 @@ class MessagesViewController < UICollectionViewController
   
   def scroll_to_bottom
     last_index = message_objects.count - 1
-    index_path = NSIndexPath.indexPathForRow last_index, inSection:0
-    collectionView.scrollToItemAtIndexPath index_path, atScrollPosition:UICollectionViewScrollPositionBottom, animated:false
+    if last_index >= 0
+      index_path = NSIndexPath.indexPathForRow last_index, inSection:0
+      collectionView.scrollToItemAtIndexPath index_path, atScrollPosition:UICollectionViewScrollPositionBottom, animated:false
+    end
   end
   
   def viewDidLoad
@@ -62,7 +63,14 @@ class MessagesViewController < UICollectionViewController
     collectionView.backgroundColor = UIColor.clearColor
     collectionView.frame = @original_frame
     
+    add_tap_recognizer
+  end
+  
+  def add_tap_recognizer
+    #background_view = UIView.alloc.initWithFrame @original_frame
     tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
+    #background_view.addGestureRecognizer tap_recognizer
+    #collectionView.backgroundView = background_view
     collectionView.addGestureRecognizer tap_recognizer
   end
   
@@ -106,19 +114,32 @@ class MessagesViewController < UICollectionViewController
     }]
   end
   
+  def reset_message_objects
+    @message_objects = []
+    
+    collectionView.reloadData
+  end
+  
   def message_objects
     @message_objects
   end
   
-  def send_message(message)
-    @message_objects << {
-      :type => 'text',
-      :text => message,
-      :time_text => "12:49 PM",
-      :direction => 'right'
-    }
+  def show_message_object(message_object)
+    @message_objects << message_object
+    
     collectionView.reloadData
     update_content_view_frame
+  end
+  
+  def send_message(message)
+    message_object = {
+      :type => 'text',
+      :text => message,
+      :time_text => "now",
+      :direction => 'right'
+    }
+    
+    show_message_object(message_object)
   end
   
   def collectionView(collectionView, numberOfItemsInSection:section)

@@ -62,6 +62,7 @@ class MessageViewCell < UICollectionViewCell
       @message_label.origin = [CBMessageProfileImageWidth, CBMessagePadding]
       @time_label.origin    = [@message_container.origin.x+@message_container.size.width+5, 
         @message_container.size.height-CBMessageTimeLabelHeight]
+      @time_label.textAlignment = NSTextAlignmentLeft
     else
       @message_container.frame = [[self.contentView.size.width-CBMessagePadding-message_container_width, 0], 
         [message_container_width, @message_label.size.height+CBMessagePadding*2]]
@@ -69,6 +70,7 @@ class MessageViewCell < UICollectionViewCell
       @message_label.origin = [CBMessagePadding, CBMessagePadding]
       @time_label.origin    = [@message_container.origin.x-5-@time_label.size.width, 
         @message_container.size.height-CBMessageTimeLabelHeight]
+      @time_label.textAlignment = NSTextAlignmentRight
     end
     
     apply_rounded_corner_on_view @message_container

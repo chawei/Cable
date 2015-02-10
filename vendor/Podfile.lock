@@ -1,5 +1,6 @@
 PODS:
   - Firebase (2.1.2)
+  - KVOController (1.0.3)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
@@ -7,11 +8,13 @@ PODS:
 
 DEPENDENCIES:
   - Firebase (>= 2.1.2)
+  - KVOController
   - SDWebImage
   - XCDYouTubeKit
 
 SPEC CHECKSUMS:
   Firebase: 7052c7b7f37d6ba0d3bb1c7c2849864aa5e9d02e
+  KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
   XCDYouTubeKit: 0c6f5b28d27b0646989b7c42edd165997ec52299
 
