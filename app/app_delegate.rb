@@ -5,7 +5,8 @@ class AppDelegate
     
     @window.rootViewController = App.home_view_controller
     
-    
+    Parse.setApplicationId(PARSE_APP_ID, clientKey:PARSE_CLIENT_KEY)
+    PFFacebookUtils.initializeFacebook
 
     true
   end

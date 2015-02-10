@@ -1,3 +1,6 @@
+PARSE_APP_ID         = "36UE8b1p96I8ta2FWktLDtu26AEIPrYVGI6p8yfu"
+PARSE_CLIENT_KEY     = "pXWTI10uMDUOujT3FQscixpaUQHWI9Z5lWyx9YcP"
+
 CBYouTubeIconImage    = UIImage.imageNamed "assets/icon_youtube_large"
 CBSpotifyIconImage    = UIImage.imageNamed "assets/icon_spotify_large"
 CBLikeIconImage       = UIImage.imageNamed "assets/button_icon_like"

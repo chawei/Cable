@@ -13,6 +13,10 @@ Motion::Project::App.setup do |app|
   app.name = 'Cable'
   app.deployment_target = '7.0'
   
+  # Facebook
+  app.info_plist['CFBundleURLTypes'] = [ { 'CFBundleURLSchemes' => ['fb964305206928472', 'cable-app'] } ] 
+  app.info_plist['FacebookAppID']    = '964305206928472'
+  
   app.fonts = ['fonts/OpenSans-Regular.ttf', 'fonts/OpenSans-Light.ttf']
   app.fonts += ['fonts/ProximaNova-Regular.ttf', 'fonts/ProximaNova-Light.ttf']
   
@@ -24,6 +28,10 @@ Motion::Project::App.setup do |app|
     pod 'XCDYouTubeKit'
     pod 'Firebase', '>= 2.1.2'
     pod 'KVOController'
+    pod 'AFNetworking'
+    pod 'Parse'
+    pod 'ParseFacebookUtils'
+    pod 'Facebook-iOS-SDK'
   end
   
 end
