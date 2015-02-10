@@ -18,9 +18,27 @@ class Player
     @current_playing_object = nil
     @delegate = nil
     @slider   = nil
+    @is_ended_by_user = false
   end
   
-  def reset
+  def is_ended_by_user?
+    @is_ended_by_user
+  end
+  
+  def ended_by_user
+    @is_ended_by_user = true
+  end
+  
+  def reset_is_ended_by_user
+    @is_ended_by_user = false
+  end
+  
+  def end_and_clear_by_user
+    ended_by_user
+    clear
+  end
+  
+  def clear
     clear_movie_player_view
   end
   
@@ -32,7 +50,7 @@ class Player
         toggle_audio_playing_status
       end
     else
-      play_object object
+      play_object_by_user object
     end
   end
   
@@ -50,6 +68,17 @@ class Player
     if @delegate && @delegate.respond_to?('finish_loading')
       @delegate.finish_loading
     end
+  end
+  
+  def ended_by_itself
+    if @delegate && @delegate.respond_to?('swipe_away_automatically')
+      @delegate.swipe_away_automatically
+    end
+  end
+  
+  def play_object_by_user(object)
+    ended_by_user
+    play_object object
   end
   
   def play_object(object)

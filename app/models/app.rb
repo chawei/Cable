@@ -46,6 +46,11 @@ class App
     home_view_controller.message_box
   end
   
+  def self.play_object_by_user(object)
+    Player.instance.end_and_clear_by_user
+    play_object(object)
+  end
+  
   def self.play_object(object)
     song_object = SongObject.new object
     card_stack_view.add_card_view_on_top_with_song_object(song_object)

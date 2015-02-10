@@ -137,19 +137,64 @@ module VideoPlayer
   end
   
   def movie_player_playback_finished(notification)
+    movie_player = notification.object
+    reason       = notification.userInfo.objectForKey MPMoviePlayerPlaybackDidFinishReasonUserInfoKey
     
+    case reason.intValue
+    when MPMovieFinishReasonPlaybackEnded
+      #NSLog "MPMovieFinishReasonPlaybackEnded"
+      if is_ended_by_user?
+        NSLog "is_ended_by_user"
+      else
+        NSLog "not ended_by_user"
+        ended_by_itself
+      end
+    when MPMovieFinishReasonPlaybackError
+      NSLog "MPMovieFinishReasonPlaybackError"
+    when MPMovieFinishReasonUserExited
+      NSLog "MPMovieFinishReasonUserExited"
+    end
+    
+    if error = notification.userInfo.valueForKey("error")
+      NSLog "Error: #{error.localizedDescription}"
+    end
   end
   
   def movie_player_playback_state_changed(notification)
+    movie_player   = notification.object
+    playback_state = movie_player.playbackState
     
+    case playback_state
+    when MPMoviePlaybackStatePaused
+      #@correspondingPlayButtons.each do |button|
+      #  button.alpha = 1.0
+      #  button.setBackgroundImage CBVideoPlayIcon, forState:UIControlStateNormal
+      #end
+    when MPMoviePlaybackStatePlaying
+      #@correspondingPlayButtons.each do |button|
+      #  button.setBackgroundImage CBVideoPauseIcon, forState:UIControlStateNormal
+      #  UIView.animateWithDuration(0.5,
+      #                        delay:1.0,
+      #                      options: UIViewAnimationCurveEaseInOut,
+      #                   animations:(lambda do
+      #                       button.alpha = 0.0
+      #                     end),
+      #                   completion:(lambda do |finished|
+      #                     end))
+      #end
+    when MPMoviePlaybackStateSeekingForward
+    when MPMoviePlaybackStateSeekingBackward
+    end
   end
   
   def movie_player_load_state_changed(notification)
     movie_player = notification.object
     
     if [MPMovieLoadStatePlaythroughOK, MPMovieLoadStatePlayable].include? movie_player.loadState
+      NSLog "MPMovieLoadStatePlaythroughOK"
       start_slider_with_max_value movie_player.duration
       finish_loading
+      reset_is_ended_by_user
     end
   end
   

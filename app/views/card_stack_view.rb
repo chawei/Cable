@@ -3,7 +3,13 @@ class CardStackView < UIView
   def willRemoveSubview(subview)
     super
     
-    reload_card_views_if_necessary(4)
+    unless subview.is_removed?
+      subview.set_is_removed
+      subview.removeFromSuperview
+      reload_card_views_if_necessary(3)
+      
+      play_top_card_view
+    end
   end
   
   def initialize_card_views
@@ -28,9 +34,13 @@ class CardStackView < UIView
     update_card_views
   end
   
+  def top_card_view
+    subviews[-1]
+  end
+  
   def play_top_card_view
-    if top_card_view = subviews[-1]
-      top_card_view.tap_and_toggle_play
+    if top_card_view
+      top_card_view.play
     end
   end
   

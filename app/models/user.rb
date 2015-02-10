@@ -27,7 +27,7 @@ class User
   end
   
   def is_logged_in?
-    false
+    true
   end
   
   def name

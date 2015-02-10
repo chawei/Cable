@@ -7,6 +7,7 @@ class CardView < UIView
   def init_with_origin(origin)
     @song_object     = nil
     @is_first_tapped = false
+    @is_removed      = false
     
     initWithFrame [origin, [CardView.default_width, card_height]]
     @origin        = self.frame.origin
@@ -273,11 +274,25 @@ class CardView < UIView
     end
   end
   
+  def set_player
+    Player.instance.delegate = self
+    if @slider
+      Player.instance.set_slider @slider
+    end
+  end
+  
   def tap_and_toggle_play
     if @song_object
       # TODO: review this part
       set_player
       Player.instance.toggle_playing_status_on_object @song_object
+    end
+  end
+  
+  def play
+    if @song_object
+      set_player
+      Player.instance.play_object @song_object
     end
   end
   
@@ -311,13 +326,6 @@ class CardView < UIView
     @status_view.addSubview status_label
     
     @media_view.addSubview @status_view
-  end
-  
-  def set_player
-    Player.instance.delegate = self
-    if @slider
-      Player.instance.set_slider @slider
-    end
   end
   
   def song_object=(song_object)
@@ -436,14 +444,14 @@ class CardView < UIView
       if velocity.x > 0 && (self.center.x > 3*self.size.width/4)
         new_x = App.screen_width*2
         new_y = self.center.y + translation.y
-        discard_card_with_new_center [new_x, new_y]
+        swipe_away_by_user_with_new_center [new_x, new_y]
         return
       end
       
       if velocity.x < 0 && (self.center.x < self.size.width/4)
         new_x = -App.screen_width
         new_y = self.center.y + translation.y
-        discard_card_with_new_center [new_x, new_y]
+        swipe_away_by_user_with_new_center [new_x, new_y]
         return
       end
       
@@ -462,7 +470,25 @@ class CardView < UIView
     end
   end
   
-  def discard_card_with_new_center(new_center)
+  def remove_by_user
+    Player.instance.end_and_clear_by_user
+    self.removeFromSuperview
+  end
+  
+  def remove
+    Player.instance.clear
+    self.removeFromSuperview
+  end
+  
+  def is_removed?
+    @is_removed
+  end
+  
+  def set_is_removed
+    @is_removed = true
+  end
+  
+  def swipe_away_by_user_with_new_center(new_center)
     UIView.animateWithDuration(0.5,
                           delay:0.0,
                         options: UIViewAnimationCurveEaseInOut,
@@ -470,9 +496,19 @@ class CardView < UIView
                          self.center = new_center
                        end),
                      completion:(lambda do |finished|
-                         Player.instance.reset
-                         self.removeFromSuperview
-                         App.card_stack_view.update_card_views
+                         remove_by_user
+                       end))
+  end
+  
+  def swipe_away_automatically
+    UIView.animateWithDuration(0.5,
+                          delay:0.0,
+                        options: UIViewAnimationCurveEaseInOut,
+                     animations:(lambda do
+                         self.origin = [self.size.width, self.origin.y]
+                       end),
+                     completion:(lambda do |finished|
+                         remove
                        end))
   end
 end
