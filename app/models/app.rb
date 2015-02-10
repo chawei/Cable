@@ -16,9 +16,9 @@ class App
   
   def self.card_origin_y
     if App.is_small_screen?
-      70
-    else
       80
+    else
+      85
     end
   end
   
@@ -50,6 +50,10 @@ class App
     song_object = SongObject.new object
     card_stack_view.add_card_view_on_top_with_song_object(song_object)
     card_stack_view.play_top_card_view
+  end
+  
+  def self.show_event_page(object)
+    home_view_controller.open_event_page(object)
   end
   
 end

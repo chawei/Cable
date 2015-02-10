@@ -1,10 +1,14 @@
-CBYouTubeIconImage = UIImage.imageNamed "assets/icon_youtube_large"
-CBSpotifyIconImage = UIImage.imageNamed "assets/icon_spotify_large"
-CBLikeIconImage    = UIImage.imageNamed "assets/button_icon_like"
-CBLikedIconImage   = UIImage.imageNamed "assets/button_icon_liked"
-CBShareIconImage   = UIImage.imageNamed "assets/button_icon_share"
-CBSettingIconImage = UIImage.imageNamed "assets/button_icon_settings"
-CBTestProfileImage = UIImage.imageNamed "assets/test/david.jpg"
+CBYouTubeIconImage    = UIImage.imageNamed "assets/icon_youtube_large"
+CBSpotifyIconImage    = UIImage.imageNamed "assets/icon_spotify_large"
+CBLikeIconImage       = UIImage.imageNamed "assets/button_icon_like"
+CBLikedIconImage      = UIImage.imageNamed "assets/button_icon_liked"
+CBShareIconImage      = UIImage.imageNamed "assets/button_icon_share"
+CBSettingIconImage    = UIImage.imageNamed "assets/button_icon_settings"
+CBCloseIconImage      = UIImage.imageNamed "assets/button_icon_cross"
+CBPlayIconImage       = UIImage.imageNamed "assets/button_icon_play"
+CBBookmarkIconImage   = UIImage.imageNamed "assets/button_icon_bookmark"
+CBBookmarkedIconImage = UIImage.imageNamed "assets/button_icon_bookmarked"
+CBTestProfileImage    = UIImage.imageNamed "assets/test/david.jpg"
 
 CBTransparentImage = UIImage.imageNamed "assets/transparent"
 CBMaxTrackImage    = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
@@ -17,12 +21,13 @@ CBBlackColor      = UIColor.colorWithRed 60/255.0, green:60/255.0, blue:60/255.0
 CBLightGrayColor  = UIColor.colorWithRed 200/255.0, green:200/255.0, blue:200/255.0, alpha:1.0
 CBLightWhiteColor = UIColor.colorWithRed 240/255.0, green:240/255.0, blue:240/255.0, alpha:1.0
 
-CBHomeViewPadding         = 15
+CBHomeViewPadding         = 16
 CBDefaultMargin           = 16
 CBCellLabelTopMargin      = 14
 CBRoundedCornerRadius     = 2
 CBTitleLabelHeight        = 50
 CBCardTitleLabelMaxHeight = 50
+CBDefaultButtonWidth      = 32
 CBDefaultButtonHeight     = 32
 CBSourceButtonHeight      = 24
 CBActiveAlphaValue        = 1.0

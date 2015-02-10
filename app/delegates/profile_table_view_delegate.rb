@@ -23,11 +23,10 @@ module ProfileTableViewDelegate
     
     object = @objects[indexPath.row]
     if tableView == @fav_table_view
-      NSLog "play song"
       App.play_object object
       self.hide
     elsif tableView == @event_table_view
-      NSLog "show event"
+      App.show_event_page object
     end
   end
   
@@ -56,7 +55,6 @@ module ProfileTableViewDelegate
     cell.update_images_with_source object[:source]                
     cell.title_label.text    = object[:title]
     cell.subtitle_label.text = object[:subtitle]
-    cell.update_labels
 
     cell
   end

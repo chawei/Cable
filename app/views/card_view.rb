@@ -24,12 +24,12 @@ class CardView < UIView
   
   def self.default_height
     if App.is_small_screen?
-      320
+      310
     else
       if App.screen_height > 660.0
         450
       else
-        400
+        380
       end
     end
   end

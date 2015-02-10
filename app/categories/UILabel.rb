@@ -21,7 +21,7 @@ class UILabel
       textSize = self.sizeThatFits constraintSize
       textRect = CGRectMake(self.frame.origin.x,
                             self.frame.origin.y,
-                            self.frame.size.width,
+                            self.size.width,
                             textSize.height)
       self.setFrame textRect
       self.setNeedsDisplay

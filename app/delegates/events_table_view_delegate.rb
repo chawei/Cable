@@ -26,6 +26,9 @@ module EventsTableViewDelegate
     elsif tableView == @bookmarked_table_view
       NSLog "show event"
     end
+    
+    object = @objects[indexPath.row]
+    App.show_event_page object
   end
   
   def tableView(tableView, heightForHeaderInSection:section)
@@ -53,7 +56,6 @@ module EventsTableViewDelegate
     cell.update_images_with_source object[:source]                
     cell.title_label.text    = object[:title]
     cell.subtitle_label.text = object[:subtitle]
-    cell.update_labels
 
     cell
   end
