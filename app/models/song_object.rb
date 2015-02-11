@@ -14,6 +14,12 @@ class SongObject
     self.image_url = params[:image_url]
   end
   
+  def id
+    if is_from_youtube?
+      youtube_id
+    end
+  end
+  
   def is_from_youtube?
     self.source == 'youtube'
   end

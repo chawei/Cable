@@ -43,7 +43,7 @@ class Player
   end
   
   def toggle_playing_status_on_object(object)
-    if @current_playing_object == object
+    if @current_playing_object && @current_playing_object.id == object.id
       if object.is_from_youtube?
         toggle_video_playing_status
       else

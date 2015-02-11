@@ -79,6 +79,20 @@ class Robot
     end
   end
   
+  def clear_message_queue
+    @message_queue = []
+  end
+  
+  def queue_message_text(message_text)
+    message_object = {
+      :type => 'text',
+      :text => message_text,
+      :time_text => DateFormatter.toHumanReadableTime(Time.now),
+      :direction => 'left'
+    }
+    queue_message_object(message_object)
+  end
+  
   def queue_message_object(message_object)
     if message_object
       self.message_queue = message_queue + [message_object]

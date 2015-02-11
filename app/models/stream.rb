@@ -13,6 +13,17 @@ class Stream
     @songs_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
         @songs = snapshot.value.clone
+        
+        #NSLog "@is_sync: #{@is_sync}"
+        #if @is_sync
+        #  App.messages_view_controller.reset_message_objects
+        #  Robot.instance.clear_message_queue
+        #  Robot.instance.queue_message_text "Someone is using your stream!"
+        #  @is_sync = false
+        #else
+        #  @songs = snapshot.value.clone
+        #  @is_sync = true
+        #end
       end
     end), withCancelBlock:(lambda do |error|
       NSLog("%@", error.description) 
@@ -21,7 +32,27 @@ class Stream
   
   def save(songs)
     NSLog "save songs"
+    #@is_sync = false
     @songs_ref.setValue songs
+    
+    update_ui
+  end
+  
+  def update_ui
+    # TODO: maybe use delegate?
+    App.card_stack_view.update_card_views
+    # App.card_stack_view.play_top_card_view # this is evil, will dup the playing action
+  end
+  
+  def remove_first_song
+    song = @songs.shift
+    save @songs
+    
+    request_for_more_songs_if_necessary
+  end
+  
+  def first_song
+    @songs[0]
   end
   
   def pop_song
@@ -45,11 +76,12 @@ class Stream
   end
   
   def populate_mock_songs
+    NSLog "populate_mock_songs"
     songs = mock_songs
     songs.each do |song|
       @songs << song
     end
-    save @songs
+    @songs_ref.setValue @songs
   end
   
   def mock_songs
@@ -70,13 +102,6 @@ class Stream
       :source => 'youtube', :video_id => 'PeRxjkfTmVc',
       :image_url => 'http://i.ytimg.com/vi/PeRxjkfTmVc/mqdefault.jpg'
     }]
-  end
-  
-  def mock_songs2
-    [
-      {"title"=>"Don't Think Twice It's Alright [Bob Dylan 1962]", "image_url"=>"http://i.ytimg.com/vi/2Ar7C6_L3Fg/hqdefault.jpg", "source"=>"youtube", "subtitle"=>"Bob Dylan", "video_id"=>"2Ar7C6_L3Fg"}, 
-      {"title"=>"Radiohead - Lotus Flower", "image_url"=>"http://i.ytimg.com/vi/cfOa1a8hYP8/hqdefault.jpg", "source"=>"youtube", "subtitle"=>"Radiohead", "video_id"=>"cfOa1a8hYP8"}
-    ]
   end
   
   def fetch(&block)

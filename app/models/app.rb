@@ -52,8 +52,9 @@ class App
   end
   
   def self.play_object(object)
-    song_object = SongObject.new object
-    card_stack_view.add_card_view_on_top_with_song_object(song_object)
+    User.current.stream.insert(object, 0)
+    #song_object = SongObject.new object
+    #card_stack_view.add_card_view_on_top_with_song_object(song_object)
     card_stack_view.play_top_card_view
   end
   

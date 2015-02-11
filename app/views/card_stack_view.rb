@@ -6,6 +6,8 @@ class CardStackView < UIView
     unless subview.is_removed?
       subview.set_is_removed
       subview.removeFromSuperview
+      
+      User.current.stream.remove_first_song
       reload_card_views_if_necessary(3)
       
       play_top_card_view
@@ -26,7 +28,7 @@ class CardStackView < UIView
       if User.current.stream.songs.length == 0
         break
       else
-        song = User.current.stream.pop_song
+        song = User.current.stream.first_song
         song_object = SongObject.new song
         add_card_view_at_bottom_with_song_object song_object
       end
@@ -97,6 +99,17 @@ class CardStackView < UIView
     # have to update transform first, otherwise position will get wrong
     card_view.transform = transform_of_card_order(card_order)
     card_view.origin    = [card_view.origin.x, new_card_origin_y]
+    
+    assign_song_object_to_card_view(card_view)
+  end
+  
+  def assign_song_object_to_card_view(card_view)
+    card_order = card_order_of_card_view(card_view)
+    song       = User.current.stream.songs[card_order-1]
+    if song
+      song_object = SongObject.new song
+      card_view.song_object = song_object
+    end
   end
   
   def update_card_views
