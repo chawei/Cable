@@ -222,6 +222,10 @@ class HomeViewController < CBUIViewController
       :direction => 'left'
     }
     Robot.instance.queue_message_object(message_object)
+    
+    if response[:stream_url]
+      User.current.stream.connect response[:stream_url]
+    end
   end
   
   def show_robot_message(message_object)

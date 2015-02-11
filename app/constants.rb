@@ -1,5 +1,10 @@
-PARSE_APP_ID         = "36UE8b1p96I8ta2FWktLDtu26AEIPrYVGI6p8yfu"
-PARSE_CLIENT_KEY     = "pXWTI10uMDUOujT3FQscixpaUQHWI9Z5lWyx9YcP"
+# Production
+# PARSE_APP_ID         = "36UE8b1p96I8ta2FWktLDtu26AEIPrYVGI6p8yfu"
+# PARSE_CLIENT_KEY     = "pXWTI10uMDUOujT3FQscixpaUQHWI9Z5lWyx9YcP"
+
+# Development
+PARSE_APP_ID         = "hb7hG4EGS66dtt0L2pNKlh9VG3OlASKzjZObbiaX"
+PARSE_CLIENT_KEY     = "kVUmmMj9OmgECgJN9vM3VjnSzNv1wFAFd090peYh"
 
 CBYouTubeIconImage    = UIImage.imageNamed "assets/icon_youtube_large"
 CBSpotifyIconImage    = UIImage.imageNamed "assets/icon_spotify_large"

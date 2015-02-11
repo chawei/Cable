@@ -56,14 +56,20 @@ class Robot
     # click on tag
     # { :message => tag_clicked, :mode => 'click' }
     
-    # success
-    if request[:mode] == 'message'
-      response = { :message => "ok #{request[:message]}", :streaming_songs => [], :function_name_to_execute => nil }
-    end
+    PFCloud.callFunctionInBackground "listen",
+      withParameters: request,
+      block:(lambda do |response, error|
+        if !error
+        else
+          response = { :message => "Oops, something is wrong. Please try again!" }
+        end
+        handle_response(response)
+      end)
     
-    # error
-    
-    handle_response(response)
+    # example:
+    # if request[:mode] == 'message'
+    #   response = { :message => "ok #{request[:message]}", :streaming_songs => [], :function_name_to_execute => nil }
+    # end
   end
   
   def loading

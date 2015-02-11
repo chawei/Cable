@@ -117,4 +117,19 @@ class Stream
     end)
   end
   
+  def connect(stream_url)
+    @stream_url = stream_url
+    @stream_ref = Firebase.alloc.initWithUrl @stream_url
+    @songs_ref  = @stream_ref.childByAppendingPath "songs"
+    
+    @songs_ref.observeSingleEventOfType FEventTypeValue, withBlock:(lambda do |snapshot| 
+      if snapshot.value
+        @songs = snapshot.value.clone
+        update_ui
+      end
+    end), withCancelBlock:(lambda do |error|
+      NSLog("%@", error.description) 
+    end)
+  end
+  
 end
