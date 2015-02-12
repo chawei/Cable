@@ -33,6 +33,8 @@ class HomeViewController < CBUIViewController
     unless User.current.is_logged_in?
       Robot.instance.say_hello
     end
+    
+    UIApplication.sharedApplication.beginReceivingRemoteControlEvents
   end
   
   def add_card_stack_view
@@ -231,6 +233,21 @@ class HomeViewController < CBUIViewController
   def show_robot_message(message_object)
     show_message_ui
     @messages_view_controller.show_message_object(message_object)
+  end
+  
+  def remoteControlReceivedWithEvent(receivedEvent)
+    if receivedEvent.type == UIEventTypeRemoteControl
+      case receivedEvent.subtype
+      when UIEventSubtypeRemoteControlPlay
+        Player.instance.toggle_playing_status
+      when UIEventSubtypeRemoteControlPause
+        Player.instance.toggle_playing_status
+      when UIEventSubtypeRemoteControlPreviousTrack
+        Player.instance.play_from_the_beginning
+      when UIEventSubtypeRemoteControlNextTrack
+        App.card_stack_view.play_next_card_view_manually
+      end
+    end
   end
   
 end

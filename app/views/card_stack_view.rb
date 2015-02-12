@@ -46,6 +46,12 @@ class CardStackView < UIView
     end
   end
   
+  def play_next_card_view_manually
+    if top_card_view
+      top_card_view.remove_by_user
+    end
+  end
+  
   def add_card_view_on_top_with_song_object(song_object)
     card_view = add_card_view_with_song_object song_object
     update_card_views

@@ -6,6 +6,32 @@ module VideoPlayer
     @tried_num ||= 0
   end
   
+  def is_video_playing?
+    if @movie_player_controller
+      @movie_player_controller.playbackState == MPMoviePlaybackStatePlaying
+    else
+      false
+    end
+  end
+  
+  def play_video
+    if @movie_player_controller
+      @movie_player_controller.play
+    end
+  end
+  
+  def pause_video
+    if @movie_player_controller
+      @movie_player_controller.pause
+    end
+  end
+  
+  def play_video_from_the_beginning
+    if @movie_player_controller
+      @movie_player_controller.currentPlaybackTime = 0.0
+    end
+  end
+  
   def play_youtube_object(object)
     if youtube_id = object.youtube_id
       @tried_num = 0
@@ -191,10 +217,11 @@ module VideoPlayer
     movie_player = notification.object
     
     if [MPMovieLoadStatePlaythroughOK, MPMovieLoadStatePlayable].include? movie_player.loadState
-      NSLog "MPMovieLoadStatePlaythroughOK"
-      start_slider_with_max_value movie_player.duration
-      finish_loading
       reset_is_ended_by_user
+      start_slider_with_max_value movie_player.duration
+      set_playing_info_with_duration movie_player.duration
+      
+      finish_loading
     end
   end
   

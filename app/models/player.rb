@@ -8,6 +8,10 @@ class Player
   def self.instance
     if @@instance.nil?
       @@instance = Player.new
+      
+      audio_session = AVAudioSession.sharedInstance
+      audio_session.setCategory AVAudioSessionCategoryPlayback, error:nil
+      audio_session.setActive true, error:nil
     end
     @@instance
   end
@@ -19,6 +23,12 @@ class Player
     @delegate = nil
     @slider   = nil
     @is_ended_by_user = false
+    @should_continue_playing_in_background = false
+    @bg_task_id = UIBackgroundTaskInvalid
+  end
+  
+  def is_playing?
+    is_video_playing? # && is_audio_playing?
   end
   
   def is_ended_by_user?
@@ -42,13 +52,48 @@ class Player
     clear_movie_player_view
   end
   
+  def play_in_background
+    @should_continue_playing_in_background = false
+    gcdq = Dispatch::Queue.current
+    delay_in_seconds = 0.01
+    gcdq.after(delay_in_seconds) {
+      play
+    }
+  end
+  
+  def pause_in_background
+    gcdq = Dispatch::Queue.current
+    delay_in_seconds = 0.01
+    gcdq.after(delay_in_seconds) {
+      pause
+    }
+  end
+  
+  def play
+    play_video
+  end
+  
+  def pause
+    pause_video
+  end
+  
+  def play_from_the_beginning
+    play_video_from_the_beginning
+  end
+  
+  def toggle_playing_status
+    return if @current_playing_object.nil?
+    
+    if @current_playing_object.is_from_youtube?
+      toggle_video_playing_status
+    else
+      toggle_audio_playing_status
+    end
+  end
+  
   def toggle_playing_status_on_object(object)
     if @current_playing_object && @current_playing_object.id == object.id
-      if object.is_from_youtube?
-        toggle_video_playing_status
-      else
-        toggle_audio_playing_status
-      end
+      toggle_playing_status
     else
       play_object_by_user object
     end
@@ -186,6 +231,72 @@ class Player
     formatted_minutes = format('%02d', minutes)
 
     return "#{formatted_minutes}:#{formatted_seconds}"
+  end
+  
+  def should_continue_playing_in_background?
+    @should_continue_playing_in_background
+  end
+  
+  def create_new_background_task
+    @should_continue_playing_in_background = true
+    
+    new_task_id = UIBackgroundTaskInvalid
+    new_task_id = UIApplication.sharedApplication.beginBackgroundTaskWithExpirationHandler nil
+                
+    if new_task_id != UIBackgroundTaskInvalid
+    end
+
+    if @bg_task_id != UIBackgroundTaskInvalid
+      UIApplication.sharedApplication.endBackgroundTask(@bg_task_id)
+      @bg_task_id = UIBackgroundTaskInvalid
+    end
+
+    @bg_task_id = new_task_id
+  end
+  
+  def end_background_task
+    if @bg_task_id != UIBackgroundTaskInvalid
+      UIApplication.sharedApplication.endBackgroundTask(@bg_task_id)
+      @bg_task_id = UIBackgroundTaskInvalid
+    end
+  end
+  
+  def set_playing_info_with_duration(duration)
+    if @current_playing_object
+      set_playing_info(@current_playing_object, duration:duration)
+    end
+  end
+  
+  def set_playing_info(song_object, duration:duration)
+    playing_info_center = NSClassFromString "MPNowPlayingInfoCenter" 
+    if playing_info_center      
+      song_info = NSMutableDictionary.alloc.init
+      song_info.setObject song_object.title, forKey:MPMediaItemPropertyTitle
+      song_info.setObject song_object.subtitle, forKey:MPMediaItemPropertyArtist
+      song_info.setObject "Cable Music", forKey:MPMediaItemPropertyAlbumTitle
+      song_info.setObject duration, forKey:MPMediaItemPropertyPlaybackDuration
+      
+      if song_object.image_url
+        image_url = NSURL.URLWithString song_object.image_url
+        if image_url
+          SDWebImageDownloader.sharedDownloader.downloadImageWithURL image_url,
+                                                         options:0,
+                                                        progress:(lambda do |receivedSize, expectedSize|
+                                                        end),
+                                                       completed:(lambda do |image, data, error, finished|
+                                                         if image && finished
+                                                           album_art = MPMediaItemArtwork.alloc.initWithImage image
+                                                         else
+                                                           album_art = MPMediaItemArtwork.alloc.initWithImage CBPlayingNowIcon
+                                                         end
+                                                         song_info.setObject album_art, forKey:MPMediaItemPropertyArtwork
+                                                         MPNowPlayingInfoCenter.defaultCenter.setNowPlayingInfo song_info
+                                                       end)
+        end
+      end
+      
+      MPNowPlayingInfoCenter.defaultCenter.setNowPlayingInfo song_info
+    end
   end
   
 end

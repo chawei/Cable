@@ -34,4 +34,6 @@ Motion::Project::App.setup do |app|
     pod 'Facebook-iOS-SDK'
   end
   
+  app.info_plist['UIBackgroundModes'] = ['audio', 'remote-notification']
+  
 end
