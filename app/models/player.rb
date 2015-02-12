@@ -49,6 +49,7 @@ class Player
   end
   
   def clear
+    @current_playing_object = nil
     clear_movie_player_view
   end
   
