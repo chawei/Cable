@@ -38,6 +38,14 @@ class User
     "12 favorite songs / 33 event bookmarkers"
   end
   
+  def facebook_id
+    "10152678184271170"
+  end
+  
+  def profile_image_url(pic_width=64)
+    "http://graph.facebook.com/#{facebook_id}/picture?width=#{pic_width}&height=#{pic_width}"
+  end
+  
   def fetch_favorite_songs
     @favorite_songs = [{
       :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', 

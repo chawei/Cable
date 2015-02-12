@@ -6,7 +6,7 @@ class MessageViewCell < UICollectionViewCell
     
     @direction = 'left'
     
-    @profile_image_view = UIImageView.alloc.initWithImage CBTestProfileImage
+    @profile_image_view = UIImageView.alloc.initWithImage CBTransparentImage
     @profile_image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [CBMessageProfileImageWidth, CBMessageProfileImageHeight]]
     apply_rounded_corner_on_view @profile_image_view
     
@@ -63,6 +63,7 @@ class MessageViewCell < UICollectionViewCell
       @time_label.origin    = [@message_container.origin.x+@message_container.size.width+5, 
         @message_container.size.height-CBMessageTimeLabelHeight]
       @time_label.textAlignment = NSTextAlignmentLeft
+      @profile_image_view.image = CBRobotProfileImage
     else
       @message_container.frame = [[self.contentView.size.width-CBMessagePadding-message_container_width, 0], 
         [message_container_width, @message_label.size.height+CBMessagePadding*2]]
@@ -71,6 +72,8 @@ class MessageViewCell < UICollectionViewCell
       @time_label.origin    = [@message_container.origin.x-5-@time_label.size.width, 
         @message_container.size.height-CBMessageTimeLabelHeight]
       @time_label.textAlignment = NSTextAlignmentRight
+      @profile_image_view.setImageWithURL NSURL.URLWithString(User.current.profile_image_url),
+                         placeholderImage:nil
     end
     
     apply_rounded_corner_on_view @message_container

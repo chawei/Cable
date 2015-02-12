@@ -16,11 +16,11 @@ CBCloseIconImage      = UIImage.imageNamed "assets/button_icon_cross"
 CBPlayIconImage       = UIImage.imageNamed "assets/button_icon_play"
 CBBookmarkIconImage   = UIImage.imageNamed "assets/button_icon_bookmark"
 CBBookmarkedIconImage = UIImage.imageNamed "assets/button_icon_bookmarked"
+CBRobotProfileImage   = UIImage.imageNamed "assets/profile_pic_cable"
 CBTestProfileImage    = UIImage.imageNamed "assets/test/david.jpg"
-
-CBTransparentImage = UIImage.imageNamed "assets/transparent"
-CBMaxTrackImage    = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
-CBMinTrackImage    = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
+CBTransparentImage    = UIImage.imageNamed "assets/transparent"
+CBMaxTrackImage       = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
+CBMinTrackImage       = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 
 CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
 CBMessageCellReuseIdentifier   = "MESSAGE_CELL_IDENTIFIER"
