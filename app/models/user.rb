@@ -24,14 +24,25 @@ class User
     fetch_favorite_songs
     fetch_bookmarked_events
     #fetch_streaming_songs
+    
+    @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
+    monitor_authentication
   end
   
   def is_logged_in?
-    true
+    @auth_data != nil
+  end
+  
+  def auth_data
+    @auth_data
   end
   
   def name
-    "David Hsu"
+    if @auth_data
+      @auth_data.providerData['displayName']
+    else
+      "Awesome Cabler"
+    end
   end
   
   def profile_status
@@ -39,7 +50,9 @@ class User
   end
   
   def facebook_id
-    "10152678184271170"
+    if @auth_data
+      @auth_data.providerData['id']
+    end
   end
   
   def profile_image_url(pic_width=64)
@@ -80,6 +93,46 @@ class User
       :title => 'Sunny Afternoon', :subtitle => 'The Kinks', :source => 'songkick',
       :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
     }]
+  end
+  
+  def connect_to_facebook
+    FBSession.openActiveSessionWithReadPermissions ["public_profile"], allowLoginUI:true,
+      completionHandler:(lambda do |session, state, error|
+        if error
+          NSLog("Facebook login failed. Error: %@", error)
+        elsif state == FBSessionStateOpen
+          accessToken = session.accessTokenData.accessToken;
+          @firebase_ref.authWithOAuthProvider "facebook", token:accessToken,
+            withCompletionBlock:(lambda do |error, auth_data|
+              if (error)
+                NSLog("Login failed. %@", error)
+              else
+                @auth_data = auth_data
+                NSLog("Logged in! %@", auth_data)
+                first_name = auth_data.providerData['cachedUserProfile']['first_name']
+                last_name  = auth_data.providerData['cachedUserProfile']['last_name']
+                new_user = {
+                  "provider"   => auth_data.provider,
+                  "email"      => auth_data.providerData["email"],
+                  "first_name" => first_name,
+                  "last_name"  => last_name
+                }
+                @firebase_ref.childByAppendingPath("users")
+                             .childByAppendingPath(auth_data.uid).setValue(new_user)
+              end
+            end)
+        end
+      end)
+  end
+  
+  def monitor_authentication
+    @firebase_ref.observeAuthEventWithBlock(lambda do |auth_data|
+      if auth_data
+        @auth_data = auth_data
+      else
+        NSLog "no user"
+      end
+    end)
   end
   
 end

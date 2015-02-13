@@ -11,6 +11,14 @@ class AppDelegate
     true
   end
   
+  def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
+    if url.host == "cabl.in" || url.host == "www.cabl.in"
+      # send url to server
+    else
+      return FBAppCall.handleOpenURL url, sourceApplication:sourceApplication
+    end
+  end
+  
   def applicationWillEnterForeground(application)
     Player.instance.end_background_task
   end

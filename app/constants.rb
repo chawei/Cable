@@ -6,6 +6,8 @@
 PARSE_APP_ID         = "hb7hG4EGS66dtt0L2pNKlh9VG3OlASKzjZObbiaX"
 PARSE_CLIENT_KEY     = "kVUmmMj9OmgECgJN9vM3VjnSzNv1wFAFd090peYh"
 
+FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
+
 CBYouTubeIconImage    = UIImage.imageNamed "assets/icon_youtube_large"
 CBSpotifyIconImage    = UIImage.imageNamed "assets/icon_spotify_large"
 CBLikeIconImage       = UIImage.imageNamed "assets/button_icon_like"

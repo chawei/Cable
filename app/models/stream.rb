@@ -4,7 +4,7 @@ class Stream
   
   def initialize(user_id)
     @songs      ||= []
-    @stream_url ||= "https://burning-torch-7761.firebaseio.com/streams/#{user_id}"
+    @stream_url ||= "#{FIREBASE_URL}/streams/#{user_id}"
     
     @stream_ref = Firebase.alloc.initWithUrl @stream_url
     @songs_ref  = @stream_ref.childByAppendingPath "songs"
