@@ -1,6 +1,8 @@
 class HomeViewController < CBUIViewController
   extend IB
   
+  include RobotDelegate
+  
   outlet :logo_button
   outlet :profile_button
   outlet :events_button
@@ -29,10 +31,6 @@ class HomeViewController < CBUIViewController
   
   def start
     Robot.instance.delegate = self
-    
-    unless User.current.is_logged_in?
-      Robot.instance.say_hello
-    end
     
     UIApplication.sharedApplication.beginReceivingRemoteControlEvents
   end
@@ -214,25 +212,6 @@ class HomeViewController < CBUIViewController
     logo_button.alpha    = CBInactiveAlphaValue
     profile_button.alpha = CBInactiveAlphaValue
     events_button.alpha  = CBInactiveAlphaValue
-  end
-  
-  def handle_response(response)
-    message_object = {
-      :type => 'text',
-      :text => response[:message],
-      :time_text => DateFormatter.toHumanReadableTime(Time.now),
-      :direction => 'left'
-    }
-    Robot.instance.queue_message_object(message_object)
-    
-    if response[:stream_url]
-      User.current.stream.connect response[:stream_url]
-    end
-  end
-  
-  def show_robot_message(message_object)
-    show_message_ui
-    @messages_view_controller.show_message_object(message_object)
   end
   
   def remoteControlReceivedWithEvent(receivedEvent)

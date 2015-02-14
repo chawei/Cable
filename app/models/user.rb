@@ -25,12 +25,25 @@ class User
     fetch_bookmarked_events
     #fetch_streaming_songs
     
-    @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
-    monitor_authentication
+    @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL    
+    fetch_auth_data
+    greet_by_robot
+  end
+  
+  def greet_by_robot
+    if is_logged_in?
+      # recommend music
+    else
+      Robot.instance.say_hello
+    end
   end
   
   def is_logged_in?
     @auth_data != nil
+  end
+  
+  def fetch_auth_data
+    @auth_data = @firebase_ref.authData
   end
   
   def auth_data
@@ -119,6 +132,8 @@ class User
                 }
                 @firebase_ref.childByAppendingPath("users")
                              .childByAppendingPath(auth_data.uid).setValue(new_user)
+                             
+                #@firebase_ref.childByAppendingPath("users").childByAutoId
               end
             end)
         end
