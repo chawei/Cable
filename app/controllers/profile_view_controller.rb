@@ -25,16 +25,14 @@ class ProfileViewController < CBUIViewController
     super
     
     card_width        = self.view.size.width
-    button_width      = 32
-    image_view_width  = 60
-    image_view_height = 60
-    @profile_image_view.frame = [[(card_width-image_view_width)/2, CBDefaultMargin], [image_view_width, image_view_height]]
+    @profile_image_view.frame = [[(card_width-CBProfileImageWidth)/2, CBDefaultMargin], 
+      [CBProfileImageWidth, CBProfileImageHeight]]
     @name_label.frame = [[CBDefaultMargin, @profile_image_view.frame.origin.y+@profile_image_view.size.height+CBDefaultMargin],
       [card_width-CBDefaultMargin*2, 20]]
     @status_label.frame = [[CBDefaultMargin, @name_label.frame.origin.y+@name_label.size.height+5],
       [card_width-CBDefaultMargin*2, 16]]
-    @setting_button.frame = [[card_width-CBDefaultMargin-button_width, CBDefaultMargin],
-      [button_width, button_width]]
+    @setting_button.frame = [[card_width-CBDefaultMargin-CBDefaultButtonWidth, CBDefaultMargin],
+      [CBDefaultButtonWidth, CBDefaultButtonHeight]]
     @segmented_control.frame = [[CBDefaultMargin, @status_label.frame.origin.y+@status_label.size.height+CBDefaultMargin], 
       [view.size.width-CBDefaultMargin*2, 34]]
       
@@ -46,7 +44,9 @@ class ProfileViewController < CBUIViewController
   end
   
   def add_profile_image_view
-    @profile_image_view = UIImageView.alloc.initWithImage CBTestProfileImage
+    @profile_image_view = UIImageView.alloc.initWithImage CBDefaultProfileImage
+    @profile_image_view.setImageWithURL NSURL.URLWithString(User.current.profile_image_url(CBProfileImageWidth*2)),
+                   placeholderImage:CBDefaultProfileImage
     view.addSubview @profile_image_view
   end
   

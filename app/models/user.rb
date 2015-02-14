@@ -63,13 +63,15 @@ class User
   end
   
   def facebook_id
-    if @auth_data
+    if @auth_data && @auth_data.provider == 'facebook'
       @auth_data.providerData['id']
     end
   end
   
   def profile_image_url(pic_width=64)
-    "http://graph.facebook.com/#{facebook_id}/picture?width=#{pic_width}&height=#{pic_width}"
+    if facebook_id
+      "http://graph.facebook.com/#{facebook_id}/picture?width=#{pic_width}&height=#{pic_width}"
+    end
   end
   
   def fetch_favorite_songs

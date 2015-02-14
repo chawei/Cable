@@ -21,6 +21,7 @@ CBBookmarkedIconImage = UIImage.imageNamed "assets/button_icon_bookmarked"
 CBRobotProfileImage   = UIImage.imageNamed "assets/profile_pic_cable"
 CBTestProfileImage    = UIImage.imageNamed "assets/test/david.jpg"
 CBTransparentImage    = UIImage.imageNamed "assets/transparent"
+CBDefaultProfileImage = UIImage.imageNamed "assets/transparent"
 CBMaxTrackImage       = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 CBMinTrackImage       = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 
@@ -53,6 +54,8 @@ CBMessageProfileImageHeight = 32
 CBMessageTimeLabelWidth  = 50
 CBMessageTimeLabelHeight = 15
 CBMessageMargin = 10
+CBProfileImageHeight = 60
+CBProfileImageWidth  = 60
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
