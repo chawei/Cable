@@ -112,7 +112,7 @@ module VideoPlayer
         end
       else
         NSLog "video is nil"
-        handle_no_video_error
+        retry_url_extraction_using_another_method
       end
     end)
   end
