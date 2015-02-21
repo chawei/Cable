@@ -22,6 +22,8 @@ Motion::Project::App.setup do |app|
   app.info_plist['CFBundleURLTypes'] = [ { 'CFBundleURLSchemes' => ['fb964305206928472', 'cable-app'] } ] 
   app.info_plist['FacebookAppID']    = '964305206928472'
   
+  app.icons = ['Icon-60@2x.png', 'Icon-60.png']
+  
   app.fonts = ['fonts/OpenSans-Regular.ttf', 'fonts/OpenSans-Light.ttf']
   app.fonts += ['fonts/ProximaNova-Regular.ttf', 'fonts/ProximaNova-Light.ttf']
   
