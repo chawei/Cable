@@ -23,6 +23,7 @@ class User
     @recommended_events ||= []
     
     fetch_favorite_songs
+    fetch_recommended_events
     fetch_bookmarked_events
     
     @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
@@ -116,6 +117,16 @@ class User
       :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers',
       :source => 'youtube', :video_id => 'PeRxjkfTmVc',
       :image_url => 'http://i.ytimg.com/vi/PeRxjkfTmVc/hqdefault.jpg'
+    }]
+  end
+  
+  def fetch_recommended_events
+    @recommended_events = [{
+      :title => "The Von Trapps at The Chapel (February 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
+      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
+    }, {
+      :title => 'Paula Harris at Club Fox (March 02, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
+      :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
     }]
   end
   
