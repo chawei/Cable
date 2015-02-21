@@ -194,22 +194,9 @@ module VideoPlayer
     
     case playback_state
     when MPMoviePlaybackStatePaused
-      #@correspondingPlayButtons.each do |button|
-      #  button.alpha = 1.0
-      #  button.setBackgroundImage CBVideoPlayIcon, forState:UIControlStateNormal
-      #end
+      update_playing_status
     when MPMoviePlaybackStatePlaying
-      #@correspondingPlayButtons.each do |button|
-      #  button.setBackgroundImage CBVideoPauseIcon, forState:UIControlStateNormal
-      #  UIView.animateWithDuration(0.5,
-      #                        delay:1.0,
-      #                      options: UIViewAnimationCurveEaseInOut,
-      #                   animations:(lambda do
-      #                       button.alpha = 0.0
-      #                     end),
-      #                   completion:(lambda do |finished|
-      #                     end))
-      #end
+      update_playing_status
     when MPMoviePlaybackStateSeekingForward
     when MPMoviePlaybackStateSeekingBackward
     end
@@ -225,6 +212,10 @@ module VideoPlayer
       
       finish_loading
     end
+  end
+  
+  def update_playing_status
+    delegate.update_playing_status if delegate && delegate.respond_to?('update_playing_status')
   end
   
   def clear_movie_player_view

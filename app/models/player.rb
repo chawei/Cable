@@ -140,6 +140,12 @@ class Player
     end
   end
   
+  def update_playing_status
+    if @delegate && @delegate.respond_to?('update_playing_status')
+      @delegate.update_playing_status
+    end
+  end
+  
   def set_slider(slider)
     @slider = slider
   end

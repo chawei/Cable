@@ -86,6 +86,7 @@ class CardView < UIView
     
     #add_labels_after_view @media_view
     add_cover_art_view_on_view @media_view
+    add_playing_status_button_on_view @media_view
     add_media_info_view_on_view @media_view
     add_liked_users_view
     add_buttons
@@ -121,6 +122,18 @@ class CardView < UIView
     @cover_art_view.backgroundColor = UIColor.colorWithRed 255/255.0, green:255/255.0, blue:255/255.0, alpha:0.2
     
     view.addSubview @cover_art_view
+  end
+  
+  def add_playing_status_button_on_view(view)
+    @playing_status_button = UIButton.buttonWithType UIButtonTypeCustom
+    @playing_status_button.frame  = [[0, 0], [CBPlayingStatusIconWidth, CBPlayingStatusIconHeight]]
+    if @cover_art_view
+      @playing_status_button.center = @cover_art_view.center
+    end
+    @playing_status_button.setBackgroundImage CBPlayerPlayIconImage, forState:UIControlStateNormal
+    @playing_status_button.addTarget self, action:"tap_and_toggle_play", forControlEvents:UIControlEventTouchUpInside
+    @playing_status_button.layer.zPosition = 100
+    view.addSubview @playing_status_button
   end
   
   def add_media_info_view_on_view(view)
@@ -305,6 +318,8 @@ class CardView < UIView
     @loading_view.addSubview activity_view
     
     @media_view.addSubview @loading_view
+    
+    @playing_status_button.alpha = 0.0
   end
   
   def finish_loading
@@ -397,6 +412,23 @@ class CardView < UIView
       @like_button.setImage CBLikedIconImage, forState:UIControlStateNormal
     else
       @like_button.setImage CBLikeIconImage, forState:UIControlStateNormal
+    end
+  end
+  
+  def update_playing_status
+    if Player.instance.is_playing?
+      @playing_status_button.setBackgroundImage CBPlayerPauseIconImage, forState:UIControlStateNormal
+      UIView.animateWithDuration(0.5,
+                            delay:1.0,
+                          options: UIViewAnimationCurveEaseInOut,
+                       animations:(lambda do
+                           @playing_status_button.alpha = 0.0
+                         end),
+                       completion:(lambda do |finished|
+                         end))
+    else
+      @playing_status_button.alpha = 1.0
+      @playing_status_button.setBackgroundImage CBPlayerPlayIconImage, forState:UIControlStateNormal
     end
   end
   

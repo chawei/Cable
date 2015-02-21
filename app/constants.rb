@@ -8,20 +8,22 @@ PARSE_CLIENT_KEY     = "kVUmmMj9OmgECgJN9vM3VjnSzNv1wFAFd090peYh"
 
 FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
 
-CBYouTubeIconImage    = UIImage.imageNamed "assets/icon_youtube_large"
-CBSpotifyIconImage    = UIImage.imageNamed "assets/icon_spotify_large"
-CBLikeIconImage       = UIImage.imageNamed "assets/button_icon_like"
-CBLikedIconImage      = UIImage.imageNamed "assets/button_icon_liked"
-CBShareIconImage      = UIImage.imageNamed "assets/button_icon_share"
-CBSettingIconImage    = UIImage.imageNamed "assets/button_icon_settings"
-CBCloseIconImage      = UIImage.imageNamed "assets/button_icon_cross"
-CBPlayIconImage       = UIImage.imageNamed "assets/button_icon_play"
-CBBookmarkIconImage   = UIImage.imageNamed "assets/button_icon_bookmark"
-CBBookmarkedIconImage = UIImage.imageNamed "assets/button_icon_bookmarked"
-CBRobotProfileImage   = UIImage.imageNamed "assets/profile_pic_cable"
-CBTestProfileImage    = UIImage.imageNamed "assets/test/david.jpg"
-CBTransparentImage    = UIImage.imageNamed "assets/transparent"
-CBDefaultProfileImage = UIImage.imageNamed "assets/transparent"
+CBYouTubeIconImage     = UIImage.imageNamed "assets/icon_youtube_large"
+CBSpotifyIconImage     = UIImage.imageNamed "assets/icon_spotify_large"
+CBLikeIconImage        = UIImage.imageNamed "assets/button_icon_like"
+CBLikedIconImage       = UIImage.imageNamed "assets/button_icon_liked"
+CBShareIconImage       = UIImage.imageNamed "assets/button_icon_share"
+CBSettingIconImage     = UIImage.imageNamed "assets/button_icon_settings"
+CBCloseIconImage       = UIImage.imageNamed "assets/button_icon_cross"
+CBPlayIconImage        = UIImage.imageNamed "assets/button_icon_play"
+CBBookmarkIconImage    = UIImage.imageNamed "assets/button_icon_bookmark"
+CBBookmarkedIconImage  = UIImage.imageNamed "assets/button_icon_bookmarked"
+CBRobotProfileImage    = UIImage.imageNamed "assets/profile_pic_cable"
+CBTestProfileImage     = UIImage.imageNamed "assets/test/david.jpg"
+CBTransparentImage     = UIImage.imageNamed "assets/transparent"
+CBDefaultProfileImage  = UIImage.imageNamed "assets/transparent"
+CBPlayerPlayIconImage  = UIImage.imageNamed "assets/control_play"
+CBPlayerPauseIconImage = UIImage.imageNamed "assets/control_pause"
 CBMaxTrackImage       = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 CBMinTrackImage       = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 
@@ -56,6 +58,8 @@ CBMessageTimeLabelHeight = 15
 CBMessageMargin = 10
 CBProfileImageHeight = 60
 CBProfileImageWidth  = 60
+CBPlayingStatusIconWidth  = 50
+CBPlayingStatusIconHeight = 50
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
