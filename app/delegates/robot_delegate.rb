@@ -13,6 +13,10 @@ module RobotDelegate
       User.current.stream.connect response[:stream_url]
     end
     
+    if response[:are_songs_updated]
+      User.current.stream.update_songs_and_views
+    end
+    
     if response[:function_name_to_execute]
       self.performSelector response[:function_name_to_execute], withObject:nil, afterDelay:2.0
     end

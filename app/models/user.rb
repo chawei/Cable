@@ -13,19 +13,19 @@ class User
     @@current_user
   end
   
-  def initialize
-    user_id = 'david'
-    @stream = Stream.new(user_id)
-    
+  def self.init
+    current
+  end
+  
+  def initialize    
     @favorite_songs     ||= []
     @bookmarked_events  ||= []
     @recommended_events ||= []
     
     fetch_favorite_songs
     fetch_bookmarked_events
-    #fetch_streaming_songs
     
-    @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL    
+    @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
     fetch_auth_data
     greet_by_robot
   end
@@ -39,19 +39,44 @@ class User
   end
   
   def is_logged_in?
-    @auth_data != nil
+    @auth_data != nil && @auth_data.provider != 'anonymous'
   end
   
   def fetch_auth_data
     @auth_data = @firebase_ref.authData
+    
+    if @auth_data.nil?
+      @firebase_ref.authAnonymouslyWithCompletionBlock(lambda do |error, authData|
+        if error
+          NSLog "Login failed."
+        else
+          NSLog "Login successfully as an anonymous."
+          initialize_stream
+        end
+      end)
+    else
+      initialize_stream
+    end
+  end
+  
+  def initialize_stream
+    @stream = Stream.new(user_id)
   end
   
   def auth_data
     @auth_data
   end
   
-  def name
+  def user_id
     if @auth_data
+      @auth_data.uid
+    else
+      'anonymous'
+    end
+  end
+  
+  def name
+    if is_logged_in?
       @auth_data.providerData['displayName']
     else
       "Awesome Cabler"

@@ -14,13 +14,6 @@ class CardStackView < UIView
     end
   end
   
-  def initialize_card_views
-    User.current.stream.fetch do |songs|
-      # TODO: review this part (performance)
-      reload_card_views_if_necessary
-    end
-  end
-  
   def reload_card_views_if_necessary(max_card_view_num=3)
     return if subviews.length >= max_card_view_num
     

@@ -30,6 +30,7 @@ class HomeViewController < CBUIViewController
   end
   
   def start
+    User.init
     Robot.instance.delegate = self
     
     UIApplication.sharedApplication.beginReceivingRemoteControlEvents
@@ -42,8 +43,6 @@ class HomeViewController < CBUIViewController
     
     tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
     @card_stack_view.addGestureRecognizer tap_recognizer
-    
-    @card_stack_view.initialize_card_views
   end
   
   def set_buttons
@@ -79,7 +78,7 @@ class HomeViewController < CBUIViewController
   end
   
   def message_box_did_send(message)
-    request = { :message => message, :mode => 'message' }
+    request = { :message => message, :mode => 'message', :user_id => User.current.user_id }
     Robot.instance.listen request
     @messages_view_controller.send_message(message)
   end

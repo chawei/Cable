@@ -138,6 +138,8 @@ module VideoPlayer
   end
   
   def retry_url_extraction_using_another_method
+    return if @current_playing_object.nil?
+    
     youtube_id = @current_playing_object.youtube_id
     if @tried_num < CBMaxNumOfTry
       NSLog "try again #{youtube_id}"
