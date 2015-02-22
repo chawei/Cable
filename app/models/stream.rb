@@ -126,6 +126,8 @@ class Stream
         else
           Player.instance.end_and_clear_by_user
           update_ui
+          
+          App.card_stack_view.play_top_card_view
         end
       end
     end), withCancelBlock:(lambda do |error|
