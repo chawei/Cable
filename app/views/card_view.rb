@@ -226,7 +226,8 @@ class CardView < UIView
   end
   
   def add_liked_users_view
-    @liked_users_view = UIView.alloc.init
+    @liked_users_view = LikedUsersView.alloc.init
+    @liked_users_view.delegate = self
     @liked_users_view.frame = [[card_padding, self.size.height-32-CBDefaultMargin],
       [card_width-card_padding*2, 32+CBDefaultMargin]]
       
@@ -245,35 +246,49 @@ class CardView < UIView
       if song_object  
         liked_users = song_object.liked_users
         liked_users.each_index do |index|
-          user_pic_url     = liked_users[index][:user_profile_url]
-          user_image       = UIImage.imageNamed user_pic_url
-          heart_icon_image = UIImage.imageNamed "assets/icon_friend_like"
+          user_pic_url = NSURL.URLWithString liked_users[index][:user_profile_url]
+          
+          SDWebImageDownloader.sharedDownloader.downloadImageWithURL user_pic_url,
+            options:0,
+            progress:(lambda do |receivedSize, expectedSize|
+            end),
+            completed:(lambda do |image, data, error, finished|
+              if image && finished
+                user_image       = image
+                heart_icon_image = UIImage.imageNamed "assets/icon_friend_like"
     
-          new_size = CGSizeMake(64, 64)
-          UIGraphicsBeginImageContext(new_size)
-          user_image.drawInRect CGRectMake(0,6,52,52)
-          heart_icon_image.drawInRect CGRectMake(40,40,24,24), blendMode:KCGBlendModeNormal, alpha:1.0
-          blended_image = UIGraphicsGetImageFromCurrentImageContext()
-          UIGraphicsEndImageContext()
+                new_size = CGSizeMake(64, 64)
+                UIGraphicsBeginImageContext(new_size)
+                user_image.drawInRect CGRectMake(0,6,52,52)
+                heart_icon_image.drawInRect CGRectMake(40,40,24,24), blendMode:KCGBlendModeNormal, alpha:1.0
+                blended_image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
     
-          user_button       = UIButton.buttonWithType UIButtonTypeCustom
-          user_button.frame = [[(32+5)*index, 0], [32, 32]]
-          user_button.setImage blended_image, forState:UIControlStateNormal
-          user_button.addTarget self, action:"press_user_button", forControlEvents:UIControlEventTouchUpInside
+                user_button       = UIButton.buttonWithType UIButtonTypeCustom
+                user_button.frame = [[(32+5)*index, 0], [32, 32]]
+                user_button.setImage blended_image, forState:UIControlStateNormal
+                user_button.addTarget self, action:"press_user_button", forControlEvents:UIControlEventTouchUpInside
       
-          @liked_users_view.addSubview user_button
+                @liked_users_view.addSubview user_button
+              end
+            end)
         end
+        
+        update_liked_users_view_frame
       end
-      
-      if App.is_small_screen?
-        update_liked_users_view_at_the_bottom
-      else
-        update_liked_users_view_after_view @time_slider_view
-      end
-      
-      if @liked_users_view.subviews.length == 0
-        @liked_users_view.frame = [@liked_users_view.origin, [0, 0]]
-      end
+    end
+  end
+  
+  def update_liked_users_view_frame
+    if App.is_small_screen?
+      update_liked_users_view_at_the_bottom
+    else
+      update_liked_users_view_after_view @time_slider_view
+    end
+    
+    liked_users = song_object.liked_users
+    if liked_users.length == 0
+      @liked_users_view.frame = [@liked_users_view.origin, [0, 0]]
     end
   end
   

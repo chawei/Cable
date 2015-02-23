@@ -33,10 +33,12 @@ class SongObject
   def liked_users
     [{
       :user_id => 123,
-      :user_profile_url => "assets/test/kevin.jpg"
+      :user_profile_url => "http://graph.facebook.com/10152803559949434/picture?width=64&height=64"
     }, {
       :user_id => 345,
-      :user_profile_url => "assets/test/ann.jpg"
+      :user_profile_url => "http://graph.facebook.com/10152673628547503/picture?width=64&height=64"
     }]
+    
+    []
   end
 end
