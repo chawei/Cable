@@ -121,8 +121,7 @@ class Robot
   end
   
   def say_hello
-    messages = ["Welcome to Cable!", 
-      "I'm your personal music assistant. Tell me what you like and I'll find some awesome music for you!",
+    messages = ["Welcome to Cable!\nI'm your personal music assistant. Tell me what you like and I'll find some awesome music for you!",
       "ex. John Mayer, Afternoon, Workout, Party time."
     ]
       
@@ -131,7 +130,8 @@ class Robot
         :type => 'text',
         :text => message,
         :time_text => DateFormatter.toHumanReadableTime(Time.now),
-        :direction => 'left'
+        :direction => 'left',
+        :is_question => true
       }
       queue_message_object message_object
     end

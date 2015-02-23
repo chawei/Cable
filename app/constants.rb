@@ -33,6 +33,7 @@ CBMessageCellReuseIdentifier   = "MESSAGE_CELL_IDENTIFIER"
 CBBlackColor      = UIColor.colorWithRed 60/255.0, green:60/255.0, blue:60/255.0, alpha:1.0
 CBLightGrayColor  = UIColor.colorWithRed 200/255.0, green:200/255.0, blue:200/255.0, alpha:1.0
 CBLightWhiteColor = UIColor.colorWithRed 240/255.0, green:240/255.0, blue:240/255.0, alpha:1.0
+CBYellowColor     = UIColor.colorWithRed 253/255.0, green:195/255.0, blue:0/255.0, alpha:1.0
 
 CBHomeViewPadding         = 16
 CBDefaultMargin           = 16
@@ -60,6 +61,8 @@ CBProfileImageHeight = 60
 CBProfileImageWidth  = 60
 CBPlayingStatusIconWidth  = 50
 CBPlayingStatusIconHeight = 50
+CBYesNoButtonHeight = 32
+CBYesNoButtonWidth  = 50
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
