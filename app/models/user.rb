@@ -22,10 +22,6 @@ class User
     @bookmarked_events  ||= []
     @recommended_events ||= []
     
-    fetch_favorite_songs
-    fetch_recommended_events
-    fetch_bookmarked_events
-    
     @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
     fetch_auth_data
     greet_by_robot
@@ -52,12 +48,20 @@ class User
           NSLog "Login failed."
         else
           NSLog "Login successfully as an anonymous."
-          initialize_stream
+          establish_data_refs
         end
       end)
     else
-      initialize_stream
+      establish_data_refs
     end
+  end
+  
+  def establish_data_refs
+    initialize_stream
+    
+    establish_favorites_ref
+    fetch_recommended_events
+    fetch_bookmarked_events
   end
   
   def initialize_stream
@@ -100,24 +104,49 @@ class User
     end
   end
   
-  def fetch_favorite_songs
-    @favorite_songs = [{
-      :title => 'House of Cards (Rainbow Album 2010)', :subtitle => 'Radiohead', 
-      :source => 'youtube', :video_id => '8nTFjVm9sTQ',
-      :image_url => 'http://i.ytimg.com/vi/8nTFjVm9sTQ/mqdefault.jpg'
-    }, {
-      :title => '旺福-晴天娃娃', :subtitle => '', 
-      :source => 'youtube', :video_id => 'zM46TDpw69U',
-      :image_url => 'http://i.ytimg.com/vi/zM46TDpw69U/hqdefault.jpg'
-    }, {
-      :title => 'John Mayer - Waiting on the World to Change', :subtitle => 'John Mayer', 
-      :source => 'youtube', :video_id => 'oBIxScJ5rlY',
-      :image_url => 'http://i.ytimg.com/vi/oBIxScJ5rlY/hqdefault.jpg'
-    }, {
-      :title => 'Souls Like the Wheels', :subtitle => 'The Avett Brothers',
-      :source => 'youtube', :video_id => 'PeRxjkfTmVc',
-      :image_url => 'http://i.ytimg.com/vi/PeRxjkfTmVc/hqdefault.jpg'
-    }]
+  def establish_favorites_ref    
+    @favorites_ref  = @firebase_ref.childByAppendingPath "favorites/#{user_id}/songs"
+    @favorites_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
+      if snapshot.value
+        @favorite_songs = snapshot.value.clone
+      else
+        @favorite_songs = []
+      end
+      if App.profile_view_controller
+        App.profile_view_controller.refresh_fav_table
+      end
+    end), withCancelBlock:(lambda do |error|
+      NSLog("%@", error.description) 
+    end)
+  end
+  
+  def add_favorite_song(song)
+    remove_favorite_song(song)
+    @favorite_songs.insert(0, song)
+    
+    @favorites_ref.setValue @favorite_songs
+  end
+  
+  def remove_favorite_song(song)
+    @favorite_songs.each_index do |index|
+      favorite_song = @favorite_songs[index]
+      if favorite_song[:video_id] == song[:video_id]
+        @favorite_songs.delete_at(index)
+      end
+    end
+    
+    @favorites_ref.setValue @favorite_songs
+  end
+  
+  def has_favorited_song?(song)    
+    @favorite_songs.each_index do |index|
+      favorite_song = @favorite_songs[index]
+      if favorite_song[:video_id] == song[:video_id]
+        return true
+      end
+    end
+    
+    return false
   end
   
   def fetch_recommended_events

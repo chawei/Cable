@@ -112,6 +112,11 @@ class ProfileViewController < CBUIViewController
     @user.bookmarked_events
   end
   
+  def refresh_fav_table
+    @objects = fetch_song_objects
+    @fav_table_view.reloadData
+  end
+  
   def segmented_control_changed(sender)
     selected_segment = sender.selectedSegmentIndex
     case selected_segment

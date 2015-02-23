@@ -9,6 +9,7 @@ class HomeViewController < CBUIViewController
   
   attr_accessor :card_stack_view
   attr_accessor :messages_view_controller
+  attr_accessor :profile_view_controller
   
   def viewWillAppear(animated)
     super

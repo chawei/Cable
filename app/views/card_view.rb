@@ -393,6 +393,7 @@ class CardView < UIView
     update_source_button
     update_liked_users_view
     update_media_info_view
+    update_like_button
   end
   
   def update_source_button
@@ -421,12 +422,28 @@ class CardView < UIView
     @remain_time_label.text = remain_sec_str
   end
   
+  def update_like_button
+    if song_object
+      if User.current.has_favorited_song?(song_object.hash)
+        @like_button.setImage CBLikedIconImage, forState:UIControlStateNormal
+      else
+        @like_button.setImage CBLikeIconImage, forState:UIControlStateNormal
+      end
+    end
+  end
+  
   def toggle_like_button
     current_state_image = @like_button.imageForState UIControlStateNormal
     if current_state_image == CBLikeIconImage
-      @like_button.setImage CBLikedIconImage, forState:UIControlStateNormal
+      if song_object
+        @like_button.setImage CBLikedIconImage, forState:UIControlStateNormal
+        User.current.add_favorite_song song_object.hash
+      end
     else
-      @like_button.setImage CBLikeIconImage, forState:UIControlStateNormal
+      if song_object
+        @like_button.setImage CBLikeIconImage, forState:UIControlStateNormal
+        User.current.remove_favorite_song song_object.hash
+      end
     end
   end
   

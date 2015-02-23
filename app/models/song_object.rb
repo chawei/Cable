@@ -5,6 +5,7 @@ class SongObject
   attr_accessor :source
   attr_accessor :video_id
   attr_accessor :image_url
+  attr_accessor :duration
   
   def initialize(params)
     self.title     = params[:title]
@@ -12,6 +13,7 @@ class SongObject
     self.source    = params[:source]
     self.video_id  = params[:video_id]
     self.image_url = params[:image_url]
+    self.duration  = params[:duration]
   end
   
   def id
@@ -28,6 +30,17 @@ class SongObject
     if is_from_youtube?
       video_id
     end
+  end
+  
+  def hash
+    {
+      :video_id  => video_id,
+      :title     => title,
+      :subtitle  => subtitle,
+      :source    => source,
+      :image_url => image_url,
+      :duration  => duration
+    }
   end
   
   def liked_users
