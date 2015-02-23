@@ -7,7 +7,10 @@ module RobotDelegate
       :time_text => DateFormatter.toHumanReadableTime(Time.now),
       :direction => 'left'
     }
-    Robot.instance.queue_message_object(message_object)
+    
+    if response[:suggested_tags]
+      message_object[:tags] = response[:suggested_tags]
+    end
     
     if response[:stream_url]
       User.current.stream.connect response[:stream_url]
@@ -20,6 +23,8 @@ module RobotDelegate
     if response[:function_name_to_execute]
       self.performSelector response[:function_name_to_execute], withObject:nil, afterDelay:2.0
     end
+    
+    Robot.instance.queue_message_object(message_object)
   end
   
   def show_robot_message(message_object)
