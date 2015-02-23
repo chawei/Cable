@@ -27,7 +27,13 @@ module RobotDelegate
     Robot.instance.queue_message_object(message_object)
   end
   
+  def waiting_for_response
+    @messages_view_controller.show_responding_status
+  end
+  
   def show_robot_message(message_object)
+    @messages_view_controller.hide_responding_status
+    
     show_message_ui
     @messages_view_controller.show_message_object(message_object)
   end

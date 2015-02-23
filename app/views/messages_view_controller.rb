@@ -131,6 +131,25 @@ class MessagesViewController < UICollectionViewController
     update_content_view_frame
   end
   
+  def show_responding_status
+    message_object = {
+      :type => 'responding',
+      :text => 'typing...',
+      :time_text => "",
+      :direction => 'left'
+    }
+    show_message_object message_object
+  end
+  
+  def hide_responding_status
+    message_object = @message_objects[-1]
+    if message_object && message_object[:type] == 'responding'
+      @message_objects.delete_at(-1)
+    end
+    collectionView.reloadData
+    update_content_view_frame
+  end
+  
   def send_message(message)
     message_object = {
       :type => 'text',

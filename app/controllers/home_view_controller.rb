@@ -78,9 +78,10 @@ class HomeViewController < CBUIViewController
   end
   
   def message_box_did_send(message)
+    @messages_view_controller.send_message(message)
+    
     request = { :message => message, :mode => 'message', :user_id => User.current.user_id }
     Robot.instance.listen request
-    @messages_view_controller.send_message(message)
   end
   
   def update_frame_with_keyboard_height(keyboard_height)

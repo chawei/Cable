@@ -73,8 +73,8 @@ class Robot
   end
   
   def loading
-    if @delegate && @delegate.respond_to?('loading')
-      @delegate.loading
+    if @delegate && @delegate.respond_to?('waiting_for_response')
+      @delegate.waiting_for_response
     end
   end
   

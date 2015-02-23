@@ -120,6 +120,8 @@ class MessageViewCell < UICollectionViewCell
   end
     
   def update_view
+    update_label_color
+    
     message_container_width = @message_label.size.width+CBMessagePadding*2+CBMessageProfileImageWidth
     message_container_size  = [message_container_width, message_container_height]
     
@@ -147,6 +149,14 @@ class MessageViewCell < UICollectionViewCell
     self.contentView.frame = [self.contentView.origin, [self.contentView.size.width, @message_container.size.height+CBMessagePadding]]
     
     update_profile_image_view
+  end
+  
+  def update_label_color
+    if @message_object[:type] == 'responding'
+      @message_label.textColor = CBLightGrayColor
+    else
+      @message_label.textColor = CBBlackColor
+    end
   end
   
   def message_container_height
