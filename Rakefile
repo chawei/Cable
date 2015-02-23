@@ -30,6 +30,9 @@ Motion::Project::App.setup do |app|
   # LBYouTubeView
   app.vendor_project('vendor/LBYouTubeView', :static, :cflags => "-fobjc-arc")
   
+  # DWTagList
+  app.vendor_project('vendor/DWTagList', :static, :cflags => "-fobjc-arc")
+  
   app.pods do
     pod 'SDWebImage'
     pod 'XCDYouTubeKit'

@@ -13,7 +13,7 @@ class MessageViewCell < UICollectionViewCell
     @message_container = UIView.alloc.init
     @message_container.backgroundColor = UIColor.whiteColor
     
-    @message_label_constraint_size = [self.size.width-CBMessagePadding*3-CBMessageTimeLabelWidth-CBMessageProfileImageWidth, 400]
+    @message_label_constraint_size = [max_inner_width, 400]
     @message_label = UILabel.alloc.initWithFrame [[CBMessageProfileImageWidth, CBMessagePadding], 
       @message_label_constraint_size]
     @message_label.numberOfLines = 0
@@ -29,12 +29,17 @@ class MessageViewCell < UICollectionViewCell
     @time_label.text = "now"
     
     add_yes_no_buttons
+    add_tag_list
     
     self.contentView.addSubview @time_label
     self.contentView.addSubview @message_container
     self.contentView.addSubview @profile_image_view
     
     self
+  end
+  
+  def max_inner_width
+    self.size.width-CBMessagePadding*3-CBMessageTimeLabelWidth-CBMessageProfileImageWidth
   end
   
   def add_yes_no_buttons
@@ -53,7 +58,7 @@ class MessageViewCell < UICollectionViewCell
     @buttons_container.addSubview @yes_button
     
     @no_button = UIButton.buttonWithType UIButtonTypeCustom
-    @no_button.frame = [[@yes_button.size.width+10, 0], [CBYesNoButtonWidth, CBYesNoButtonHeight]]
+    @no_button.frame = [[@yes_button.size.width+CBMessagePadding, 0], [CBYesNoButtonWidth, CBYesNoButtonHeight]]
     @no_button.addTarget self, action:"press_no_button", forControlEvents:UIControlEventTouchUpInside
     @no_button.setTitle "NO", forState:UIControlStateNormal
     @no_button.titleLabel.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
@@ -67,14 +72,35 @@ class MessageViewCell < UICollectionViewCell
     @message_container.addSubview @buttons_container
   end
   
+  def add_tag_list
+    @tag_list = DWTagList.alloc.initWithFrame CGRectMake(CBMessageProfileImageWidth, 0, max_inner_width, 150.0)
+    @tag_list.font = UIFont.fontWithName(CBRegularFontName, size:16.0)
+    @tag_list.textShadowOffset = [0, 0]
+    @tag_list.setTagBackgroundColor CBYellowColor
+    @tag_list.setTagHighlightColor CBHighlightedYellowColor
+    @tag_list.setCornerRadius CBRoundedCornerRadius
+    @tag_list.setBorderWidth 0.0
+    @tag_list.setTextColor UIColor.whiteColor
+    @tag_list.setTagDelegate self
+    
+    @message_container.addSubview @tag_list
+  end
+  
+  def selectedTag(tagName, tagIndex:tagIndex)
+    request  = { :message => tagName, :mode => 'text', :user_id => User.current.user_id }
+    Robot.instance.listen request
+  end
+  
   def get_height_of_message_object(message_object)
-    #message_object = message_object
     @message_label.text = message_object[:text]
     @message_label.setVerticalAlignmentTopWithConstraintSize @message_label_constraint_size
     
     message_cell_height = @message_label.size.height+CBMessagePadding*2+CBMessagePadding
     if message_object[:is_question]
       message_cell_height = message_cell_height+CBYesNoButtonHeight+CBMessagePadding
+    elsif message_object[:tags]
+      @tag_list.setTags message_object[:tags]
+      message_cell_height += (@tag_list.fittedSize.height+CBMessagePadding)
     end
     
     message_cell_height
@@ -95,19 +121,7 @@ class MessageViewCell < UICollectionViewCell
     
   def update_view
     message_container_width = @message_label.size.width+CBMessagePadding*2+CBMessageProfileImageWidth
-    
-    if @is_question
-      @buttons_container.hidden = false
-      @buttons_container.frame = [
-        [CBMessageProfileImageWidth, @message_label.origin.y+@message_label.size.height+CBMessagePadding],
-        [button_container_width, CBYesNoButtonHeight]]
-        
-      message_container_size = [message_container_width, 
-        @buttons_container.origin.y+@buttons_container.size.height+CBMessagePadding]
-    else
-      @buttons_container.hidden = true  
-      message_container_size = [message_container_width, @message_label.size.height+CBMessagePadding*2]
-    end
+    message_container_size  = [message_container_width, message_container_height]
     
     if @direction == 'left'
       @message_container.frame = [[CBMessagePadding, 0], message_container_size]
@@ -133,6 +147,33 @@ class MessageViewCell < UICollectionViewCell
     self.contentView.frame = [self.contentView.origin, [self.contentView.size.width, @message_container.size.height+CBMessagePadding]]
     
     update_profile_image_view
+  end
+  
+  def message_container_height
+    if @is_question
+      @buttons_container.hidden = false
+      @buttons_container.frame = [
+        [CBMessageProfileImageWidth, @message_label.origin.y+@message_label.size.height+CBMessagePadding],
+        [button_container_width, CBYesNoButtonHeight]]
+        
+      @message_container_height = @buttons_container.origin.y+@buttons_container.size.height+CBMessagePadding
+    else
+      @buttons_container.hidden = true  
+      @message_container_height = @message_label.size.height+CBMessagePadding*2
+    end
+    
+    if @message_object[:tags]
+      @tag_list.hidden = false
+      @tag_list.setTags @message_object[:tags] # need to setTags here, otherwise fittedSize will be wrong
+      @tag_list.frame = [
+        [@tag_list.origin.x, @message_label.origin.y+@message_label.size.height+CBMessagePadding], @tag_list.fittedSize]
+        
+      @message_container_height = @tag_list.origin.y+@tag_list.fittedSize.height+CBMessagePadding
+    else
+      @tag_list.hidden = true
+    end
+    
+    @message_container_height
   end
   
   def button_container_width

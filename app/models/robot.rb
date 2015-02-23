@@ -30,7 +30,7 @@ class Robot
       block:(lambda do |observer, object, change|
         if message_queue.count > 0
           if @message_timer.nil?
-            @message_timer = NSTimer.scheduledTimerWithTimeInterval 1.5, target:self, 
+            @message_timer = NSTimer.scheduledTimerWithTimeInterval 0.5, target:self, 
               selector:"pop_message_queue", userInfo:nil, repeats:true
           end
         else
@@ -120,21 +120,35 @@ class Robot
     end
   end
   
-  def say_hello
-    messages = ["Welcome to Cable!\nI'm your personal music assistant. Tell me what you like and I'll find some awesome music for you!",
-      "ex. John Mayer, Afternoon, Workout, Party time."
-    ]
-      
-    messages.each do |message|
-      message_object = {
-        :type => 'text',
-        :text => message,
-        :time_text => DateFormatter.toHumanReadableTime(Time.now),
-        :direction => 'left',
-        :is_question => true
-      }
-      queue_message_object message_object
-    end
+  def say_hello    
+    message = "Welcome to Cable!\nI'm your personal music assistant. Tell me what you like and I'll find some awesome music for you!"
+    message_object = {
+      :type => 'text',
+      :text => message,
+      :time_text => DateFormatter.toHumanReadableTime(Time.now),
+      :direction => 'left'
+    }
+    queue_message_object message_object
+    
+    message = "What music do you wanna play?"
+    message_object = {
+      :type => 'text',
+      :text => message,
+      :time_text => DateFormatter.toHumanReadableTime(Time.now),
+      :direction => 'left',
+      :tags => ["Afternoon", "John Mayer", "Help me focus"]
+    }
+    queue_message_object message_object
+    
+    message = "Or do you wanna play some jazz music?"
+    message_object = {
+      :type => 'text',
+      :text => message,
+      :time_text => DateFormatter.toHumanReadableTime(Time.now),
+      :direction => 'left',
+      :is_question => true
+    }
+    queue_message_object message_object
   end
   
 end
