@@ -128,7 +128,7 @@ class User
     
     @favorites_ref.setValue @favorite_songs
     
-    Robot.instance.send_like_request_with_song(song)
+    Robot.instance.send_like_event_with_song(song)
   end
   
   def remove_favorite_song(song)
@@ -141,7 +141,7 @@ class User
     
     @favorites_ref.setValue @favorite_songs
     
-    Robot.instance.send_unlike_request_with_song(song)
+    Robot.instance.send_unlike_event_with_song(song)
   end
   
   def has_favorited_song?(song)    

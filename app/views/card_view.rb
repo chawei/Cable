@@ -560,6 +560,9 @@ class CardView < UIView
                          self.center = new_center
                        end),
                      completion:(lambda do |finished|
+                         if song_object
+                           Robot.instance.send_swipe_event_with_song song_object.hash
+                         end
                          remove_by_user
                        end))
   end
