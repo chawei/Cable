@@ -17,6 +17,20 @@ class User
     current
   end
   
+  def self.login_as_anonymous_with_block(block)
+    PFAnonymousUtils.logInWithBlock(lambda do |user, error|
+      if error
+        NSLog "Anonymous login failed."
+      else
+        NSLog "Anonymous user logged in."
+      end
+      
+      if block
+        block.call(user)
+      end
+    end)
+  end
+  
   def initialize    
     @favorite_songs     ||= []
     @bookmarked_events  ||= []
@@ -36,23 +50,16 @@ class User
   end
   
   def is_logged_in?
-    @auth_data != nil && @auth_data.provider != 'anonymous'
+    PFUser.currentUser != nil
   end
   
   def fetch_auth_data
-    @auth_data = @firebase_ref.authData
-    
-    if @auth_data.nil?
-      @firebase_ref.authAnonymouslyWithCompletionBlock(lambda do |error, authData|
-        if error
-          NSLog "Login failed."
-        else
-          NSLog "Login successfully as an anonymous."
-          establish_data_refs
-        end
-      end)
-    else
+    if is_logged_in?
       establish_data_refs
+    else
+      User.login_as_anonymous_with_block(lambda do |user|
+        establish_data_refs
+      end)
     end
   end
   
@@ -73,8 +80,8 @@ class User
   end
   
   def user_id
-    if @auth_data
-      @auth_data.uid
+    if PFUser.currentUser
+      PFUser.currentUser.objectId
     else
       'anonymous'
     end
@@ -82,7 +89,7 @@ class User
   
   def name
     if is_logged_in?
-      @auth_data.providerData['displayName']
+      PFUser.currentUser.objectForKey('name')
     else
       "Awesome Cabler"
     end
@@ -93,8 +100,8 @@ class User
   end
   
   def facebook_id
-    if @auth_data && @auth_data.provider == 'facebook'
-      @auth_data.providerData['id']
+    if PFUser.currentUser
+      PFUser.currentUser.objectForKey('facebookId')
     end
   end
   
