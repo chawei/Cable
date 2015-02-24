@@ -24,7 +24,9 @@ module RobotDelegate
       self.performSelector response[:function_name_to_execute], withObject:nil, afterDelay:2.0
     end
     
-    Robot.instance.queue_message_object(message_object)
+    if response[:message]
+      Robot.instance.queue_message_object(message_object)
+    end
   end
   
   def waiting_for_response

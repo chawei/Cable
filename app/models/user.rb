@@ -79,8 +79,12 @@ class User
   end
   
   def name
-    if is_logged_in?
-      PFUser.currentUser.objectForKey('name')
+    if PFUser.currentUser
+      if PFAnonymousUtils.isLinkedWithUser(PFUser.currentUser)
+        "Awesome Cabler"
+      else
+        PFUser.currentUser.objectForKey('name')
+      end
     else
       "Awesome Cabler"
     end
@@ -123,6 +127,8 @@ class User
     @favorite_songs.insert(0, song)
     
     @favorites_ref.setValue @favorite_songs
+    
+    Robot.instance.send_like_request_with_song(song)
   end
   
   def remove_favorite_song(song)
@@ -134,6 +140,8 @@ class User
     end
     
     @favorites_ref.setValue @favorite_songs
+    
+    Robot.instance.send_unlike_request_with_song(song)
   end
   
   def has_favorited_song?(song)    

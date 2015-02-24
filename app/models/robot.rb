@@ -125,4 +125,14 @@ class Robot
     listen(request)
   end
   
+  def send_like_request_with_song(song)
+    request = { :message => nil, :mode => 'like', :user_id => User.current.user_id, :song => song }
+    send_request_to_server(request)
+  end
+  
+  def send_unlike_request_with_song(song)
+    request = { :message => nil, :mode => 'unlike', :user_id => User.current.user_id, :song => song }
+    send_request_to_server(request)
+  end
+  
 end
