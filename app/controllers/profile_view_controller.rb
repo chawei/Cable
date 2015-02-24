@@ -134,7 +134,21 @@ class ProfileViewController < CBUIViewController
   end
   
   def press_setting_button
-    
+    @settings_view_controller = SettingsViewController.alloc.init
+    @settings_view_controller.view.frame = [[0, view.size.height], 
+      [view.size.width, view.size.height]]
+    #@@settings_view_controller.view.alpha  = CBInactiveAlphaValue
+
+    self.addChildViewController @settings_view_controller
+    self.view.addSubview @settings_view_controller.view
+    @settings_view_controller.didMoveToParentViewController self
+  
+    UIView.animateWithDuration 0.2, delay:0.0, options:UIViewAnimationOptionCurveEaseInOut, animations:(lambda do
+        @settings_view_controller.view.origin = [0, 0]
+        @settings_view_controller.view.alpha  = CBActiveAlphaValue
+      end), 
+      completion:(lambda do |finished|
+      end)
   end
   
   def toggle_display
