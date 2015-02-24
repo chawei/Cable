@@ -86,11 +86,6 @@ class MessageViewCell < UICollectionViewCell
     @message_container.addSubview @tag_list
   end
   
-  def selectedTag(tagName, tagIndex:tagIndex)
-    request  = { :message => tagName, :mode => 'text', :user_id => User.current.user_id }
-    Robot.instance.listen request
-  end
-  
   def get_height_of_message_object(message_object)
     @message_label.text = message_object[:text]
     @message_label.setVerticalAlignmentTopWithConstraintSize @message_label_constraint_size
@@ -215,6 +210,11 @@ class MessageViewCell < UICollectionViewCell
     question = @message_object[:text]
     message  = answer
     request  = { :message => message, :mode => 'answer', :question => question, :user_id => User.current.user_id }
+    Robot.instance.listen request
+  end
+  
+  def selectedTag(tagName, tagIndex:tagIndex)
+    request  = { :message => tagName, :mode => 'tag', :user_id => User.current.user_id }
     Robot.instance.listen request
   end
 end
