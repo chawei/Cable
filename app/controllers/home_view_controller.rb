@@ -31,8 +31,10 @@ class HomeViewController < CBUIViewController
   end
   
   def start
-    User.init
     Robot.instance.delegate = self
+    
+    User.init
+    Robot.instance.say_hello
     
     UIApplication.sharedApplication.beginReceivingRemoteControlEvents
   end

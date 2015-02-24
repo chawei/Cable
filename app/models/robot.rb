@@ -106,7 +106,7 @@ class Robot
   end
   
   def pop_message_queue
-    NSLog 'pop_message_queue'
+    #NSLog 'pop_message_queue'
     message_object = self.message_queue.shift
     if message_object
       self.message_queue = self.message_queue
@@ -120,35 +120,9 @@ class Robot
     end
   end
   
-  def say_hello    
-    message = "Welcome to Cable!\nI'm your personal music assistant. Tell me what you like and I'll find some awesome music for you!"
-    message_object = {
-      :type => 'text',
-      :text => message,
-      :time_text => DateFormatter.toHumanReadableTime(Time.now),
-      :direction => 'left'
-    }
-    queue_message_object message_object
-    
-    message = "What music do you wanna play?"
-    message_object = {
-      :type => 'text',
-      :text => message,
-      :time_text => DateFormatter.toHumanReadableTime(Time.now),
-      :direction => 'left',
-      :tags => ["Afternoon", "John Mayer", "Help me focus"]
-    }
-    queue_message_object message_object
-    
-    message = "Or do you wanna play some jazz music?"
-    message_object = {
-      :type => 'text',
-      :text => message,
-      :time_text => DateFormatter.toHumanReadableTime(Time.now),
-      :direction => 'left',
-      :is_question => true
-    }
-    queue_message_object message_object
+  def say_hello
+    request = { :message => 'hello', :mode => 'greeting', :user_id => User.current.user_id }
+    listen(request)
   end
   
 end

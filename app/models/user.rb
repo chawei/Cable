@@ -38,15 +38,6 @@ class User
     
     @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
     fetch_auth_data
-    greet_by_robot
-  end
-  
-  def greet_by_robot
-    if is_logged_in?
-      # recommend music
-    else
-      Robot.instance.say_hello
-    end
   end
   
   def is_logged_in?
