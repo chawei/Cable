@@ -113,6 +113,12 @@ class ProfileViewController < CBUIViewController
     @user.bookmarked_events
   end
   
+  def update_status
+    if @status_label
+      @status_label.text = @user.profile_status
+    end
+  end
+  
   def refresh_fav_table
     @objects = fetch_song_objects
     @fav_table_view.reloadData

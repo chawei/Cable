@@ -91,7 +91,19 @@ class User
   end
   
   def profile_status
-    "12 favorite songs / 33 event bookmarkers"
+    if @favorite_songs.count <= 1
+      fav_suffix = "favorite song"
+    else
+      fav_suffix = "favorite songs"
+    end
+    
+    if @bookmarked_events.count <= 1
+      event_suffix = "event bookmarker"
+    else
+      event_suffix = "event bookmarkers"
+    end
+    
+    "#{@favorite_songs.count} #{fav_suffix} / #{@bookmarked_events.count} #{event_suffix}"
   end
   
   def facebook_id
@@ -116,6 +128,7 @@ class User
       end
       if App.profile_view_controller
         App.profile_view_controller.refresh_fav_table
+        App.profile_view_controller.update_status
       end
     end), withCancelBlock:(lambda do |error|
       NSLog("%@", error.description) 
@@ -165,6 +178,7 @@ class User
       end
       if App.profile_view_controller
         App.profile_view_controller.refresh_events_table
+        App.profile_view_controller.update_status
       end
       if App.events_view_controller
         App.events_view_controller.refresh_bookmarked_table
