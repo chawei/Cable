@@ -7,7 +7,7 @@ class SongTableCell < UITableViewCell
   def init
     initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:CBSongTableCellReuseIdentifier)
     
-    @image_view = UIImageView.alloc.initWithImage CBTestProfileImage
+    @image_view = UIImageView.alloc.initWithImage CBDefaultProfileImage
     @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
     
     @source_image_view = UIImageView.alloc.initWithImage CBYouTubeIconImage

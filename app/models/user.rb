@@ -158,9 +158,17 @@ class User
   def fetch_recommended_events
     @recommended_events = [{
       :title => "The Von Trapps at The Chapel (February 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
+      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :artist_name => 'The Von Trapps',
+      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
     }, {
       :title => 'Paula Harris at Club Fox (March 02, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
+      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :artist_name => 'Paula Harris',
+      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
     }]
   end
@@ -168,15 +176,31 @@ class User
   def fetch_bookmarked_events
     @bookmarked_events = [{
       :title => "The Von Trapps at The Chapel (January 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
+      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :artist_name => 'The Von Trapps',
+      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
     }, {
       :title => 'The View from the Afternoon', :subtitle => 'Arctic Monkeys', :source => 'songkick',
+      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :artist_name => 'Arctic Monkeys',
+      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/32760011.png'
     }, {
       :title => 'Paula Harris at Club Fox (January 28, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
+      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :artist_name => 'Paula Harris',
+      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
     }, {
       :title => 'Sunny Afternoon', :subtitle => 'The Kinks', :source => 'songkick',
+      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :artist_name => 'The Kinks',
+      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
     }]
   end

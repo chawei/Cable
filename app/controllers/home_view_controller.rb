@@ -94,6 +94,8 @@ class HomeViewController < CBUIViewController
   def show_message_ui
     @card_stack_view.shrink
     @messages_view_controller.collectionView.hidden = false
+    #self.view.bringSubviewToFront @messages_view_controller.collectionView
+    #self.view.bringSubviewToFront @message_box
     
     logo_button.hidden    = true
     profile_button.hidden = true

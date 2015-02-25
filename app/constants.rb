@@ -29,7 +29,8 @@ CBMinTrackImage       = UIImage.imageNamed "assets/max_track.png", stretchableIm
 
 CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
 CBMessageCellReuseIdentifier   = "MESSAGE_CELL_IDENTIFIER"
-CBSettingsCellReuseIdentifier  = "SETTINGS_CELL_IDENTIFIER" 
+CBSettingsCellReuseIdentifier  = "SETTINGS_CELL_IDENTIFIER"
+CBEventCellReuseIdentifier     = "EVENT_CELL_IDENTIFIER"
 
 CBBlackColor      = UIColor.colorWithRed 60/255.0, green:60/255.0, blue:60/255.0, alpha:1.0
 CBLightGrayColor  = UIColor.colorWithRed 200/255.0, green:200/255.0, blue:200/255.0, alpha:1.0

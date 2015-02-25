@@ -1,11 +1,18 @@
 class EventViewController < CBUIViewController
   include Style
+  include TableViewDelegate
   include EventTableViewDelegate
   
   def init_with_event_object(event_object)
     init
     
+    @event_object = event_object
+    
     self
+  end
+  
+  def event_object
+    @event_object
   end
   
   def viewDidLoad
@@ -17,12 +24,13 @@ class EventViewController < CBUIViewController
   end
   
   def viewDidLayoutSubviews
-    #add_event_table_view
     add_action_bar_view
+    add_event_table_view
   end
   
   def add_event_table_view
-    @event_table_view = UITableView.alloc.init
+    @event_table_view = UITableView.alloc.initWithFrame [[0, 0], 
+      [view.size.width, view.size.height-@action_bar_view.size.height]]
     @event_table_view.delegate   = self
     @event_table_view.dataSource = self
     view.addSubview @event_table_view
@@ -44,12 +52,14 @@ class EventViewController < CBUIViewController
     @close_button.addTarget self, action:"press_close_button", forControlEvents:UIControlEventTouchUpInside
     @action_bar_view.addSubview @close_button
     
-    @play_button = UIButton.buttonWithType UIButtonTypeCustom
-    @play_button.frame = [[@action_bar_view.size.width-CBDefaultButtonWidth*2-CBDefaultMargin*2, CBDefaultMargin], 
-      [CBDefaultButtonWidth, CBDefaultButtonHeight]]
-    @play_button.setImage CBPlayIconImage, forState:UIControlStateNormal
-    @play_button.addTarget self, action:"press_play_button", forControlEvents:UIControlEventTouchUpInside
-    @action_bar_view.addSubview @play_button
+    if event_object && event_object[:artist_name]
+      @play_button = UIButton.buttonWithType UIButtonTypeCustom
+      @play_button.frame = [[@action_bar_view.size.width-CBDefaultButtonWidth*2-CBDefaultMargin*2, CBDefaultMargin], 
+        [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+      @play_button.setImage CBPlayIconImage, forState:UIControlStateNormal
+      @play_button.addTarget self, action:"press_play_button", forControlEvents:UIControlEventTouchUpInside
+      @action_bar_view.addSubview @play_button
+    end
     
     @bookmark_button = UIButton.buttonWithType UIButtonTypeCustom
     @bookmark_button.frame = [[@action_bar_view.size.width-CBDefaultButtonWidth-CBDefaultMargin, CBDefaultMargin], 
@@ -62,11 +72,28 @@ class EventViewController < CBUIViewController
   end
   
   def press_bookmark_button
-    
+    current_state_image = @bookmark_button.imageForState UIControlStateNormal
+    if current_state_image == CBBookmarkIconImage
+      if event_object
+        @bookmark_button.setImage CBBookmarkedIconImage, forState:UIControlStateNormal
+        #User.current.add_favorite_song song_object.hash
+      end
+    else
+      if event_object
+        @bookmark_button.setImage CBBookmarkIconImage, forState:UIControlStateNormal
+        #User.current.remove_favorite_song song_object.hash
+      end
+    end
   end
   
   def press_play_button
-    
+    if event_object && event_object[:artist_name]
+      request = { :message => event_object[:artist_name], :mode => 'artist_name', :user_id => User.current.user_id }
+      Robot.instance.listen request
+      
+      press_close_button
+      App.home_view_controller.tap_background
+    end
   end
   
   def press_close_button
