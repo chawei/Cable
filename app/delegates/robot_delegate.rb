@@ -5,7 +5,8 @@ module RobotDelegate
       :type => 'text',
       :text => response[:message],
       :time_text => DateFormatter.toHumanReadableTime(Time.now),
-      :direction => 'left'
+      :direction => 'left',
+      :is_question => response[:is_question]
     }
     
     if response[:suggested_tags]
