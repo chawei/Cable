@@ -1,33 +1,22 @@
 module EventsTableViewDelegate
-  
-  def tableView(tableView, willDisplayCell:cell, forRowAtIndexPath:indexPath)
-    if tableView.respondsToSelector "setSeparatorInset:"
-      tableView.setSeparatorInset UIEdgeInsetsZero
-    end
-
-    if tableView.respondsToSelector "setLayoutMargins:"
-      tableView.setLayoutMargins UIEdgeInsetsZero
-    end
-    
-    if cell.respondsToSelector "setLayoutMargins:"
-      cell.setLayoutMargins UIEdgeInsetsZero
-    end
-  end
 
   def tableView(tableView, heightForRowAtIndexPath:indexPath)
     92 # 60 + 16*2
+  end
+  
+  def objects_of_table_view(table_view)
+    if table_view == @recommended_table_view
+      recommended_objects
+    elsif table_view == @bookmarked_table_view
+      bookmarked_objects
+    end
   end
 
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
     tableView.deselectRowAtIndexPath indexPath, animated:true
     
-    if tableView == @recommended_table_view
-      NSLog "show event"
-    elsif tableView == @bookmarked_table_view
-      NSLog "show event"
-    end
-    
-    object = @objects[indexPath.row]
+    objects = objects_of_table_view(tableView)
+    object  = objects[indexPath.row]
     App.show_event_page object
   end
   
@@ -48,8 +37,9 @@ module EventsTableViewDelegate
     cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
       SongTableCell.alloc.init
     end
-  
-    object = @objects[indexPath.row]
+    
+    objects = objects_of_table_view(tableView)
+    object  = objects[indexPath.row]
     cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
                    placeholderImage:nil
   
@@ -65,7 +55,8 @@ module EventsTableViewDelegate
   end
 
   def tableView(tableView, numberOfRowsInSection:section)
-    @objects.count
+    objects = objects_of_table_view(tableView)
+    objects.count
   end
 
   def tableView(tableView, titleForHeaderInSection:section)

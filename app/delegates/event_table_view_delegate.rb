@@ -1,13 +1,7 @@
 module EventTableViewDelegate
   
   def event_data
-    @event_data = [
-      { :title => "Event name", :detail => event_object[:title] },
-      { :title => "Event time", :detail => event_object[:event_time] },
-      { :title => "Line up", :detail => event_object[:artist_name] },
-      { :title => "Biographies", :detail => event_object[:bio] },
-      { :title => "Official website", :detail => event_object[:link] }
-    ]
+    @event_data
   end
   
   def template_cell

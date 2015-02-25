@@ -1,5 +1,6 @@
 class ProfileViewController < CBUIViewController
   include Style
+  include TableViewDelegate
   include ProfileTableViewDelegate
   
   def viewDidLoad
@@ -115,6 +116,11 @@ class ProfileViewController < CBUIViewController
   def refresh_fav_table
     @objects = fetch_song_objects
     @fav_table_view.reloadData
+  end
+  
+  def refresh_events_table
+    @objects = fetch_event_objects
+    @event_table_view.reloadData
   end
   
   def segmented_control_changed(sender)

@@ -58,8 +58,8 @@ class User
     initialize_stream
     
     establish_favorites_ref
+    establish_bookmarked_events_ref
     fetch_recommended_events
-    fetch_bookmarked_events
   end
   
   def initialize_stream
@@ -155,51 +155,77 @@ class User
     return false
   end
   
-  def fetch_recommended_events
-    @recommended_events = [{
-      :title => "The Von Trapps at The Chapel (February 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
-      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
-      :artist_name => 'The Von Trapps',
-      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
-      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
-    }, {
-      :title => 'Paula Harris at Club Fox (March 02, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
-      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
-      :artist_name => 'Paula Harris',
-      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
-      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
-    }]
+  def establish_bookmarked_events_ref    
+    @bookmarked_events_ref = @firebase_ref.childByAppendingPath "events/#{user_id}/bookmarked"
+    @bookmarked_events_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
+      if snapshot.value
+        @bookmarked_events = snapshot.value.clone
+      else
+        @bookmarked_events = []
+      end
+      if App.profile_view_controller
+        App.profile_view_controller.refresh_events_table
+      end
+      if App.events_view_controller
+        App.events_view_controller.refresh_bookmarked_table
+      end
+    end), withCancelBlock:(lambda do |error|
+      NSLog("%@", error.description) 
+    end)
   end
   
-  def fetch_bookmarked_events
-    @bookmarked_events = [{
-      :title => "The Von Trapps at The Chapel (January 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
-      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
-      :artist_name => 'The Von Trapps',
-      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+  def bookmark_event(event)
+    unbookmark_event event
+    @bookmarked_events.insert(0, event)
+    
+    @bookmarked_events_ref.setValue @bookmarked_events
+  end
+  
+  def unbookmark_event(event)
+    @bookmarked_events.each_index do |index|
+      bookmarked_event = @bookmarked_events[index]
+      if bookmarked_event[:id] == event[:id]
+        @bookmarked_events.delete_at(index)
+      end
+    end
+    
+    @bookmarked_events_ref.setValue @bookmarked_events
+  end
+  
+  def has_bookmarked_event?(event)
+    @bookmarked_events.each_index do |index|
+      bookmarked_event = @bookmarked_events[index]
+      if bookmarked_event[:id] == event[:id]
+        return true
+      end
+    end
+    
+    return false
+  end
+  
+  def fetch_recommended_events
+    @recommended_events = [{
+      :id => 1,
+      :title => "The Von Trapps at The Chapel (February 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
+      :event_time => "February 28th, 2015 6:00PM - 10:00PM",
+      :artist_name => 'The von Trapps',
+      :bio => "The von Trapps is a musical group made up of Sofia, Melanie, Amanda and August von Trapp, descendants of the Trapp Family Singers.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
     }, {
-      :title => 'The View from the Afternoon', :subtitle => 'Arctic Monkeys', :source => 'songkick',
-      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
-      :artist_name => 'Arctic Monkeys',
-      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :id => 2,
+      :title => "Sean Hayes at The New Parish (February 20, 2015)", :subtitle => 'Sean Hayes', :source => 'songkick',
+      :event_time => "February 20th, 2015 6:00PM - 10:00PM",
+      :artist_name => 'Sean Hayes',
+      :bio => "Hayes is a native of New York City, but was raised in North Carolina. He began playing traditional American and Irish music with a band called the Boys of Bluehill. He traveled the south, from the Black Mountain Music festival (LEAF Festival) in the Blue Ridge Mountains down to Charleston, South Carolina and eventually found his way to San Francisco, where he has lived since 1992.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/32760011.png'
+      :image_url => 'http://userserve-ak.last.fm/serve/126/94602735.png'
     }, {
-      :title => 'Paula Harris at Club Fox (January 28, 2015)', :subtitle => 'Paula Harris', :source => 'songkick',
-      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
-      :artist_name => 'Paula Harris',
-      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
-      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/75018252.jpg'
-    }, {
-      :title => 'Sunny Afternoon', :subtitle => 'The Kinks', :source => 'songkick',
+      :id => 3,
+      :title => 'The Kinks at The Chapel (March 01, 2015)', :subtitle => 'The Kinks', :source => 'songkick',
       :event_time => "March 1st, 2015 6:00PM - 10:00PM",
       :artist_name => 'The Kinks',
-      :bio => "Bob Dylan is an American singer-songwriter, artist and writer. He has been influential in popular music and culture for more than five decades.",
+      :bio => "The Kinks were an English rock band formed in Muswell Hill, North London, by brothers Dave Davies and Ray Davies with Pete Quaife in 1963.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
     }]

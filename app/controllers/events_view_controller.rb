@@ -1,5 +1,6 @@
 class EventsViewController < CBUIViewController
   include Style
+  include TableViewDelegate
   include EventsTableViewDelegate
   
   def viewDidLoad
@@ -12,7 +13,6 @@ class EventsViewController < CBUIViewController
     
     apply_rounded_corner
     
-    @objects = recommended_objects
     add_observers
   end
   
@@ -73,16 +73,18 @@ class EventsViewController < CBUIViewController
     selected_segment = sender.selectedSegmentIndex
     case selected_segment
     when 0
-      @objects = recommended_objects
       @recommended_table_view.reloadData
       @recommended_table_view.hidden   = false
       @bookmarked_table_view.hidden = true
     when 1
-      @objects = bookmarked_objects
       @bookmarked_table_view.reloadData
       @recommended_table_view.hidden   = true
       @bookmarked_table_view.hidden = false
     end
+  end
+  
+  def refresh_bookmarked_table
+    @bookmarked_table_view.reloadData
   end
   
   def toggle_display

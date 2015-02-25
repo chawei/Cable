@@ -4,15 +4,26 @@ class EventViewController < CBUIViewController
   include EventTableViewDelegate
   
   def init_with_event_object(event_object)
-    init
+    convert_event_object_to_data event_object
     
-    @event_object = event_object
+    init
     
     self
   end
   
   def event_object
     @event_object
+  end
+  
+  def convert_event_object_to_data(event_object)
+    @event_object = event_object
+    @event_data = [
+      { :title => "Event name", :detail => event_object[:title] },
+      { :title => "Event time", :detail => event_object[:event_time] },
+      { :title => "Line up", :detail => event_object[:artist_name] },
+      { :title => "Biographies", :detail => event_object[:bio] },
+      { :title => "Official website", :detail => event_object[:link] }
+    ]
   end
   
   def viewDidLoad
@@ -26,6 +37,8 @@ class EventViewController < CBUIViewController
   def viewDidLayoutSubviews
     add_action_bar_view
     add_event_table_view
+    
+    update_bookmark_button
   end
   
   def add_event_table_view
@@ -71,24 +84,34 @@ class EventViewController < CBUIViewController
     view.addSubview @action_bar_view
   end
   
+  def update_bookmark_button
+    if event_object
+      if User.current.has_bookmarked_event? event_object
+        @bookmark_button.setImage CBBookmarkedIconImage, forState:UIControlStateNormal
+      else
+        @bookmark_button.setImage CBBookmarkIconImage, forState:UIControlStateNormal
+      end
+    end
+  end
+  
   def press_bookmark_button
     current_state_image = @bookmark_button.imageForState UIControlStateNormal
     if current_state_image == CBBookmarkIconImage
       if event_object
         @bookmark_button.setImage CBBookmarkedIconImage, forState:UIControlStateNormal
-        #User.current.add_favorite_song song_object.hash
+        User.current.bookmark_event event_object
       end
     else
       if event_object
         @bookmark_button.setImage CBBookmarkIconImage, forState:UIControlStateNormal
-        #User.current.remove_favorite_song song_object.hash
+        User.current.unbookmark_event event_object
       end
     end
   end
   
   def press_play_button
     if event_object && event_object[:artist_name]
-      request = { :message => event_object[:artist_name], :mode => 'artist_name', :user_id => User.current.user_id }
+      request = { :message => event_object["artist_name"], :mode => 'artist_name', :user_id => User.current.user_id }
       Robot.instance.listen request
       
       press_close_button

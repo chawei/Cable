@@ -10,6 +10,7 @@ class HomeViewController < CBUIViewController
   attr_accessor :card_stack_view
   attr_accessor :messages_view_controller
   attr_accessor :profile_view_controller
+  attr_accessor :events_view_controller
   
   def viewWillAppear(animated)
     super
@@ -195,7 +196,7 @@ class HomeViewController < CBUIViewController
     end
   end
   
-  def open_event_page(event_object={})
+  def open_event_page(event_object)
     @event_view_controller = EventViewController.alloc.init_with_event_object(event_object)
     @event_view_controller.view.frame = [[CBDefaultMargin, view.size.height], 
       [view.size.width-CBDefaultMargin*2, view.size.height-CBDefaultMargin*2-App.status_bar_height]]

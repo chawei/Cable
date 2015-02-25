@@ -46,6 +46,10 @@ class App
     home_view_controller.profile_view_controller
   end
   
+  def self.events_view_controller
+    home_view_controller.events_view_controller
+  end
+  
   def self.message_box
     home_view_controller.message_box
   end

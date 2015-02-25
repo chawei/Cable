@@ -1,18 +1,4 @@
 module ProfileTableViewDelegate
-  
-  def tableView(tableView, willDisplayCell:cell, forRowAtIndexPath:indexPath)
-    if tableView.respondsToSelector "setSeparatorInset:"
-      tableView.setSeparatorInset UIEdgeInsetsZero
-    end
-
-    if tableView.respondsToSelector "setLayoutMargins:"
-      tableView.setLayoutMargins UIEdgeInsetsZero
-    end
-    
-    if cell.respondsToSelector "setLayoutMargins:"
-      cell.setLayoutMargins UIEdgeInsetsZero
-    end
-  end
 
   def tableView(tableView, heightForRowAtIndexPath:indexPath)
     92 # 60 + 16*2
@@ -52,7 +38,7 @@ module ProfileTableViewDelegate
     cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
                    placeholderImage:nil
   
-    cell.update_images_with_source object[:source]                
+    cell.update_images_with_source object[:source]
     cell.title_label.text    = object[:title]
     cell.subtitle_label.text = object[:subtitle]
 
