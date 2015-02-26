@@ -10,7 +10,7 @@ module ProfileTableViewDelegate
     object = @objects[indexPath.row]
     if tableView == @fav_table_view
       App.play_object_by_user object
-      self.hide
+      App.home_view_controller.press_logo_button
     elsif tableView == @event_table_view
       App.show_event_page object
     end
