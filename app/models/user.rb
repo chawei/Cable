@@ -225,7 +225,8 @@ class User
       :artist_name => 'The von Trapps',
       :bio => "The von Trapps is a musical group made up of Sofia, Melanie, Amanda and August von Trapp, descendants of the Trapp Family Singers.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg'
+      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg',
+      :large_image_url => 'http://userserve-ak.last.fm/serve/500/11997971.png'
     }, {
       :id => 2,
       :title => "Sean Hayes at The New Parish (February 20, 2015)", :subtitle => 'Sean Hayes', :source => 'songkick',
@@ -233,7 +234,8 @@ class User
       :artist_name => 'Sean Hayes',
       :bio => "Hayes is a native of New York City, but was raised in North Carolina. He began playing traditional American and Irish music with a band called the Boys of Bluehill. He traveled the south, from the Black Mountain Music festival (LEAF Festival) in the Blue Ridge Mountains down to Charleston, South Carolina and eventually found his way to San Francisco, where he has lived since 1992.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/94602735.png'
+      :image_url => 'http://userserve-ak.last.fm/serve/126/94602735.png',
+      :large_image_url => 'http://userserve-ak.last.fm/serve/500/94602735.png'
     }, {
       :id => 3,
       :title => 'The Kinks at The Chapel (March 01, 2015)', :subtitle => 'The Kinks', :source => 'songkick',
@@ -241,7 +243,8 @@ class User
       :artist_name => 'The Kinks',
       :bio => "The Kinks were an English rock band formed in Muswell Hill, North London, by brothers Dave Davies and Ray Davies with Pete Quaife in 1963.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png'
+      :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png',
+      :large_image_url => 'http://userserve-ak.last.fm/serve/500/86692565.png'
     }]
   end
   
