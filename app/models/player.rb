@@ -291,11 +291,10 @@ class Player
                                                         progress:(lambda do |receivedSize, expectedSize|
                                                         end),
                                                        completed:(lambda do |image, data, error, finished|
-                                                         if image && finished
-                                                           album_art = MPMediaItemArtwork.alloc.initWithImage image
-                                                         else
-                                                           album_art = MPMediaItemArtwork.alloc.initWithImage CBPlayingNowIcon
+                                                         unless image && finished
+                                                           image = CBPlayingNowIconImage
                                                          end
+                                                         album_art = MPMediaItemArtwork.alloc.initWithImage image
                                                          song_info.setObject album_art, forKey:MPMediaItemPropertyArtwork
                                                          MPNowPlayingInfoCenter.defaultCenter.setNowPlayingInfo song_info
                                                        end)

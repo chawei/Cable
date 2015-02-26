@@ -26,8 +26,9 @@ CBTransparentImage     = UIImage.imageNamed "assets/transparent"
 CBDefaultProfileImage  = UIImage.imageNamed "assets/transparent"
 CBPlayerPlayIconImage  = UIImage.imageNamed "assets/control_play"
 CBPlayerPauseIconImage = UIImage.imageNamed "assets/control_pause"
-CBMaxTrackImage       = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
-CBMinTrackImage       = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
+CBMaxTrackImage        = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
+CBMinTrackImage        = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
+CBPlayingNowIconImage  = UIImage.imageNamed "assets/playing_now"
 
 CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
 CBMessageCellReuseIdentifier   = "MESSAGE_CELL_IDENTIFIER"
