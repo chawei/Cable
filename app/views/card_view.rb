@@ -465,11 +465,11 @@ class CardView < UIView
   end
   
   def press_share_button
-    NSLog "press_share_button"
+    PopUpView.share_song song_object
   end
   
   def press_user_button
-    
+    NSLog "press_user_button"
   end
   
   def detect_pan(recognizer)    

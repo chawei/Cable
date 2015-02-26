@@ -111,7 +111,7 @@ class EventViewController < CBUIViewController
   
   def press_play_button
     if event_object && event_object[:artist_name]
-      request = { :message => event_object["artist_name"], :mode => 'artist_name', :user_id => User.current.user_id }
+      request = { :message => event_object[:artist_name], :mode => 'artist_name', :user_id => User.current.user_id }
       Robot.instance.listen request
       
       press_close_button

@@ -70,4 +70,8 @@ class App
     home_view_controller.open_event_page(object)
   end
   
+  def self.popup_sharing_options
+    #PopUpView.alloc.init_with_origin(origin, with_song_object:song_object)
+  end
+  
 end

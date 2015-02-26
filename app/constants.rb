@@ -8,6 +8,8 @@ PARSE_CLIENT_KEY     = "kVUmmMj9OmgECgJN9vM3VjnSzNv1wFAFd090peYh"
 
 FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
 
+CBSiteHost   = "http://cabl.in"
+
 CBYouTubeIconImage     = UIImage.imageNamed "assets/icon_youtube_large"
 CBSpotifyIconImage     = UIImage.imageNamed "assets/icon_spotify_large"
 CBLikeIconImage        = UIImage.imageNamed "assets/button_icon_like"
@@ -74,3 +76,16 @@ CBLightFontName   = "ProximaNova-Light"
 CBMaxNumOfTry = 20
 
 CBMessageBoxPlaceholderText = "Tell me what you want"
+
+# Sharing Options
+CBShareToCableTitle       = "Cable friends"
+CBShareToFBMessengerTitle = "Facebook Messenger"
+CBPostOnFBTitle           = "Post on Facebook"
+CBShareToWhatsAppTitle    = "WhatsApp"
+CBShareBySMSMessageTitle  = "SMS"
+CBShareByMailTitle        = "Email"
+CBCopyLinkTitle           = "Copy Link"
+CBCancelTitle             = "Cancel"
+
+# Template Messages
+CBCopyLinkMessage     = "The link has been generated and copied. Share this song to your friends!"

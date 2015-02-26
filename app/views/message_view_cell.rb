@@ -208,8 +208,10 @@ class MessageViewCell < UICollectionViewCell
   
   def send_answer(answer)
     question = @message_object[:text]
+    options  = @message_object[:options]
     message  = answer
-    request  = { :message => message, :mode => 'answer', :question => question, :user_id => User.current.user_id }
+    request  = { :message => message, :mode => 'answer', 
+      :question => question, :options => options, :user_id => User.current.user_id }
     Robot.instance.listen request
   end
   

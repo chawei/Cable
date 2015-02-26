@@ -27,11 +27,26 @@ Motion::Project::App.setup do |app|
   app.fonts = ['fonts/OpenSans-Regular.ttf', 'fonts/OpenSans-Light.ttf']
   app.fonts += ['fonts/ProximaNova-Regular.ttf', 'fonts/ProximaNova-Light.ttf']
   
+  # Cable
+  app.frameworks += [
+    'CoreText',
+    'CoreGraphics',
+    'Foundation',
+    'QuartzCore',
+    'Security',
+    'SystemConfiguration',
+    'UIKit',
+    'AVFoundation',
+    'MessageUI']
+  
   # LBYouTubeView
   app.vendor_project('vendor/LBYouTubeView', :static, :cflags => "-fobjc-arc")
   
   # DWTagList
   app.vendor_project('vendor/DWTagList', :static, :cflags => "-fobjc-arc")
+  
+  # JGActionSheet
+  app.vendor_project('vendor/JGActionSheet', :static, :cflags => "-fobjc-arc")
   
   app.pods do
     pod 'SDWebImage'

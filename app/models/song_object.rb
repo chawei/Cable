@@ -54,4 +54,12 @@ class SongObject
     
     []
   end
+  
+  def copy_link
+    link = "#{CBSiteHost}/songs/#{video_id}"
+    #CableClient.instance.saveCopiedLinkObject(link, title:title)
+    
+    pasteboard = UIPasteboard.generalPasteboard
+    pasteboard.string = link
+  end
 end

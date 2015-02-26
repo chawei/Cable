@@ -2,6 +2,7 @@ class HomeViewController < CBUIViewController
   extend IB
   
   include RobotDelegate
+  include ShareDelegate
   
   outlet :logo_button
   outlet :profile_button
