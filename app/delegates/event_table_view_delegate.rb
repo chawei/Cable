@@ -11,12 +11,6 @@ module EventTableViewDelegate
     @template_cell
   end
   
-  def tableView(tableView, viewForHeaderInSection:section)
-    header_view = UIView.alloc.initWithFrame [[0, 0], [self.size.width, 50]]
-    
-    header_view
-  end
-  
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
     @reuseIdentifier ||= CBEventCellReuseIdentifier
 

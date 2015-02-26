@@ -73,7 +73,7 @@ class EventViewController < CBUIViewController
                                           end),
                                          completed:(lambda do |image, data, error, finished|
                                            unless image && finished
-                                             image = CBDefaultProfileImage
+                                             image = CBTransparentImage
                                            end
                                            #height = image.size.width/view.size.width*200
                                            #
