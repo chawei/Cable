@@ -2,6 +2,7 @@ class EventsViewController < CBUIViewController
   include Style
   include TableViewDelegate
   include EventsTableViewDelegate
+  include ViewAnimation
   
   def viewDidLoad
     super
@@ -96,20 +97,10 @@ class EventsViewController < CBUIViewController
   end
   
   def show
-    view.alpha  = 0
-    view.hidden = false
-    UIView.animateWithDuration 0.25, delay:0.0, options:UIViewAnimationOptionCurveLinear, animations:(lambda do
-        view.alpha = 1
-      end), 
-      completion:nil
+    show_view view
   end
   
   def hide
-    UIView.animateWithDuration 0.25, delay:0.0, options:UIViewAnimationOptionCurveLinear, animations:(lambda do
-        view.alpha = 0
-      end), 
-      completion:(lambda do |finished|
-        view.hidden = true
-      end)
+    hide_view view
   end
 end
