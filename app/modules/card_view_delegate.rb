@@ -12,6 +12,7 @@ module CardViewDelegate
     player_view.subviews[0].addGestureRecognizer tap_recognizer
 
     @media_view.sendSubviewToBack @cover_art_view
+    @media_view.bringSubviewToFront @media_info_view
   end
   
 end
