@@ -57,7 +57,8 @@ class Robot
     # { :message => tag_clicked, :mode => 'click' }
     current_time         = Time.now
     request[:user_id]    = User.current.user_id
-    request[:local_time] = { :raw => current_time, :hour => current_time.hour, :min => current_time.min }
+    request[:local_time] = { :raw => current_time, 
+      :hour => current_time.hour, :min => current_time.min, :wday => current_time.wday }
     
     PFCloud.callFunctionInBackground "listen",
       withParameters: request,
