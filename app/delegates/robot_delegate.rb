@@ -14,12 +14,8 @@ module RobotDelegate
       message_object[:tags] = response[:suggested_tags]
     end
     
-    if response[:stream_url]
-      User.current.stream.connect response[:stream_url]
-    end
-    
     if response[:are_songs_updated]
-      User.current.stream.update_songs_and_views
+      User.current.stream.songs_updated
     end
     
     if response[:function_name_to_execute]

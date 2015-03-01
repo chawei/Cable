@@ -10,40 +10,38 @@ class Stream
     @songs_ref  = @stream_ref.childByAppendingPath "songs"
     @swiped_ref = @stream_ref.childByAppendingPath "swiped"
     
-    update_songs_and_views
+    @is_initiated      = false
+    @are_songs_updated = false
     
     @songs_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
         @songs = snapshot.value.clone
         
-        #NSLog "@is_sync: #{@is_sync}"
-        #if @is_sync
-        #  App.messages_view_controller.reset_message_objects
-        #  Robot.instance.clear_message_queue
-        #  Robot.instance.queue_message_text "Someone is using your stream!"
-        #  @is_sync = false
-        #else
-        #  @songs = snapshot.value.clone
-        #  @is_sync = true
-        #end
+        if @is_initiated == false
+          App.card_stack_view.reload_card_views_if_necessary
+          @is_initiated = true
+        elsif @are_songs_updated == true
+          update_and_play_card_views
+        else
+          update_card_views
+        end
       end
     end), withCancelBlock:(lambda do |error|
       NSLog("%@", error.description) 
     end)
   end
   
-  def save(songs)
-    NSLog "save songs"
-    #@is_sync = false
-    @songs_ref.setValue songs
-    
-    update_ui
+  def songs_updated
+    @are_songs_updated = true
   end
   
-  def update_ui
+  def save(songs)
+    @songs_ref.setValue songs
+  end
+  
+  def update_card_views
     # TODO: maybe use delegate?
     App.card_stack_view.update_card_views
-    # App.card_stack_view.play_top_card_view # this is evil, will dup the playing action
   end
   
   def remove_first_song
@@ -73,10 +71,23 @@ class Stream
   
   def request_for_more_songs_if_necessary
     if @songs.length < 5
+      # TODO: change this
       populate_mock_songs
     end
   end
   
+  def update_and_play_card_views
+    if App.card_stack_view.subviews.length == 0
+      App.card_stack_view.reload_card_views_if_necessary
+    else
+      Player.instance.end_and_clear_by_user
+      update_card_views
+    end
+    
+    App.card_stack_view.play_top_card_view
+  end
+  
+  # ===== For Testing =====
   def populate_mock_songs
     NSLog "populate_mock_songs"
     songs = mock_songs
@@ -104,35 +115,6 @@ class Stream
       :source => 'youtube', :video_id => 'PeRxjkfTmVc',
       :image_url => 'http://i.ytimg.com/vi/PeRxjkfTmVc/mqdefault.jpg'
     }]
-  end
-  
-  def connect(stream_url)
-    if @stream_url != stream_url
-      @stream_url = stream_url
-      @stream_ref = Firebase.alloc.initWithUrl @stream_url
-      @songs_ref  = @stream_ref.childByAppendingPath "songs"
-    
-      update_songs_and_views
-    end
-  end
-  
-  def update_songs_and_views
-    @songs_ref.observeSingleEventOfType FEventTypeValue, withBlock:(lambda do |snapshot| 
-      if snapshot.value
-        @songs = snapshot.value.clone
-        
-        if App.card_stack_view.subviews.length == 0
-          App.card_stack_view.reload_card_views_if_necessary
-        else
-          Player.instance.end_and_clear_by_user
-          update_ui
-          
-          App.card_stack_view.play_top_card_view
-        end
-      end
-    end), withCancelBlock:(lambda do |error|
-      NSLog("%@", error.description) 
-    end)
   end
   
 end

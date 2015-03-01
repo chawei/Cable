@@ -55,6 +55,9 @@ class Robot
     # { :message => message, :mode => 'answer', :question => question }
     # click on tag
     # { :message => tag_clicked, :mode => 'click' }
+    current_time         = Time.now
+    request[:user_id]    = User.current.user_id
+    request[:local_time] = { :raw => current_time, :hour => current_time.hour, :min => current_time.min }
     
     PFCloud.callFunctionInBackground "listen",
       withParameters: request,
@@ -121,22 +124,22 @@ class Robot
   end
   
   def say_hello
-    request = { :message => 'hello', :mode => 'greeting', :user_id => User.current.user_id }
+    request = { :message => 'hello', :mode => 'greeting' }
     listen(request)
   end
   
   def send_like_event_with_song(song)
-    request = { :message => nil, :mode => 'like', :user_id => User.current.user_id, :song => song }
+    request = { :message => nil, :mode => 'like', :song => song }
     send_request_to_server(request)
   end
   
   def send_unlike_event_with_song(song)
-    request = { :message => nil, :mode => 'unlike', :user_id => User.current.user_id, :song => song }
+    request = { :message => nil, :mode => 'unlike', :song => song }
     send_request_to_server(request)
   end
   
   def send_swipe_event_with_song(song)
-    request = { :message => nil, :mode => 'swipe', :user_id => User.current.user_id, :song => song }
+    request = { :message => nil, :mode => 'swipe', :song => song }
     send_request_to_server(request)
   end
   
