@@ -11,7 +11,7 @@ module ViewAnimation
     
     UIView.animateWithDuration 0.25,
       delay:0.0,
-      usingSpringWithDamping:0.7,
+      usingSpringWithDamping:0.8,
       initialSpringVelocity:0.0,
       options:0, 
       animations:(lambda do
