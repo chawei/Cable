@@ -71,8 +71,7 @@ class Stream
   
   def request_for_more_songs_if_necessary
     if @songs.length < 5
-      # TODO: change this
-      populate_mock_songs
+      Robot.instance.send_add_more_songs_request
     end
   end
   

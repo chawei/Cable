@@ -128,6 +128,11 @@ class Robot
     listen(request)
   end
   
+  def send_message(message)
+    request = { :message => message, :mode => 'message' }
+    listen request
+  end
+  
   def send_like_event_with_song(song)
     request = { :message => nil, :mode => 'like', :song => song }
     send_request_to_server(request)
@@ -140,6 +145,11 @@ class Robot
   
   def send_swipe_event_with_song(song)
     request = { :message => nil, :mode => 'swipe', :song => song }
+    send_request_to_server(request)
+  end
+  
+  def send_add_more_songs_request
+    request = { :message => nil, :mode => 'add_more_songs' }
     send_request_to_server(request)
   end
   
