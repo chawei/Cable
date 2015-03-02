@@ -21,6 +21,8 @@ class ProfileViewController < CBUIViewController
     apply_rounded_corner
     
     @objects = fetch_song_objects
+    @fav_objects   = []
+    @event_objects = []
   end
   
   def viewWillLayoutSubviews
@@ -121,12 +123,12 @@ class ProfileViewController < CBUIViewController
   end
   
   def refresh_fav_table
-    @objects = fetch_song_objects
+    @fav_objects = fetch_song_objects
     @fav_table_view.reloadData
   end
   
   def refresh_events_table
-    @objects = fetch_event_objects
+    @event_objects = fetch_event_objects
     @event_table_view.reloadData
   end
   
@@ -134,13 +136,11 @@ class ProfileViewController < CBUIViewController
     selected_segment = sender.selectedSegmentIndex
     case selected_segment
     when 0
-      @objects = fetch_song_objects
-      @fav_table_view.reloadData
+      refresh_fav_table
       @fav_table_view.hidden   = false
       @event_table_view.hidden = true
     when 1
-      @objects = fetch_event_objects
-      @event_table_view.reloadData
+      refresh_events_table
       @fav_table_view.hidden   = true
       @event_table_view.hidden = false
     end

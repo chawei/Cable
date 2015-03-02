@@ -154,7 +154,7 @@ class MessagesViewController < UICollectionViewController
     message_object = {
       :type => 'text',
       :text => message,
-      :time_text => "now",
+      :time_text => DateFormatter.toHumanReadableTime(Time.now),
       :direction => 'right'
     }
     

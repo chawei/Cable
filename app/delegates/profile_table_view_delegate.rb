@@ -1,4 +1,12 @@
 module ProfileTableViewDelegate
+  
+  def objects_of_table_view(table_view)
+    if table_view == @fav_table_view
+      @fav_objects
+    elsif table_view == @event_table_view
+      @event_objects
+    end
+  end
 
   def tableView(tableView, heightForRowAtIndexPath:indexPath)
     92 # 60 + 16*2
@@ -7,7 +15,8 @@ module ProfileTableViewDelegate
   def tableView(tableView, didSelectRowAtIndexPath:indexPath)
     tableView.deselectRowAtIndexPath indexPath, animated:true
     
-    object = @objects[indexPath.row]
+    objects = objects_of_table_view(tableView)
+    object  = [indexPath.row]
     if tableView == @fav_table_view
       App.play_object_by_user object
       App.home_view_controller.press_logo_button
@@ -33,8 +42,10 @@ module ProfileTableViewDelegate
     cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
       SongTableCell.alloc.init
     end
-  
-    object = @objects[indexPath.row]
+    
+    objects = objects_of_table_view(tableView)
+    object  = objects[indexPath.row]
+    
     if object
       cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
                      placeholderImage:nil
@@ -52,7 +63,8 @@ module ProfileTableViewDelegate
   end
 
   def tableView(tableView, numberOfRowsInSection:section)
-    @objects.count
+    objects = objects_of_table_view(tableView)
+    objects.count
   end
 
   def tableView(tableView, titleForHeaderInSection:section)
