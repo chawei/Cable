@@ -20,17 +20,13 @@ module FacebookAuth
         end
       
         #if PFFacebookUtils.isLinkedWithUser(PFUser.currentUser)
-        load_fb_data
+        load_fb_data(block)
         #end
-      end
-    
-      if block
-        block.call
       end
     end)
   end
   
-  def load_fb_data
+  def load_fb_data(block=nil)
     NSLog "load_fb_data"
     request = FBRequest.requestForMe
     request.startWithCompletionHandler(lambda do |connection, result, error|
@@ -38,6 +34,10 @@ module FacebookAuth
         facebook_request_did_load result
       else
         facebook_request_did_fail_with_error error
+      end
+      
+      if block
+        block.call
       end
     end)
   end

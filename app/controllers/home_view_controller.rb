@@ -113,6 +113,10 @@ class HomeViewController < CBUIViewController
   end
   
   def tap_background
+    show_home_view
+  end
+  
+  def show_home_view
     if @profile_view_controller
       @profile_view_controller.hide
     end

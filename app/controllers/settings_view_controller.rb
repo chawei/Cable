@@ -72,9 +72,13 @@ class SettingsViewController < CBUIViewController
         #view.alpha  = CBInactiveAlphaValue
       end), 
       completion:(lambda do |finished|
-        self.view.removeFromSuperview
-        self.removeFromParentViewController
+        close
       end)
+  end
+  
+  def close
+    self.view.removeFromSuperview
+    self.removeFromParentViewController
   end
   
 end

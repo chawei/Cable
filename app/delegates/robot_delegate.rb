@@ -28,6 +28,7 @@ module RobotDelegate
   end
   
   def waiting_for_response
+    show_message_ui
     @messages_view_controller.show_responding_status
   end
   
