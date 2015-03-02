@@ -1,4 +1,6 @@
 class User
+  include FacebookAuth
+  
   @@current_user = nil
   
   attr_accessor :favorite_songs
@@ -37,15 +39,24 @@ class User
     @recommended_events ||= []
     
     @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
-    fetch_auth_data
+    fetch_auth_data_and_establish_data_refs
+  end
+  
+  def logout
+    PFUser.logOut
+    fetch_auth_data_and_establish_data_refs
   end
   
   def is_logged_in?
-    PFUser.currentUser != nil
+    PFUser.currentUser != nil && !is_anonymous?
   end
   
-  def fetch_auth_data
-    if is_logged_in?
+  def is_anonymous?
+    PFAnonymousUtils.isLinkedWithUser(PFUser.currentUser)
+  end
+  
+  def fetch_auth_data_and_establish_data_refs
+    if PFUser.currentUser != nil
       establish_data_refs
     else
       User.login_as_anonymous_with_block(lambda do |user|
@@ -217,6 +228,15 @@ class User
     return false
   end
   
+  def set_private_channel_and_save
+    unless PFUser.currentUser.nil?
+      PFUser.currentUser.setObject "user_#{PFUser.currentUser.objectId}", forKey:CBUserPrivateChannelKey
+      if PFUser.currentUser.isDirty
+        PFUser.currentUser.saveInBackground
+      end
+    end
+  end
+  
   def fetch_recommended_events
     @recommended_events = [{
       :id => 1,
@@ -246,48 +266,6 @@ class User
       :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png',
       :large_image_url => 'http://userserve-ak.last.fm/serve/500/86692565.png'
     }]
-  end
-  
-  def connect_to_facebook
-    FBSession.openActiveSessionWithReadPermissions ["public_profile"], allowLoginUI:true,
-      completionHandler:(lambda do |session, state, error|
-        if error
-          NSLog("Facebook login failed. Error: %@", error)
-        elsif state == FBSessionStateOpen
-          accessToken = session.accessTokenData.accessToken;
-          @firebase_ref.authWithOAuthProvider "facebook", token:accessToken,
-            withCompletionBlock:(lambda do |error, auth_data|
-              if (error)
-                NSLog("Login failed. %@", error)
-              else
-                @auth_data = auth_data
-                NSLog("Logged in! %@", auth_data)
-                first_name = auth_data.providerData['cachedUserProfile']['first_name']
-                last_name  = auth_data.providerData['cachedUserProfile']['last_name']
-                new_user = {
-                  "provider"   => auth_data.provider,
-                  "email"      => auth_data.providerData["email"],
-                  "first_name" => first_name,
-                  "last_name"  => last_name
-                }
-                @firebase_ref.childByAppendingPath("users")
-                             .childByAppendingPath(auth_data.uid).setValue(new_user)
-                             
-                #@firebase_ref.childByAppendingPath("users").childByAutoId
-              end
-            end)
-        end
-      end)
-  end
-  
-  def monitor_authentication
-    @firebase_ref.observeAuthEventWithBlock(lambda do |auth_data|
-      if auth_data
-        @auth_data = auth_data
-      else
-        NSLog "no user"
-      end
-    end)
   end
   
 end

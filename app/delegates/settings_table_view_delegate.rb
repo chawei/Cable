@@ -33,7 +33,7 @@ module SettingTableViewDelegate
         if User.current.is_logged_in?
           cell.title_label.text = "Sign Out"
         else
-          cell.title_label.text = "Sign In"
+          cell.title_label.text = "Connect to Facebook"
         end
         cell.detail_label.text = ""
       end
@@ -52,9 +52,13 @@ module SettingTableViewDelegate
         tableView.deselectRowAtIndexPath indexPath, animated:true
         
         if User.current.is_logged_in?
-          NSLog "Sign Out Successfully"
+          Robot.instance.send_logout_request
         else
-          NSLog "Go to Sign In page"
+          User.current.connect_to_facebook(lambda do 
+            User.current.fetch_auth_data_and_establish_data_refs
+            App.profile_view_controller.refresh_header_view
+            tableView.reloadData
+          end)
         end
       end
     end

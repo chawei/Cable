@@ -129,6 +129,11 @@ class Robot
     listen(request)
   end
   
+  def send_logout_request
+    request = { :message => nil, :mode => 'logout' }
+    listen request
+  end
+  
   def send_message(message)
     request = { :message => message, :mode => 'message' }
     listen request

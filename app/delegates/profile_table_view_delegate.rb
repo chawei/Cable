@@ -35,13 +35,15 @@ module ProfileTableViewDelegate
     end
   
     object = @objects[indexPath.row]
-    cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
-                   placeholderImage:nil
+    if object
+      cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
+                     placeholderImage:nil
   
-    cell.update_images_with_source object[:source]
-    cell.title_label.text    = object[:title]
-    cell.subtitle_label.text = object[:subtitle]
-
+      cell.update_images_with_source object[:source]
+      cell.title_label.text    = object[:title]
+      cell.subtitle_label.text = object[:subtitle]
+    end
+    
     cell
   end
 

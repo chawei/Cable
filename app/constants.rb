@@ -10,6 +10,10 @@ FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
 
 CBSiteHost   = "http://cabl.in"
 
+CBInstallationChannelsKey   = "channels"
+CBUserPrivateChannelKey     = "channel"
+CBFacebookPermissions = ["user_about_me", "user_birthday", "user_location", "user_friends", "user_actions.music"]
+
 CBYouTubeIconImage     = UIImage.imageNamed "assets/icon_youtube_large"
 CBSpotifyIconImage     = UIImage.imageNamed "assets/icon_spotify_large"
 CBLikeIconImage        = UIImage.imageNamed "assets/button_icon_like"

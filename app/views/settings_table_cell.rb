@@ -28,9 +28,11 @@ class SettingsTableCell < UITableViewCell
   def layoutSubviews
     super
     
-    label_width = (self.size.width-CBDefaultMargin*3)/2
+    cell_inner_width   = self.size.width-CBDefaultMargin*3
+    title_label_width  = cell_inner_width/3*2
+    detail_label_width = cell_inner_width - title_label_width
     
-    @title_label.frame  = [[CBDefaultMargin, 0], [label_width, CBSettingsCellHeight]]
-    @detail_label.frame = [[label_width+CBDefaultMargin*2, 0], [label_width, CBSettingsCellHeight]]
+    @title_label.frame  = [[CBDefaultMargin, 0], [title_label_width, CBSettingsCellHeight]]
+    @detail_label.frame = [[title_label_width+CBDefaultMargin*2, 0], [detail_label_width, CBSettingsCellHeight]]
   end
 end

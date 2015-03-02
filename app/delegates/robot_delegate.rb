@@ -42,4 +42,9 @@ module RobotDelegate
     User.current.connect_to_facebook
   end
   
+  def logout
+    User.current.logout
+    App.profile_view_controller.refresh_header_view
+  end
+  
 end

@@ -15,8 +15,16 @@ class AppDelegate
     if url.host == "cabl.in" || url.host == "www.cabl.in"
       # send url to server
     else
-      return FBAppCall.handleOpenURL url, sourceApplication:sourceApplication
+      return FBAppCall.handleOpenURL url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session
     end
+  end
+  
+  def applicationDidBecomeActive(application)
+    FBAppCall.handleDidBecomeActiveWithSession PFFacebookUtils.session
+  end
+ 
+  def applicationWillTerminate(application)
+    PFFacebookUtils.session.close
   end
   
   def applicationWillEnterForeground(application)

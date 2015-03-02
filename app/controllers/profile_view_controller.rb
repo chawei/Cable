@@ -179,4 +179,11 @@ class ProfileViewController < CBUIViewController
   def hide
     hide_view view
   end
+  
+  def refresh_header_view
+    @profile_image_view.setImageWithURL NSURL.URLWithString(User.current.profile_image_url(CBProfileImageWidth*2)),
+                   placeholderImage:CBDefaultProfileImage
+    @name_label.text   = @user.name
+    @status_label.text = @user.profile_status
+  end
 end
