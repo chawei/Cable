@@ -47,13 +47,20 @@ class EventViewController < CBUIViewController
     @event_table_view.dataSource = self
     view.addSubview @event_table_view
     
+    @event_table_view.layer.setCornerRadius CBRoundedCornerRadius
+    @event_table_view.layer.shouldRasterize = true
+    # Don't forget the rasterization scale
+    # I spent days trying to figure out why retina display assets weren't working as expected
+    @event_table_view.layer.rasterizationScale = UIScreen.mainScreen.scale
+    
     add_event_header_view
   end
   
   def add_event_header_view
     table_header_view = UIView.alloc.init
     
-    title_label = UILabel.alloc.initWithFrame [[CBDefaultMargin, CBDefaultMargin], [view.size.width-CBDefaultMargin*2, 60]]
+    title_label = UILabel.alloc.initWithFrame [[CBDefaultMargin, CBDefaultMargin], 
+      [view.size.width-CBDefaultMargin*2, 60]]
     title_label.numberOfLines = 0
     title_label.textAlignment = NSTextAlignmentLeft
     title_label.textColor     = UIColor.blackColor
