@@ -228,4 +228,37 @@ module VideoPlayer
     end
   end
   
+  def update_movie_screen
+    if @movie_player_controller
+      orientation = UIDevice.currentDevice.orientation
+      if orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight
+        enter_fullscreen
+      elsif [UIDeviceOrientationPortrait, UIDeviceOrientationPortraitUpsideDown].include? orientation
+        exit_fullscreen
+      end
+    end
+  end
+  
+  def is_fullscreen
+    if @movie_player_controller
+      @movie_player_controller.isFullscreen
+    else
+      false
+    end
+  end
+  
+  def enter_fullscreen
+    if @movie_player_controller
+      @movie_player_controller.setFullscreen true, animated:true
+      @movie_player_controller.controlStyle = MPMovieControlStyleFullscreen
+    end
+  end
+  
+  def exit_fullscreen
+    if @movie_player_controller
+      @movie_player_controller.setFullscreen false, animated:true
+      @movie_player_controller.controlStyle = MPMovieControlStyleNone
+    end
+  end
+  
 end

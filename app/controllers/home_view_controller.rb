@@ -29,6 +29,8 @@ class HomeViewController < CBUIViewController
     add_messages_view_controller
     add_message_box
     
+    add_device_orientation_observer
+    
     start
   end
   
@@ -39,6 +41,13 @@ class HomeViewController < CBUIViewController
     Robot.instance.say_hello
     
     UIApplication.sharedApplication.beginReceivingRemoteControlEvents
+  end
+  
+  def add_device_orientation_observer
+    NSNotificationCenter.defaultCenter.addObserver self,
+                 selector:"device_orientation_did_change_notification:",
+                     name:UIDeviceOrientationDidChangeNotification,
+                   object:nil
   end
   
   def add_card_stack_view
@@ -236,6 +245,10 @@ class HomeViewController < CBUIViewController
         App.card_stack_view.play_next_card_view_manually
       end
     end
+  end
+  
+  def device_orientation_did_change_notification(notification)
+    Player.instance.update_movie_screen
   end
   
 end
