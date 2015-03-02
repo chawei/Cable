@@ -56,7 +56,7 @@ class Robot
     # click on tag
     # { :message => tag_clicked, :mode => 'click' }
     current_time         = Time.now
-    request[:user_id]    = User.current.user_id
+    request[:user]       = { :user_id => User.current.user_id, :is_anonymous => User.current.is_anonymous?}
     request[:local_time] = { :raw => current_time, 
       :hour => current_time.hour, :min => current_time.min, :wday => current_time.wday }
     
