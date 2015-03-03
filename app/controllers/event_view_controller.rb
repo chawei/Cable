@@ -30,7 +30,9 @@ class EventViewController < CBUIViewController
     
     view.backgroundColor = UIColor.whiteColor
     
-    apply_rounded_corner
+    unless App.is_small_screen?
+      apply_rounded_corner
+    end
   end
   
   def viewDidLayoutSubviews
@@ -41,17 +43,24 @@ class EventViewController < CBUIViewController
   end
   
   def add_event_table_view
-    @event_table_view = UITableView.alloc.initWithFrame [[0, 0], 
-      [view.size.width, view.size.height-@action_bar_view.size.height]]
+    if App.is_small_screen?
+      event_table_view_frame = [[0, CBDefaultMargin], 
+        [view.size.width, view.size.height-CBDefaultMargin-@action_bar_view.size.height]]
+    else
+      event_table_view_frame = [[0, 0], 
+        [view.size.width, view.size.height-@action_bar_view.size.height]]
+    end
+    
+    @event_table_view = UITableView.alloc.initWithFrame event_table_view_frame
     @event_table_view.delegate   = self
     @event_table_view.dataSource = self
     view.addSubview @event_table_view
     
-    @event_table_view.layer.setCornerRadius CBRoundedCornerRadius
-    @event_table_view.layer.shouldRasterize = true
-    # Don't forget the rasterization scale
-    # I spent days trying to figure out why retina display assets weren't working as expected
-    @event_table_view.layer.rasterizationScale = UIScreen.mainScreen.scale
+    unless App.is_small_screen?
+      @event_table_view.layer.setCornerRadius CBRoundedCornerRadius
+      @event_table_view.layer.shouldRasterize = true
+      @event_table_view.layer.rasterizationScale = UIScreen.mainScreen.scale
+    end
     
     add_event_header_view
   end
@@ -175,8 +184,11 @@ class EventViewController < CBUIViewController
   
   def press_close_button
     UIView.animateWithDuration 0.2, delay:0.0, options:UIViewAnimationOptionCurveEaseInOut, animations:(lambda do
-        view.origin = [CBDefaultMargin, view.size.height]
-        #view.alpha  = CBInactiveAlphaValue
+        if App.is_small_screen?
+          view.origin = [0, view.size.height]
+        else
+          view.origin = [CBDefaultMargin, view.size.height]
+        end
       end), 
       completion:(lambda do |finished|
         self.view.removeFromSuperview

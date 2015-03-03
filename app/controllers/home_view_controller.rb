@@ -210,16 +210,23 @@ class HomeViewController < CBUIViewController
   
   def open_event_page(event_object)
     @event_view_controller = EventViewController.alloc.init_with_event_object(event_object)
-    @event_view_controller.view.frame = [[CBDefaultMargin, view.size.height], 
-      [view.size.width-CBDefaultMargin*2, view.size.height-CBDefaultMargin*2-App.status_bar_height]]
-    #@event_view_controller.view.alpha  = CBInactiveAlphaValue
+    if App.is_small_screen?
+      @event_view_controller.view.frame = view.frame
+    else
+      @event_view_controller.view.frame = [[CBDefaultMargin, view.size.height], 
+        [view.size.width-CBDefaultMargin*2, view.size.height-CBDefaultMargin*2-App.status_bar_height]]
+    end
   
     self.addChildViewController @event_view_controller
     self.view.addSubview @event_view_controller.view
     @event_view_controller.didMoveToParentViewController self
     
     UIView.animateWithDuration 0.2, delay:0.0, options:UIViewAnimationOptionCurveEaseInOut, animations:(lambda do
-        @event_view_controller.view.origin = [CBDefaultMargin, App.status_bar_height+CBDefaultMargin]
+        if App.is_small_screen?
+          @event_view_controller.view.origin = [0, 0]
+        else
+          @event_view_controller.view.origin = [CBDefaultMargin, App.status_bar_height+CBDefaultMargin]
+        end
         @event_view_controller.view.alpha  = CBActiveAlphaValue
       end), 
       completion:(lambda do |finished|
