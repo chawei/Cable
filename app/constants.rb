@@ -1,3 +1,5 @@
+APP_VERSION = '1.2'
+
 # Production
 # PARSE_APP_ID         = "36UE8b1p96I8ta2FWktLDtu26AEIPrYVGI6p8yfu"
 # PARSE_CLIENT_KEY     = "pXWTI10uMDUOujT3FQscixpaUQHWI9Z5lWyx9YcP"

@@ -1,5 +1,9 @@
 class App
   
+  def self.version
+    NSBundle.mainBundle.infoDictionary["CFBundleVersion"]
+  end
+  
   def self.screen_width
     screen_rect  = UIScreen.mainScreen.bounds
     screen_width = screen_rect.size.width

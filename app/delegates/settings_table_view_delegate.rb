@@ -26,9 +26,9 @@ module SettingTableViewDelegate
     when 0
       case indexPath.row
       when 0
-        cell.selectionStyle   = UITableViewCellSelectionStyleNone
-        cell.title_label.text = "Version"
-        cell.detail_label.text = "2.0.0"
+        cell.selectionStyle    = UITableViewCellSelectionStyleNone
+        cell.title_label.text  = "Version"
+        cell.detail_label.text = App.version
       when 1
         if User.current.is_logged_in?
           cell.title_label.text = "Sign Out"
