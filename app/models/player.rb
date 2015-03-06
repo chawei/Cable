@@ -153,6 +153,7 @@ class Player
   def start_slider_with_max_value(max_value)
     return if @slider.nil?
     
+    @slider.userInteractionEnabled = true
     @slider.addTarget self, action:"slider_value_changed:", forControlEvents:UIControlEventValueChanged
     @slider.addTarget self, action:"slider_is_released:", forControlEvents:UIControlEventTouchUpInside
     @slider.addTarget self, action:"slider_is_released:", forControlEvents:UIControlEventTouchUpOutside
@@ -165,6 +166,7 @@ class Player
   end
   
   def slider_value_changed(sender)
+    update_time_labels
   end
   
   def slider_is_pressed(sender)

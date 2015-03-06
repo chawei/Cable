@@ -1,6 +1,7 @@
 class CardView < UIView
   include Style
   include CardViewDelegate
+  include FocusedSliderView
   
   attr_accessor :liked_users_view
   
@@ -76,6 +77,7 @@ class CardView < UIView
     @media_source_button       = UIButton.buttonWithType UIButtonTypeCustom
     @media_source_button.frame = [[card_width-msb_right_margin-msb_width, card_top_padding], [msb_width, msb_width]]
     @media_source_button.setImage CBYouTubeIconImage, forState:UIControlStateNormal
+    @media_source_button.layer.zPosition = CBMediaSourceButtonZPosition
     self.addSubview @media_source_button
     
     mv_top_margin = card_top_padding + msb_width/2
@@ -177,9 +179,10 @@ class CardView < UIView
   def add_slider_on_view(target_view)
     origin_y = @subtitle_label.frame.origin.y+@subtitle_label.size.height+CBDefaultMargin
     @time_slider_view = UIView.alloc.initWithFrame [[CBDefaultMargin, origin_y], 
-      [card_width-CBDefaultMargin*2, 15]]
+      [card_width-CBDefaultMargin*2, CBSliderHeight+5]]
     
-    @played_time_label = UILabel.alloc.initWithFrame [[0, 0], [CBTimeLabelWidth, 15]]
+    @played_time_label = UILabel.alloc.initWithFrame [[0, 0], 
+      [CBTimeLabelWidth, @time_slider_view.size.height]]
     @played_time_label.numberOfLines = 1
     @played_time_label.textAlignment = NSTextAlignmentLeft
     @played_time_label.textColor     = gray_color
@@ -187,7 +190,8 @@ class CardView < UIView
     @played_time_label.text = "--:--"
     @time_slider_view.addSubview @played_time_label
     
-    @remain_time_label = UILabel.alloc.initWithFrame [[@time_slider_view.size.width-CBTimeLabelWidth, 0], [CBTimeLabelWidth, 15]]
+    @remain_time_label = UILabel.alloc.initWithFrame [[@time_slider_view.size.width-CBTimeLabelWidth, 0], 
+      [CBTimeLabelWidth, @time_slider_view.size.height]]
     @remain_time_label.numberOfLines = 1
     @remain_time_label.textAlignment = NSTextAlignmentRight
     @remain_time_label.textColor     = gray_color
@@ -198,6 +202,12 @@ class CardView < UIView
     CBSlider.setup_appearance
     @slider = CBSlider.alloc.initWithFrame [[@played_time_label.size.width, 2], 
       [@time_slider_view.size.width-CBTimeLabelWidth*2, CBSliderHeight]]
+      
+    @slider.userInteractionEnabled = false
+    @slider.addTarget self, action:"show_focused_slider", forControlEvents:UIControlEventTouchDown
+    @slider.addTarget self, action:"hide_focused_slider", forControlEvents:UIControlEventTouchUpInside
+    @slider.addTarget self, action:"hide_focused_slider", forControlEvents:UIControlEventTouchUpOutside
+    @slider.addTarget self, action:"hide_focused_slider", forControlEvents:UIControlEventTouchCancel
     @time_slider_view.addSubview @slider
       
     target_view.addSubview @time_slider_view
@@ -225,8 +235,14 @@ class CardView < UIView
   end
   
   def add_pan_recognizer
-    pan_recognizer = UIPanGestureRecognizer.alloc.initWithTarget self, action:"detect_pan:"
-    self.addGestureRecognizer pan_recognizer
+    @pan_recognizer = UIPanGestureRecognizer.alloc.initWithTarget self, action:"detect_pan:"
+    self.addGestureRecognizer @pan_recognizer
+  end
+  
+  def remove_pan_recognizer
+    if @pan_recognizer
+      self.removeGestureRecognizer @pan_recognizer
+    end
   end
   
   def add_tap_recognizer
@@ -587,4 +603,5 @@ class CardView < UIView
                          remove
                        end))
   end
+  
 end

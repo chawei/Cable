@@ -239,6 +239,14 @@ class HomeViewController < CBUIViewController
     events_button.alpha  = CBInactiveAlphaValue
   end
   
+  def show_views
+    @message_box.hidden = false
+  end
+  
+  def hide_views
+    @message_box.hidden = true
+  end
+  
   def remoteControlReceivedWithEvent(receivedEvent)
     if receivedEvent.type == UIEventTypeRemoteControl
       case receivedEvent.subtype
