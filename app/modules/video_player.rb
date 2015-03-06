@@ -164,6 +164,13 @@ module VideoPlayer
         name:MPMoviePlayerLoadStateDidChangeNotification, object:movie_player    
   end
   
+  def unobserve_movie_player(movie_player)
+    center = NSNotificationCenter.defaultCenter
+    center.removeObserver self, name:MPMoviePlayerPlaybackDidFinishNotification, object:movie_player
+    center.removeObserver self, name:MPMoviePlayerPlaybackStateDidChangeNotification, object:movie_player
+    center.removeObserver self, name:MPMoviePlayerLoadStateDidChangeNotification, object:movie_player
+  end
+  
   def movie_player_playback_finished(notification)
     movie_player = notification.object
     reason       = notification.userInfo.objectForKey MPMoviePlayerPlaybackDidFinishReasonUserInfoKey
@@ -225,6 +232,8 @@ module VideoPlayer
       @movie_player_controller.stop
       @movie_player_controller.initialPlaybackTime = -1
       @movie_player_controller.view.removeFromSuperview
+      unobserve_movie_player @movie_player_controller
+      @movie_player_controller = nil
     end
   end
   
