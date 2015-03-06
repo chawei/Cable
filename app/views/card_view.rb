@@ -87,6 +87,7 @@ class CardView < UIView
     #add_labels_after_view @media_view
     add_cover_art_view_on_view @media_view
     add_playing_status_button_on_view @media_view
+    add_overlay_view_on_view @media_view
     add_media_info_view_on_view @media_view
     add_liked_users_view
     add_buttons
@@ -117,9 +118,9 @@ class CardView < UIView
   end
   
   def add_cover_art_view_on_view(view)
-    @cover_art_view = UIImageView.alloc.initWithFrame([[0, 0], [view.size.width, view.size.height/2]])
+    @cover_art_view = UIImageView.alloc.initWithFrame([[0, 0], [view.size.width, view.size.height]])
     @cover_art_view.contentMode     = UIViewContentModeScaleAspectFit
-    @cover_art_view.backgroundColor = UIColor.colorWithRed 255/255.0, green:255/255.0, blue:255/255.0, alpha:0.2
+    @cover_art_view.backgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:1.0
     
     view.addSubview @cover_art_view
   end
@@ -132,13 +133,21 @@ class CardView < UIView
     end
     @playing_status_button.setBackgroundImage CBPlayerPlayIconImage, forState:UIControlStateNormal
     @playing_status_button.addTarget self, action:"tap_and_toggle_play", forControlEvents:UIControlEventTouchUpInside
-    @playing_status_button.layer.zPosition = 100
+    @playing_status_button.layer.zPosition = CBPlayingStatusButtonZPosition
     view.addSubview @playing_status_button
+  end
+  
+  def add_overlay_view_on_view(view)
+    @overlay_view = UIView.alloc.initWithFrame([[0, 0], view.size])
+    @overlay_view.backgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.2
+    @overlay_view.layer.zPosition = CBOverlayViewZPosition
+    
+    view.addSubview @overlay_view
   end
   
   def add_media_info_view_on_view(view)
     @media_info_view = UIView.alloc.initWithFrame([[0, 0], view.size])
-    @media_info_view.backgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.2
+    @media_info_view.layer.zPosition = CBMediaInfoViewZPosition
     
     add_labels_on_view(@media_info_view)
     add_slider_on_view(@media_info_view)

@@ -77,6 +77,10 @@ CBYesNoButtonHeight = 32
 CBYesNoButtonWidth  = 50
 CBSettingsCellHeight = 50
 
+CBPlayingStatusButtonZPosition = 30
+CBMediaInfoViewZPosition       = 20
+CBOverlayViewZPosition         = 10
+
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
 
