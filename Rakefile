@@ -57,6 +57,7 @@ Motion::Project::App.setup do |app|
     pod 'Parse'
     pod 'ParseFacebookUtils'
     pod 'Facebook-iOS-SDK'
+    pod 'HockeySDK'
   end
   
   app.info_plist['UIBackgroundModes'] = ['audio', 'remote-notification']

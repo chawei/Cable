@@ -1,5 +1,3 @@
-APP_VERSION = '1.2'
-
 # Production
 # PARSE_APP_ID         = "36UE8b1p96I8ta2FWktLDtu26AEIPrYVGI6p8yfu"
 # PARSE_CLIENT_KEY     = "pXWTI10uMDUOujT3FQscixpaUQHWI9Z5lWyx9YcP"
@@ -7,6 +5,8 @@ APP_VERSION = '1.2'
 # Development
 PARSE_APP_ID         = "hb7hG4EGS66dtt0L2pNKlh9VG3OlASKzjZObbiaX"
 PARSE_CLIENT_KEY     = "kVUmmMj9OmgECgJN9vM3VjnSzNv1wFAFd090peYh"
+
+HOCKEY_CABLE_APP_ID  = "c6c0f340778311221a9b75cd020cf7ec"
 
 FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
 

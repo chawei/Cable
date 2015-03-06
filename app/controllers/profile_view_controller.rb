@@ -20,8 +20,7 @@ class ProfileViewController < CBUIViewController
     
     apply_rounded_corner
     
-    @objects = fetch_song_objects
-    @fav_objects   = []
+    @fav_objects   = fetch_song_objects
     @event_objects = []
   end
   

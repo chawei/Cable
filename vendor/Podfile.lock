@@ -24,6 +24,7 @@ PODS:
   - Facebook-iOS-SDK (3.23.0):
     - Bolts (~> 1.0)
   - Firebase (2.2.0)
+  - HockeySDK (3.6.2)
   - KVOController (1.0.3)
   - Parse (1.6.3):
     - Bolts (~> 1.1)
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - AFNetworking
   - Facebook-iOS-SDK
   - Firebase (>= 2.1.2)
+  - HockeySDK
   - KVOController
   - Parse
   - ParseFacebookUtils
@@ -50,6 +52,7 @@ SPEC CHECKSUMS:
   Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
   Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
   Firebase: e7a2ea2ffeff99f9c37028b354194dcc9718d36b
+  HockeySDK: bfd1f5ac75938b07499c4ac12932244b72a2e70b
   KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
   Parse: f725f76ef200c5127420690fc6882e57c3813923
   ParseFacebookUtils: bb14e63862f920cc3f3864b0e373d6771b765255

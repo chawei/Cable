@@ -3,6 +3,10 @@ class AppDelegate
     Parse.setApplicationId(PARSE_APP_ID, clientKey:PARSE_CLIENT_KEY)
     PFFacebookUtils.initializeFacebook
     
+    BITHockeyManager.sharedHockeyManager.configureWithIdentifier HOCKEY_CABLE_APP_ID
+    BITHockeyManager.sharedHockeyManager.startManager
+    BITHockeyManager.sharedHockeyManager.authenticator.authenticateInstallation
+    
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
     @window.makeKeyAndVisible
     
