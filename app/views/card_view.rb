@@ -9,6 +9,7 @@ class CardView < UIView
     @song_object     = nil
     @is_first_tapped = false
     @is_removed      = false
+    @played_sec      = 0
     
     initWithFrame [origin, [CardView.default_width, card_height]]
     @origin        = self.frame.origin
@@ -572,11 +573,14 @@ class CardView < UIView
   end
   
   def remove_by_user
-    Player.instance.end_and_clear_by_user
-    self.removeFromSuperview
+    Player.instance.ended_by_user
+
+    remove
   end
   
   def remove
+    track_playing_status
+    
     Player.instance.clear
     self.removeFromSuperview
   end
@@ -587,6 +591,26 @@ class CardView < UIView
   
   def set_is_removed
     @is_removed = true
+  end
+  
+  def increment_played_sec
+    @played_sec += 1
+  end
+  
+  def is_played?
+    current_song_duration = Player.instance.current_song_duration
+    if current_song_duration && current_song_duration > 10
+      played_ratio = @played_sec / current_song_duration
+      played_ratio > 0.75
+    else
+      false
+    end
+  end
+  
+  def track_playing_status
+    if is_played? && song_object
+      Cloud.instance.save_played_song song_object
+    end
   end
   
   def swipe_away_by_user_with_new_center(new_center)

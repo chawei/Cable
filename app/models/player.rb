@@ -27,6 +27,12 @@ class Player
     @bg_task_id = UIBackgroundTaskInvalid
   end
   
+  def current_song_duration
+    if @movie_player_controller
+      @movie_player_controller.duration.to_f
+    end
+  end
+  
   def is_playing?
     is_video_playing? # && is_audio_playing?
   end
@@ -211,6 +217,12 @@ class Player
   def update_slider(sender)
     if @slider.nil?
       return
+    end
+    
+    if is_playing?
+      if @delegate && @delegate.respond_to?('increment_played_sec')
+        @delegate.increment_played_sec
+      end
     end
     
     if @media_mode == 'video'

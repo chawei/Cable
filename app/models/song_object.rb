@@ -6,6 +6,7 @@ class SongObject
   attr_accessor :video_id
   attr_accessor :image_url
   attr_accessor :duration
+  attr_accessor :tag
   
   def initialize(params)
     self.title     = params[:title]
@@ -14,6 +15,7 @@ class SongObject
     self.video_id  = params[:video_id]
     self.image_url = params[:image_url]
     self.duration  = params[:duration]
+    self.tag       = params[:tag]
   end
   
   def id
