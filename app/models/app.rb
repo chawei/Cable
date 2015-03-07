@@ -65,9 +65,10 @@ class App
   
   def self.play_object(object)
     User.current.stream.insert(object, 0)
+    User.current.stream.songs_updated
     #song_object = SongObject.new object
     #card_stack_view.add_card_view_on_top_with_song_object(song_object)
-    card_stack_view.play_top_card_view
+    #card_stack_view.play_top_card_view
   end
   
   def self.show_event_page(object)

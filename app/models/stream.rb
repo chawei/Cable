@@ -15,7 +15,7 @@ class Stream
     
     @songs_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
-        @songs = snapshot.value.clone
+        @songs = validate_songs snapshot.value.clone
         
         if @is_initiated == false
           App.card_stack_view.reload_card_views_if_necessary
@@ -29,6 +29,16 @@ class Stream
     end), withCancelBlock:(lambda do |error|
       NSLog("%@", error.description) 
     end)
+  end
+  
+  def validate_songs(songs)
+    validated_songs = []
+    songs.each do |song|
+      if song.class == Hash
+        validated_songs << song
+      end
+    end
+    validated_songs
   end
   
   def songs_updated
