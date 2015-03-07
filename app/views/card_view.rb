@@ -518,30 +518,42 @@ class CardView < UIView
         end
       end
       
-      rads = 0.1/180.0 * Math::PI * translation.x
-      new_transform  = CGAffineTransformMakeRotation rads
-      self.transform = new_transform
+      if CBDirectionToDiscard == 'top'
+        self.center = CGPointMake(@last_location.x, @last_location.y + translation.y)
+      else
+        rads = 0.1/180.0 * Math::PI * translation.x
+        new_transform  = CGAffineTransformMakeRotation rads
+        self.transform = new_transform
       
-      #self.alpha = 1 - (translation.x).abs/1000
+        self.alpha = 1 - (translation.x).abs/1000
 
-      self.center = CGPointMake(@last_location.x + translation.x, @last_location.y + translation.y)
+        self.center = CGPointMake(@last_location.x + translation.x, @last_location.y + translation.y)
+      end
     end
     
     if recognizer.state == UIGestureRecognizerStateEnded
       @direction = nil
       
-      if velocity.x > 0 && (self.center.x > 3*self.size.width/4)
-        new_x = App.screen_width*2
-        new_y = self.center.y + translation.y
-        swipe_away_by_user_with_new_center [new_x, new_y]
-        return
-      end
-      
-      if velocity.x < 0 && (self.center.x < self.size.width/4)
-        new_x = -App.screen_width
-        new_y = self.center.y + translation.y
-        swipe_away_by_user_with_new_center [new_x, new_y]
-        return
+      if CBDirectionToDiscard == 'top'
+        if velocity.y < CBDiscardVelocityThreshold || (self.center.y < self.size.height/3)
+          new_y = self.center.y - App.screen_height
+          swipe_away_by_user_with_new_center [self.center.x, new_y]
+          return
+        end
+      else
+        if velocity.x > 0 && (self.center.x > 3*self.size.width/4)
+          new_x = App.screen_width*2
+          new_y = self.center.y + translation.y
+          swipe_away_by_user_with_new_center [new_x, new_y]
+          return
+        end
+        
+        if velocity.x < 0 && (self.center.x < self.size.width/4)
+          new_x = -App.screen_width
+          new_y = self.center.y + translation.y
+          swipe_away_by_user_with_new_center [new_x, new_y]
+          return
+        end
       end
       
       if self.origin.y != 0 || self.origin.x != 0        
@@ -597,7 +609,11 @@ class CardView < UIView
                           delay:0.0,
                         options: UIViewAnimationCurveEaseInOut,
                      animations:(lambda do
-                         self.origin = [self.size.width, self.origin.y]
+                         if CBDirectionToDiscard == 'top'
+                           self.origin = [self.origin.x, -self.size.height]
+                         else
+                           self.origin = [self.size.width, self.origin.y]
+                         end
                        end),
                      completion:(lambda do |finished|
                          remove

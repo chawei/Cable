@@ -86,6 +86,8 @@ CBPlayingStatusButtonZPosition = 30
 CBMediaInfoViewZPosition       = 20
 CBOverlayViewZPosition         = 10
 
+CBDirectionToDiscard       = 'top'
+CBDiscardVelocityThreshold = -500
 
 CBRegularFontName = "ProximaNova-Regular"
 CBLightFontName   = "ProximaNova-Light"
