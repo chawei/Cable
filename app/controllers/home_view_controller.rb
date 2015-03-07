@@ -36,11 +36,15 @@ class HomeViewController < CBUIViewController
   
   def start
     Robot.instance.delegate = self
-    
     User.init
-    Robot.instance.say_hello
     
     UIApplication.sharedApplication.beginReceivingRemoteControlEvents
+  end
+  
+  def say_hello_when_app_became_active
+    unless Player.instance.is_playing?
+      Robot.instance.say_hello
+    end
   end
   
   def add_device_orientation_observer

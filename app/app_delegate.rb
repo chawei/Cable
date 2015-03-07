@@ -25,6 +25,10 @@ class AppDelegate
   
   def applicationDidBecomeActive(application)
     FBAppCall.handleDidBecomeActiveWithSession PFFacebookUtils.session
+    
+    if App.home_view_controller
+      App.home_view_controller.say_hello_when_app_became_active
+    end
   end
  
   def applicationWillTerminate(application)
