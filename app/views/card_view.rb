@@ -609,7 +609,8 @@ class CardView < UIView
   
   def track_playing_status
     if is_played? && song_object
-      Cloud.instance.save_played_song song_object
+      Robot.instance.send_played_event_with_song song_object.hash
+      #Cloud.instance.save_played_song song_object
     end
   end
   

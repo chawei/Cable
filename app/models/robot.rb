@@ -154,6 +154,11 @@ class Robot
     send_request_to_server(request)
   end
   
+  def send_played_event_with_song(song)
+    request = { :message => nil, :mode => 'played', :song => song }
+    send_request_to_server(request)
+  end
+  
   def send_add_more_songs_request
     request = { :message => nil, :mode => 'add_more_songs' }
     send_request_to_server(request)
