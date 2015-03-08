@@ -142,9 +142,11 @@ class MessagesViewController < UICollectionViewController
   end
   
   def hide_responding_status
-    message_object = @message_objects[-1]
-    if message_object && message_object[:type] == 'responding'
-      @message_objects.delete_at(-1)
+    @message_objects.each_index do |index|
+      message_object = @message_objects[index]
+      if message_object && message_object[:type] == 'responding'
+        @message_objects.delete_at(index)
+      end
     end
     collectionView.reloadData
     update_content_view_frame
