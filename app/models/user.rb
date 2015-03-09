@@ -239,18 +239,9 @@ class User
   
   def fetch_recommended_events
     @recommended_events = [{
-      :id => 1,
-      :title => "The Von Trapps at The Chapel (February 28, 2015)", :subtitle => 'The Von Trapps', :source => 'songkick',
-      :event_time => "February 28th, 2015 6:00PM - 10:00PM",
-      :artist_name => 'The von Trapps',
-      :bio => "The von Trapps is a musical group made up of Sofia, Melanie, Amanda and August von Trapp, descendants of the Trapp Family Singers.",
-      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
-      :image_url => 'http://userserve-ak.last.fm/serve/126/11997971.jpg',
-      :large_image_url => 'http://userserve-ak.last.fm/serve/500/11997971.png'
-    }, {
       :id => 2,
-      :title => "Sean Hayes at The New Parish (February 20, 2015)", :subtitle => 'Sean Hayes', :source => 'songkick',
-      :event_time => "February 20th, 2015 6:00PM - 10:00PM",
+      :title => "Sean Hayes at The New Parish (March 10, 2015)", :subtitle => 'Sean Hayes', :source => 'songkick',
+      :event_time => "March 10th, 2015 6:00PM - 10:00PM",
       :artist_name => 'Sean Hayes',
       :bio => "Hayes is a native of New York City, but was raised in North Carolina. He began playing traditional American and Irish music with a band called the Boys of Bluehill. He traveled the south, from the Black Mountain Music festival (LEAF Festival) in the Blue Ridge Mountains down to Charleston, South Carolina and eventually found his way to San Francisco, where he has lived since 1992.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
@@ -258,13 +249,22 @@ class User
       :large_image_url => 'http://userserve-ak.last.fm/serve/500/94602735.png'
     }, {
       :id => 3,
-      :title => 'The Kinks at The Chapel (March 01, 2015)', :subtitle => 'The Kinks', :source => 'songkick',
-      :event_time => "March 1st, 2015 6:00PM - 10:00PM",
+      :title => 'The Kinks at The Chapel (March 15, 2015)', :subtitle => 'The Kinks', :source => 'songkick',
+      :event_time => "March 15th, 2015 6:00PM - 10:00PM",
       :artist_name => 'The Kinks',
       :bio => "The Kinks were an English rock band formed in Muswell Hill, North London, by brothers Dave Davies and Ray Davies with Pete Quaife in 1963.",
       :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
       :image_url => 'http://userserve-ak.last.fm/serve/126/86692565.png',
       :large_image_url => 'http://userserve-ak.last.fm/serve/500/86692565.png'
+    }, {
+      :id => 4,
+      :title => "Maroon 5 at SAP Center (March 31, 2015)", :subtitle => 'Maroon 5', :source => 'songkick',
+      :event_time => "March 31st, 2015 - 7:00 PM",
+      :artist_name => 'Maroon 5',
+      :bio => "Maroon 5 is an American pop rock band that originated in Los Angeles, California.[3][4] The group was formed in 1994 as Kara's Flowers while its members were still in high school and originally consisted of Adam Levine (lead vocals, guitar), Jesse Carmichael (guitar, backing vocals) Mickey Madden (bass guitar) and Ryan Dusick (drums).",
+      :link => "http://www.songkick.com/festivals/944374/id/22927913-hillbilly-robot-an-urban-americana-music-event-2015",
+      :image_url => 'http://userserve-ak.last.fm/serve/126/89687701.jpg',
+      :large_image_url => 'http://userserve-ak.last.fm/serve/500/89687701.png'
     }]
   end
   

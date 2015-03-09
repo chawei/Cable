@@ -8,6 +8,7 @@ class SongTableCell < UITableViewCell
     initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:CBSongTableCellReuseIdentifier)
     
     @image_view = UIImageView.alloc.initWithImage CBDefaultProfileImage
+    @image_view.contentMode = UIViewContentModeScaleAspectFit
     @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
     
     @source_image_view = UIImageView.alloc.initWithImage CBYouTubeIconImage
