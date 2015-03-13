@@ -67,11 +67,11 @@ class MessagesViewController < UICollectionViewController
   end
   
   def add_tap_recognizer
-    #background_view = UIView.alloc.initWithFrame @original_frame
+    background_view = UIView.alloc.initWithFrame @original_frame
     tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
-    #background_view.addGestureRecognizer tap_recognizer
-    #collectionView.backgroundView = background_view
-    collectionView.addGestureRecognizer tap_recognizer
+    background_view.addGestureRecognizer tap_recognizer
+    collectionView.backgroundView = background_view
+    #collectionView.addGestureRecognizer tap_recognizer
   end
   
   def update_frame_with_keyboard_height(keyboard_height)
@@ -176,6 +176,7 @@ class MessagesViewController < UICollectionViewController
 
   def collectionView(collectionView, cellForItemAtIndexPath:indexPath)
     cell = collectionView.dequeueReusableCellWithReuseIdentifier CBMessageCellReuseIdentifier, forIndexPath:indexPath
+    cell.delegate = self
     
     message_object = message_objects.objectAtIndex indexPath.row
     cell.message_object = message_object

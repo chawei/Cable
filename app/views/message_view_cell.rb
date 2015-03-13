@@ -1,6 +1,8 @@
 class MessageViewCell < UICollectionViewCell
   include Style
   
+  attr_accessor :delegate
+  
   def initWithFrame(frame)
     super frame
     
@@ -35,7 +37,23 @@ class MessageViewCell < UICollectionViewCell
     self.contentView.addSubview @message_container
     self.contentView.addSubview @profile_image_view
     
+    add_background_view
+    
     self
+  end
+  
+  def add_background_view
+    tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background_to_hide_messages"
+    @background_view = UIView.alloc.initWithFrame frame
+    @background_view.addGestureRecognizer tap_recognizer
+    self.contentView.addSubview @background_view
+    self.contentView.sendSubviewToBack @background_view
+  end
+  
+  def tap_background_to_hide_messages
+    if delegate && delegate.respond_to?("tap_background")
+      delegate.tap_background
+    end
   end
   
   def max_inner_width
@@ -141,7 +159,10 @@ class MessageViewCell < UICollectionViewCell
     end
     
     apply_rounded_corner_on_view @message_container
-    self.contentView.frame = [self.contentView.origin, [self.contentView.size.width, @message_container.size.height+CBMessagePadding]]
+    self.contentView.frame = [self.contentView.origin, 
+      [self.contentView.size.width, @message_container.size.height+CBMessagePadding]]
+    
+    @background_view.frame = self.contentView.frame
     
     update_profile_image_view
   end
