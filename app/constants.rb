@@ -45,7 +45,9 @@ CBBlackColor      = UIColor.colorWithRed 60/255.0, green:60/255.0, blue:60/255.0
 CBLightGrayColor  = UIColor.colorWithRed 200/255.0, green:200/255.0, blue:200/255.0, alpha:1.0
 CBLightWhiteColor = UIColor.colorWithRed 240/255.0, green:240/255.0, blue:240/255.0, alpha:1.0
 CBYellowColor     = UIColor.colorWithRed 253/255.0, green:195/255.0, blue:0/255.0, alpha:1.0
-CBHighlightedYellowColor = UIColor.colorWithRed 233/255.0, green:175/255.0, blue:0/255.0, alpha:1.0
+CBHighlightedYellowColor  = UIColor.colorWithRed 233/255.0, green:175/255.0, blue:0/255.0, alpha:1.0
+CBNoButtonTextColor       = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.54
+CBNoButtonBackgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.08
 
 CBHomeViewPadding         = 16
 CBDefaultMargin           = 16

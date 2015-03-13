@@ -80,8 +80,8 @@ class MessageViewCell < UICollectionViewCell
     @no_button.addTarget self, action:"press_no_button", forControlEvents:UIControlEventTouchUpInside
     @no_button.setTitle "NO", forState:UIControlStateNormal
     @no_button.titleLabel.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
-    @no_button.setTitleColor UIColor.whiteColor, forState:UIControlStateNormal
-    @no_button.backgroundColor    = CBYellowColor
+    @no_button.setTitleColor CBNoButtonTextColor, forState:UIControlStateNormal
+    @no_button.backgroundColor    = CBNoButtonBackgroundColor
     @no_button.layer.borderColor  = UIColor.whiteColor.CGColor
     @no_button.layer.borderWidth  = 0.5
     @no_button.layer.cornerRadius = CBRoundedCornerRadius
