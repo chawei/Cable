@@ -79,6 +79,7 @@ class CardView < UIView
     @media_source_button.frame = [[card_width-msb_right_margin-msb_width, card_top_padding], [msb_width, msb_width]]
     @media_source_button.setImage CBYouTubeIconImage, forState:UIControlStateNormal
     @media_source_button.layer.zPosition = CBMediaSourceButtonZPosition
+    @media_source_button.userInteractionEnabled = false
     self.addSubview @media_source_button
     
     mv_top_margin = card_top_padding + msb_width/2
