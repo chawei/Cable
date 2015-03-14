@@ -580,7 +580,7 @@ class CardView < UIView
   end
   
   def remove
-    track_playing_status
+    track_playing_status_before_removing
     
     Player.instance.clear
     self.removeFromSuperview
@@ -608,10 +608,13 @@ class CardView < UIView
     end
   end
   
-  def track_playing_status
-    if is_played? && song_object
+  def track_playing_status_before_removing
+    return if song_object.nil?
+    
+    if is_played?
       Robot.instance.send_played_event_with_song song_object.hash
-      #Cloud.instance.save_played_song song_object
+    else
+      Robot.instance.send_swipe_event_with_song song_object.hash
     end
   end
   
@@ -623,9 +626,6 @@ class CardView < UIView
                          self.center = new_center
                        end),
                      completion:(lambda do |finished|
-                         if song_object
-                           Robot.instance.send_swipe_event_with_song song_object.hash
-                         end
                          remove_by_user
                        end))
   end

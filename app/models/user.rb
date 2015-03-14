@@ -147,7 +147,6 @@ class User
   end
   
   def add_favorite_song(song)
-    remove_favorite_song(song)
     @favorite_songs.insert(0, song)
     
     @favorites_ref.setValue @favorite_songs
