@@ -70,7 +70,7 @@ class User
     
     establish_favorites_ref
     establish_bookmarked_events_ref
-    fetch_recommended_events
+    establish_recommended_events_ref
   end
   
   def initialize_stream
@@ -234,6 +234,23 @@ class User
         PFUser.currentUser.saveInBackground
       end
     end
+  end
+  
+  def establish_recommended_events_ref    
+    @recommended_events_ref = @firebase_ref.childByAppendingPath "recommended_events/#{user_id}/objects"
+    @recommended_events_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
+      if snapshot.value
+        @recommended_events = snapshot.value.clone
+      else
+        @recommended_events = []
+      end
+      
+      if App.events_view_controller
+        App.events_view_controller.refresh_recommended_table
+      end
+    end), withCancelBlock:(lambda do |error|
+      NSLog("%@", error.description) 
+    end)
   end
   
   def fetch_recommended_events

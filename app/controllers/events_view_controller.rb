@@ -84,6 +84,10 @@ class EventsViewController < CBUIViewController
     end
   end
   
+  def refresh_recommended_table
+    @recommended_table_view.reloadData
+  end
+  
   def refresh_bookmarked_table
     @bookmarked_table_view.reloadData
   end
