@@ -33,9 +33,19 @@ module VideoPlayer
   end
   
   def play_youtube_object(object)
+    @tried_num = 0
     if youtube_id = object.youtube_id
-      @tried_num = 0
       extract_url_with_youtube_id youtube_id
+    else
+      query = "#{object.title} #{object.subtitle}"
+      search query, startIndex:1, withBlock:(lambda do |results|
+        if results.length > 0
+          youtube_id = results[0]['youtube_id']
+          extract_url_with_youtube_id youtube_id
+        else
+          handle_no_video_error
+        end
+      end)
     end
   end
   
@@ -268,6 +278,74 @@ module VideoPlayer
       @movie_player_controller.setFullscreen false, animated:true
       @movie_player_controller.controlStyle = MPMovieControlStyleNone
     end
+  end
+  
+  def search(query, startIndex:startIndex, withBlock:block)
+    query = query.urlEncodeUsingEncoding NSUTF8StringEncoding
+    
+    manager   = AFHTTPRequestOperationManager.manager
+    urlString = "https://gdata.youtube.com/feeds/api/videos?q=#{query}&start-index=#{startIndex}&max-results=10&v=2&alt=json"
+    manager.GET urlString, parameters:nil, success:(lambda { |operation, responseObject|
+      results = []
+      if responseObject['feed'] && responseObject['feed']['entry']
+        entries = responseObject['feed']['entry']
+        entries.each do |entry|
+          if result = convertEntryToResult(entry)
+            results << result
+          end
+        end
+      end
+      
+      if block
+        block.call(results)
+      end
+    }).weak!, failure:(lambda { |operation, error|
+      NSLog("Error: %@", error)
+      }).weak!
+  end
+  
+  def convertEntryToResult(entry)
+    if entry["media$group"]["media$description"].nil?
+      return nil
+    end
+    
+    title        = entry["title"]["$t"]
+    description  = entry["media$group"]["media$description"]["$t"]
+    thumbnails   = entry["media$group"]["media$thumbnail"]
+    thumbnailUrl = thumbnails[0]["url"]
+    if entry["media$group"]["yt$videoid"]
+      youTubeId    = entry["media$group"]["yt$videoid"]["$t"]
+    else
+      url   = entry["media$group"]["media$player"][0]["url"]
+      regex = /youtube.com.*(?:\/|v=)([^&$]+)/
+      youTubeId = url.match(regex)[1]
+    end
+    duration     = entry["media$group"]["yt$duration"]["seconds"]
+    if duration.to_i == 0 # if the video is unavailable
+      return nil
+    end
+    
+    viewCount    = 0
+    if entry["yt$statistics"]
+      viewCount  = entry["yt$statistics"]["viewCount"]
+    end
+    
+    numLikes     = 0
+    if entry["yt$rating"]
+      numLikes   = entry["yt$rating"]["numLikes"]
+    end
+    
+    result = {
+      'title'         => title,
+      'description'   => description,
+      'thumbnails'    => thumbnails,
+      'thumbnail_url' => thumbnailUrl,
+      'image_url'     => thumbnailUrl,
+      'youtube_id'    => youTubeId,
+      'view_count'    => viewCount,
+      'num_likes'     => numLikes,
+      'duration'      => duration
+    }
   end
   
 end

@@ -25,6 +25,12 @@ class Player
     @is_ended_by_user = false
     @should_continue_playing_in_background = false
     @bg_task_id = UIBackgroundTaskInvalid
+    
+    @is_logged_in_spotify = false
+  end
+  
+  def is_logged_in_spotify?
+    @is_logged_in_spotify
   end
   
   def current_song_duration
@@ -91,10 +97,10 @@ class Player
   def toggle_playing_status
     return if @current_playing_object.nil?
     
-    if @current_playing_object.is_from_youtube?
-      toggle_video_playing_status
-    else
+    if @current_playing_object.is_from_spotify? && is_logged_in_spotify?
       toggle_audio_playing_status
+    else
+      toggle_video_playing_status
     end
   end
   
@@ -138,11 +144,12 @@ class Player
     
     loading
     
-    if object.is_from_youtube?
+    if object.is_from_spotify? && is_logged_in_spotify?
+      @media_mode = 'audio'
+      #play_spotify_object object
+    else
       @media_mode = 'video'
       play_youtube_object object
-    else
-      
     end
   end
   
