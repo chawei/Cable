@@ -270,4 +270,10 @@ class HomeViewController < CBUIViewController
     Player.instance.update_movie_screen
   end
   
+  def showWebViewControllerWithUrl(url)
+    webViewController = TOWebViewController.alloc.initWithURL url
+    nav = UINavigationController.alloc.initWithRootViewController webViewController
+    self.presentViewController nav, animated:true, completion:nil
+  end
+  
 end

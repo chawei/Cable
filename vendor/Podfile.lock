@@ -20,20 +20,22 @@ PODS:
   - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Bolts (1.1.3)
-  - Facebook-iOS-SDK (3.23.0):
+  - Bolts (1.1.4)
+  - Facebook-iOS-SDK (3.23.1):
     - Bolts (~> 1.0)
   - Firebase (2.2.0)
   - HockeySDK (3.6.2)
   - KVOController (1.0.3)
-  - Parse (1.6.3):
+  - Parse (1.6.4):
     - Bolts (~> 1.1)
-  - ParseFacebookUtils (1.6.3):
+  - ParseFacebookUtils (1.6.4):
     - Facebook-iOS-SDK (~> 3.20)
-    - Parse (~> 1.6.3)
+    - Parse (~> 1.6.4)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
   - SDWebImage/Core (3.7.1)
+  - TOWebViewController (2.0.14)
+  - TTTAttributedLabel (1.13.2)
   - XCDYouTubeKit (2.1.1)
 
 DEPENDENCIES:
@@ -45,18 +47,22 @@ DEPENDENCIES:
   - Parse
   - ParseFacebookUtils
   - SDWebImage
+  - TOWebViewController
+  - TTTAttributedLabel
   - XCDYouTubeKit
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  Bolts: 3db0a875235e0c9042b013af13af0f00f79b102c
-  Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
+  Bolts: dd9fb8433d67f5acc3b6b4d1379bbc5513d716c1
+  Facebook-iOS-SDK: 89dae50e975ebab95a01b0962d27277fc9cf08fd
   Firebase: e7a2ea2ffeff99f9c37028b354194dcc9718d36b
   HockeySDK: bfd1f5ac75938b07499c4ac12932244b72a2e70b
   KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
-  Parse: f725f76ef200c5127420690fc6882e57c3813923
-  ParseFacebookUtils: bb14e63862f920cc3f3864b0e373d6771b765255
+  Parse: c2610f7a12ad0defc974803b819c4efe7746e6db
+  ParseFacebookUtils: 00833ccf6fec7d6429e2403fe457496a5089358b
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
+  TOWebViewController: d3eee5342e5f8508cc87107c96544f5dff01b802
+  TTTAttributedLabel: 7c4592f9a806badb8b48dc634cb9800447c51594
   XCDYouTubeKit: fd5bb231519645b2fa4f0b3e5f9b847228c3f953
 
 COCOAPODS: 0.35.0

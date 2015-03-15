@@ -14,7 +14,9 @@ class EventTableCell < UITableViewCell
     
     self.addSubview @title_label
     
-    @detail_label = UILabel.alloc.init
+    @detail_label = TTTAttributedLabel.alloc.init
+    @detail_label.delegate = self
+    @detail_label.enabledTextCheckingTypes = NSTextCheckingTypeLink
     @detail_label.textAlignment = NSTextAlignmentLeft
     @detail_label.numberOfLines = 0
     @detail_label.textColor = UIColor.blackColor
@@ -56,5 +58,9 @@ class EventTableCell < UITableViewCell
     @detail_label_height = @detail_label.size.height
     
     CBDefaultMargin*2 + 20 + 8 + @detail_label_height
+  end
+  
+  def attributedLabel(label, didSelectLinkWithURL:url)
+    App.home_view_controller.showWebViewControllerWithUrl(url)
   end
 end
