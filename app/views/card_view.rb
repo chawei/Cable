@@ -614,7 +614,7 @@ class CardView < UIView
     if is_played?
       Robot.instance.send_played_event_with_song song_object.hash
     else
-      Robot.instance.send_swipe_event_with_song song_object.hash
+      Robot.instance.send_skip_event_with_song song_object.hash
     end
   end
   

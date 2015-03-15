@@ -149,8 +149,8 @@ class Robot
     send_request_to_server(request)
   end
   
-  def send_swipe_event_with_song(song)
-    request = { :message => nil, :mode => 'swipe', :song => song }
+  def send_skip_event_with_song(song)
+    request = { :message => nil, :mode => 'skip', :song => song }
     send_request_to_server(request)
   end
   
