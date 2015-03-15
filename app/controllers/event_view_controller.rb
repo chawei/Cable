@@ -30,7 +30,7 @@ class EventViewController < CBUIViewController
     
     view.backgroundColor = UIColor.whiteColor
     
-    unless App.is_small_screen?
+    unless CBShouldShowPageInFullScreen
       apply_rounded_corner
     end
   end
@@ -43,7 +43,7 @@ class EventViewController < CBUIViewController
   end
   
   def add_event_table_view
-    if App.is_small_screen?
+    if CBShouldShowPageInFullScreen
       event_table_view_frame = [[0, CBDefaultMargin], 
         [view.size.width, view.size.height-CBDefaultMargin-@action_bar_view.size.height]]
     else
@@ -56,7 +56,7 @@ class EventViewController < CBUIViewController
     @event_table_view.dataSource = self
     view.addSubview @event_table_view
     
-    unless App.is_small_screen?
+    unless CBShouldShowPageInFullScreen
       @event_table_view.layer.setCornerRadius CBRoundedCornerRadius
       @event_table_view.layer.shouldRasterize = true
       @event_table_view.layer.rasterizationScale = UIScreen.mainScreen.scale
@@ -184,11 +184,12 @@ class EventViewController < CBUIViewController
   
   def press_close_button
     UIView.animateWithDuration 0.2, delay:0.0, options:UIViewAnimationOptionCurveEaseInOut, animations:(lambda do
-        if App.is_small_screen?
-          view.origin = [0, view.size.height]
+        if CBShouldShowPageInFullScreen
+          origin = [0, view.size.height]
         else
-          view.origin = [CBDefaultMargin, view.size.height]
+          origin = [CBDefaultMargin, view.size.height]
         end
+        view.origin = origin
       end), 
       completion:(lambda do |finished|
         self.view.removeFromSuperview

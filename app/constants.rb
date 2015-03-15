@@ -79,6 +79,8 @@ CBYesNoButtonHeight = 32
 CBYesNoButtonWidth  = 50
 CBSettingsCellHeight = 50
 
+CBShouldShowPageInFullScreen = true
+
 CBDefaultZPosition = 1
 CBMaxZPosition     = 1000
 
