@@ -164,4 +164,9 @@ class Robot
     send_request_to_server(request)
   end
   
+  def send_update_events_request_with_location_info(location)
+    request = { :message => nil, :mode => 'update_events', :location => location }
+    send_request_to_server(request)
+  end
+  
 end
