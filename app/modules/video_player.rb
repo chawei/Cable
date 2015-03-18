@@ -40,13 +40,32 @@ module VideoPlayer
       query = "#{object.title} #{object.subtitle}"
       search query, startIndex:1, withBlock:(lambda do |results|
         if results.length > 0
-          youtube_id = results[0]['youtube_id']
-          extract_url_with_youtube_id youtube_id
+          video = find_possible_youtube_video_from_results results
+          if video
+            youtube_id = video['youtube_id']
+            extract_url_with_youtube_id youtube_id
+          else
+            handle_no_video_error
+          end
         else
           handle_no_video_error
         end
       end)
     end
+  end
+  
+  def find_possible_youtube_video_from_results(results)
+    target_result = nil
+    
+    results.each do |result|
+      duration = result['duration'].to_i
+      if duration < 60*10 # 10 mins
+        target_result = result
+        break
+      end
+    end
+    
+    target_result
   end
   
   def toggle_video_playing_status
