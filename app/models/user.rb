@@ -168,15 +168,22 @@ class User
     Robot.instance.send_unlike_event_with_song(song)
   end
   
-  def has_favorited_song?(song)    
+  def has_favorited_song?(song)
+    is_favorited = false
     @favorite_songs.each_index do |index|
       favorite_song = @favorite_songs[index]
-      if favorite_song[:video_id] == song[:video_id]
-        return true
+      if song[:source] == 'youtube'
+        if favorite_song[:video_id] == song[:video_id]
+          is_favorited = true
+        end
+      elsif song[:source] == 'spotify'
+        if favorite_song[:spotify_id] == song[:spotify_id]
+          is_favorited = true
+        end
       end
     end
     
-    return false
+    return is_favorited
   end
   
   def establish_bookmarked_events_ref    
