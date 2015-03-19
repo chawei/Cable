@@ -2,6 +2,7 @@ class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     Parse.setApplicationId(PARSE_APP_ID, clientKey:PARSE_CLIENT_KEY)
     PFFacebookUtils.initializeFacebook
+    PFTwitterUtils.initializeWithConsumerKey TWITTER_API_KEY, consumerSecret:TWITTER_API_SECRET
     
     BITHockeyManager.sharedHockeyManager.configureWithIdentifier HOCKEY_CABLE_APP_ID
     BITHockeyManager.sharedHockeyManager.startManager

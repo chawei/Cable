@@ -1,5 +1,6 @@
 class User
   include FacebookAuth
+  include TwitterAuth
   
   @@current_user = nil
   
@@ -124,9 +125,17 @@ class User
     end
   end
   
+  def twitter_id
+    if PFUser.currentUser
+      PFUser.currentUser.objectForKey('twitterId')
+    end
+  end
+  
   def profile_image_url(pic_width=64)
     if facebook_id
       "http://graph.facebook.com/#{facebook_id}/picture?width=#{pic_width}&height=#{pic_width}"
+    elsif twitter_id
+      PFUser.currentUser.objectForKey('twitterProfileImageUrl')
     end
   end
   
@@ -173,11 +182,11 @@ class User
     @favorite_songs.each_index do |index|
       favorite_song = @favorite_songs[index]
       if song[:source] == 'youtube'
-        if favorite_song[:video_id] == song[:video_id]
+        if favorite_song[:video_id] && favorite_song[:video_id] == song[:video_id]
           is_favorited = true
         end
       elsif song[:source] == 'spotify'
-        if favorite_song[:spotify_id] == song[:spotify_id]
+        if favorite_song[:spotify_id] && favorite_song[:spotify_id] == song[:spotify_id]
           is_favorited = true
         end
       end

@@ -36,6 +36,11 @@ module SettingTableViewDelegate
           cell.title_label.text = "Connect to Facebook"
         end
         cell.detail_label.text = ""
+      when 2
+        unless User.current.is_logged_in?
+          cell.title_label.text = "Login to Twitter"
+        end
+        cell.detail_label.text = ""
       end
     end
 
@@ -64,6 +69,18 @@ module SettingTableViewDelegate
             finish_loading
           end)
         end
+      when 2
+        tableView.deselectRowAtIndexPath indexPath, animated:true
+        
+        unless User.current.is_logged_in?
+          loading
+          User.current.login_to_twitter(lambda do
+            User.current.fetch_auth_data_and_establish_data_refs
+            App.profile_view_controller.refresh_header_view
+            tableView.reloadData
+            finish_loading
+          end)
+        end
       end
     end
   end
@@ -79,7 +96,11 @@ module SettingTableViewDelegate
   def tableView(tableView, numberOfRowsInSection:section)
     case section
     when 0
-      2
+      if User.current.is_logged_in?
+        2
+      else
+        3
+      end
     end
   end
   

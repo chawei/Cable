@@ -6,6 +6,9 @@
 PARSE_APP_ID         = "hb7hG4EGS66dtt0L2pNKlh9VG3OlASKzjZObbiaX"
 PARSE_CLIENT_KEY     = "kVUmmMj9OmgECgJN9vM3VjnSzNv1wFAFd090peYh"
 
+TWITTER_API_KEY    = "njxdIgyqhsKEb0DLBzjF19gQu"
+TWITTER_API_SECRET = "DUq7oeFTH77n4qL9MI3afONKnaQwxJEa1aycfMQPDhteHhxSWW"
+
 HOCKEY_CABLE_APP_ID  = "c6c0f340778311221a9b75cd020cf7ec"
 
 FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
