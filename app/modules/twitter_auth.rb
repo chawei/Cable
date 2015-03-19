@@ -66,7 +66,8 @@ module TwitterAuth
         PFUser.currentUser.setObject user_data['name'], forKey:'name'
       end
       if user_data['profile_image_url']
-        PFUser.currentUser.setObject user_data['profile_image_url'], forKey:'twitterProfileImageUrl'
+        profile_image_url = user_data['profile_image_url'].gsub("_normal", "")
+        PFUser.currentUser.setObject profile_image_url, forKey:'twitterProfileImageUrl'
       end
     end
     
