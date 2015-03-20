@@ -67,6 +67,7 @@ class HomeViewController < CBUIViewController
     logo_image = UIImage.imageNamed "assets/icon_logo"
     logo_button.setBackgroundImage logo_image, forState:UIControlStateNormal
     logo_button.alpha = 1.0
+    logo_button.hidden = true
     
     user_icon_image = UIImage.imageNamed "assets/icon_user_profile"
     profile_button.setBackgroundImage user_icon_image, forState:UIControlStateNormal
@@ -110,7 +111,7 @@ class HomeViewController < CBUIViewController
     #self.view.bringSubviewToFront @messages_view_controller.collectionView
     #self.view.bringSubviewToFront @message_box
     
-    logo_button.hidden    = true
+    #logo_button.hidden    = true
     profile_button.hidden = true
     events_button.hidden  = true
   end
@@ -120,7 +121,7 @@ class HomeViewController < CBUIViewController
     @messages_view_controller.collectionView.hidden = true
     @message_box.dismiss_keyboard
     
-    logo_button.hidden    = false
+    #logo_button.hidden    = false
     profile_button.hidden = false
     events_button.hidden  = false
   end
