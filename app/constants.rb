@@ -38,11 +38,14 @@ CBPlayerPauseIconImage = UIImage.imageNamed "assets/control_pause"
 CBMaxTrackImage        = UIImage.imageNamed "assets/min_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 CBMinTrackImage        = UIImage.imageNamed "assets/max_track.png", stretchableImageWithLeftCapWidth:9, topCapHeight:0
 CBPlayingNowIconImage  = UIImage.imageNamed "assets/playing_now"
+CBDefaultSongImage     = UIImage.imageNamed "assets/icon_music_default_small"
+CBDefaultEventImage    = UIImage.imageNamed "assets/icon_event_default_small"
 
-CBSongTableCellReuseIdentifier = "SONG_TABLE_CELL_IDENTIFIER"
-CBMessageCellReuseIdentifier   = "MESSAGE_CELL_IDENTIFIER"
-CBSettingsCellReuseIdentifier  = "SETTINGS_CELL_IDENTIFIER"
-CBEventCellReuseIdentifier     = "EVENT_CELL_IDENTIFIER"
+CBSongTableCellReuseIdentifier  = "SONG_TABLE_CELL_IDENTIFIER"
+CBEventTableCellReuseIdentifier = "EVENT_TABLE_CELL_IDENTIFIER"
+CBMessageCellReuseIdentifier    = "MESSAGE_CELL_IDENTIFIER"
+CBSettingsCellReuseIdentifier   = "SETTINGS_CELL_IDENTIFIER"
+CBEventDataCellReuseIdentifier  = "EVENT_CELL_IDENTIFIER"
 
 CBBlackColor      = UIColor.colorWithRed 60/255.0, green:60/255.0, blue:60/255.0, alpha:1.0
 CBLightGrayColor  = UIColor.colorWithRed 200/255.0, green:200/255.0, blue:200/255.0, alpha:1.0
@@ -51,6 +54,7 @@ CBYellowColor     = UIColor.colorWithRed 253/255.0, green:195/255.0, blue:0/255.
 CBHighlightedYellowColor  = UIColor.colorWithRed 233/255.0, green:175/255.0, blue:0/255.0, alpha:1.0
 CBNoButtonTextColor       = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.54
 CBNoButtonBackgroundColor = UIColor.colorWithRed 0/255.0, green:0/255.0, blue:0/255.0, alpha:0.08
+CBDefaultBackgroundColor  = UIColor.colorWithRed 209/255.0, green:217/255.0, blue:221/255.0, alpha:1.0
 
 CBHomeViewPadding         = 16
 CBDefaultMargin           = 16

@@ -7,9 +7,10 @@ class SongTableCell < UITableViewCell
   def init
     initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:CBSongTableCellReuseIdentifier)
     
-    @image_view = UIImageView.alloc.initWithImage CBDefaultProfileImage
+    @image_view = UIImageView.alloc.initWithImage CBDefaultSongImage
     @image_view.contentMode = UIViewContentModeScaleAspectFit
     @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+    @image_view.backgroundColor = CBDefaultBackgroundColor
     
     @source_image_view = UIImageView.alloc.initWithImage CBYouTubeIconImage
     @source_image_view.frame = [[CBDefaultMargin+60-13, CBDefaultMargin-3], [16, 16]]
@@ -47,7 +48,7 @@ class SongTableCell < UITableViewCell
   def update_images_with_source(source)
     if source == 'youtube'
       @source_image_view.image = CBYouTubeIconImage
-      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 40]]
+      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 45]]
     elsif source == 'spotify'
       @source_image_view.image = CBSpotifyIconImage
       @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]

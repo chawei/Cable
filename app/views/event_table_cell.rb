@@ -1,66 +1,65 @@
 class EventTableCell < UITableViewCell
-  
   attr_accessor :title_label
-  attr_accessor :detail_label
+  attr_accessor :subtitle_label
+  attr_accessor :image_view
+  attr_accessor :source_image_view
   
   def init
-    initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:CBEventCellReuseIdentifier)
+    initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:CBEventTableCellReuseIdentifier)
+    
+    @background_image_view = UIImageView.alloc.initWithImage CBDefaultEventImage
+    @background_image_view.contentMode = UIViewContentModeScaleAspectFit
+    @background_image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+    @background_image_view.backgroundColor = CBDefaultBackgroundColor
+    
+    @image_view = UIImageView.alloc.initWithImage CBTransparentImage
+    @image_view.contentMode = UIViewContentModeScaleAspectFit
+    @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+    
+    @source_image_view = UIImageView.alloc.initWithImage CBYouTubeIconImage
+    @source_image_view.frame = [[CBDefaultMargin+60-13, CBDefaultMargin-3], [16, 16]]
     
     @title_label = UILabel.alloc.init
-    @title_label.textAlignment = NSTextAlignmentLeft
-    @title_label.numberOfLines = 1
-    @title_label.textColor = CBLightGrayColor
+    @title_label.numberOfLines = 2
+    @title_label.textColor = UIColor.blackColor
     @title_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
+    @title_label.text = "Unknown Title"
+      
+    @subtitle_label = UILabel.alloc.init
+    @subtitle_label.textColor = UIColor.grayColor
+    @subtitle_label.setFont UIFont.fontWithName(CBLightFontName, size:12.0)
+    @subtitle_label.text = "Sub Title"
     
+    self.addSubview @background_image_view
+    self.addSubview @image_view
+    self.addSubview @source_image_view
     self.addSubview @title_label
-    
-    @detail_label = TTTAttributedLabel.alloc.init
-    @detail_label.delegate = self
-    @detail_label.enabledTextCheckingTypes = NSTextCheckingTypeLink
-    @detail_label.textAlignment = NSTextAlignmentLeft
-    @detail_label.numberOfLines = 0
-    @detail_label.textColor = UIColor.blackColor
-    @detail_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
-    
-    self.addSubview @detail_label
+    self.addSubview @subtitle_label
     
     self
   end
   
-  def max_inner_width
-    self.size.width-CBDefaultMargin*2
+  def layoutSubviews
+    super
+    
+    label_origin_x = @image_view.frame.origin.x+@image_view.size.width+CBDefaultMargin
+    @title_label.frame = [[label_origin_x, CBCellLabelTopMargin], 
+      [self.size.width-label_origin_x-CBDefaultMargin, CBTitleLabelHeight]]
+    @title_label.setVerticalAlignmentTopWithHeight(CBTitleLabelHeight)
+    @subtitle_label.frame = [[label_origin_x, @title_label.frame.origin.y+@title_label.size.height], 
+      [self.size.width-label_origin_x-CBDefaultMargin, 20]]
   end
   
-  #def layoutSubviews
-  #  super
-  #  
-  #  label_width = self.size.width-CBDefaultMargin*2
-  #  @title_label.frame  = [[CBDefaultMargin, CBDefaultMargin], [label_width, 20]]
-  #  @detail_label.frame = [[CBDefaultMargin, @title_label.origin.y+@title_label.size.height+8], [label_width, 20]]
-  #end
-  
-  def update_frame_with_data(data)
-    self.selectionStyle   = UITableViewCellSelectionStyleNone
-    
-    @title_label.text  = data[:title]
-    @detail_label.text = data[:detail]
-    @detail_label.setVerticalAlignmentTopWithConstraintSize [max_inner_width, 400]
-    
-    label_width = max_inner_width
-    @title_label.frame  = [[CBDefaultMargin, CBDefaultMargin], [label_width, 20]]
-    @detail_label.frame = [[CBDefaultMargin, @title_label.origin.y+@title_label.size.height+8], @detail_label.size]
-  end
-  
-  def get_height_with_text(text)
-    @detail_label.text = text
-    @detail_label.setVerticalAlignmentTopWithConstraintSize [max_inner_width, 400]
-    #NSLog "@detail_label.size.height #{@detail_label.size.height}"
-    @detail_label_height = @detail_label.size.height
-    
-    CBDefaultMargin*2 + 20 + 8 + @detail_label_height
-  end
-  
-  def attributedLabel(label, didSelectLinkWithURL:url)
-    App.home_view_controller.showWebViewControllerWithUrl(url)
+  def update_images_with_source(source)
+    if source == 'youtube'
+      @source_image_view.image = CBYouTubeIconImage
+      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 40]]
+    elsif source == 'spotify'
+      @source_image_view.image = CBSpotifyIconImage
+      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+    else
+      @source_image_view.image = nil
+      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+    end
   end
 end

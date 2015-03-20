@@ -6,16 +6,16 @@ module EventTableViewDelegate
   
   def template_cell
     if @template_cell.nil?
-      @template_cell = EventTableCell.alloc.init
+      @template_cell = EventDataTableCell.alloc.init
     end
     @template_cell
   end
   
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
-    @reuseIdentifier ||= CBEventCellReuseIdentifier
+    @reuseIdentifier ||= CBEventDataCellReuseIdentifier
 
     cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
-      EventTableCell.alloc.init
+      EventDataTableCell.alloc.init
     end
     
     row_data = event_data[indexPath.row]

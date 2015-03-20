@@ -46,9 +46,15 @@ module ProfileTableViewDelegate
     objects = objects_of_table_view(tableView)
     object  = objects[indexPath.row]
     
+    if tableView == @fav_table_view
+      placeholder_image = CBDefaultSongImage
+    elsif tableView == @event_table_view
+      placeholder_image = CBDefaultEventImage
+    end
+    
     if object
       cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
-                     placeholderImage:nil
+                     placeholderImage:placeholder_image
   
       cell.update_images_with_source object[:source]
       cell.title_label.text    = object[:title]

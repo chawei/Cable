@@ -32,16 +32,17 @@ module EventsTableViewDelegate
   end
 
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
-    @reuseIdentifier ||= CBSongTableCellReuseIdentifier
+    @reuseIdentifier ||= CBEventTableCellReuseIdentifier
 
     cell = tableView.dequeueReusableCellWithIdentifier(@reuseIdentifier) || begin
-      SongTableCell.alloc.init
+      EventTableCell.alloc.init
     end
     
     objects = objects_of_table_view(tableView)
     object  = objects[indexPath.row]
+    
     cell.image_view.setImageWithURL NSURL.URLWithString(object[:image_url]),
-                   placeholderImage:nil
+                   placeholderImage:CBTransparentImage
   
     cell.update_images_with_source object[:source]                
     cell.title_label.text    = object[:title]
