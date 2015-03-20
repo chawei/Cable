@@ -7,8 +7,8 @@ module EventsTableViewDelegate
   def objects_of_table_view(table_view)
     if table_view == @recommended_table_view
       recommended_objects
-    elsif table_view == @bookmarked_table_view
-      bookmarked_objects
+    elsif table_view == @nearby_table_view
+      nearby_objects
     end
   end
 

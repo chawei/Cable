@@ -6,6 +6,7 @@ class User
   
   attr_accessor :favorite_songs
   attr_accessor :bookmarked_events
+  attr_accessor :nearby_events
   attr_accessor :recommended_events
   attr_reader   :stream
   
@@ -38,6 +39,7 @@ class User
     @favorite_songs     ||= []
     @bookmarked_events  ||= []
     @recommended_events ||= []
+    @nearby_events      ||= []
     
     @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
     fetch_auth_data_and_establish_data_refs
@@ -71,6 +73,7 @@ class User
     
     establish_favorites_ref
     establish_bookmarked_events_ref
+    establish_nearby_events_ref
     establish_recommended_events_ref
     fetch_location_and_ask_for_events
   end
@@ -207,9 +210,6 @@ class User
         App.profile_view_controller.refresh_events_table
         App.profile_view_controller.update_status
       end
-      if App.events_view_controller
-        App.events_view_controller.refresh_bookmarked_table
-      end
     end), withCancelBlock:(lambda do |error|
       NSLog("%@", error.description) 
     end)
@@ -251,6 +251,23 @@ class User
         PFUser.currentUser.saveInBackground
       end
     end
+  end
+  
+  def establish_nearby_events_ref    
+    @nearby_events_ref = @firebase_ref.childByAppendingPath "nearby_events/#{user_id}/objects"
+    @nearby_events_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
+      if snapshot.value
+        @nearby_events = snapshot.value.clone
+      else
+        @nearby_events = []
+      end
+      
+      if App.events_view_controller
+        App.events_view_controller.refresh_nearby_table
+      end
+    end), withCancelBlock:(lambda do |error|
+      NSLog("%@", error.description) 
+    end)
   end
   
   def establish_recommended_events_ref    
