@@ -169,4 +169,9 @@ class Robot
     send_request_to_server(request)
   end
   
+  def send_open_url_request(url)
+    request = { :message => nil, :mode => 'open_url', :url => url.absoluteString }
+    send_request_to_server(request)
+  end
+  
 end

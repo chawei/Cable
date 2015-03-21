@@ -18,7 +18,7 @@ class AppDelegate
   
   def application(application, openURL:url, sourceApplication:sourceApplication, annotation:annotation)
     if url.host == "cabl.in" || url.host == "www.cabl.in"
-      # send url to server
+      Robot.instance.send_open_url_request url
     else
       return FBAppCall.handleOpenURL url, sourceApplication:sourceApplication, withSession:PFFacebookUtils.session
     end
