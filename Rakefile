@@ -44,7 +44,8 @@ Motion::Project::App.setup do |app|
     'SystemConfiguration',
     'UIKit',
     'AVFoundation',
-    'MessageUI']
+    'MessageUI',
+    'MapKit']
   
   # LBYouTubeView
   app.vendor_project('vendor/LBYouTubeView', :static, :cflags => "-fobjc-arc")

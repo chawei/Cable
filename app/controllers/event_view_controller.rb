@@ -20,9 +20,11 @@ class EventViewController < CBUIViewController
     @event_data = [
       { :title => "Event time", :detail => event_object[:event_time] },
       { :title => "Line up", :detail => event_object[:artist_name] },
-      { :title => "Biographies", :detail => event_object[:bio] },
       { :title => "Official website", :detail => event_object[:link] }
     ]
+    unless event_object[:bio] == nil || event_object[:bio] == ''
+      @event_data.insert 2, { :title => "Biographies", :detail => event_object[:bio] }
+    end
   end
   
   def viewDidLoad
@@ -63,6 +65,7 @@ class EventViewController < CBUIViewController
     end
     
     add_event_header_view
+    add_event_footer_view
   end
   
   def add_event_header_view
@@ -72,7 +75,7 @@ class EventViewController < CBUIViewController
       [view.size.width-CBDefaultMargin*2, 60]]
     title_label.numberOfLines = 0
     title_label.textAlignment = NSTextAlignmentLeft
-    title_label.textColor     = UIColor.blackColor
+    title_label.textColor     = CBBlackColor
     title_label.setFont UIFont.fontWithName(CBRegularFontName, size:20.0)
     title_label.text = @event_object[:title]
     title_label.setVerticalAlignmentTopWithHeight(60)
@@ -112,10 +115,76 @@ class EventViewController < CBUIViewController
     @event_table_view.tableHeaderView = table_header_view
   end
   
+  def add_event_footer_view
+    table_footer_view = UIView.alloc.init
+    
+    top_border = CALayer.layer
+    top_border.frame = CGRectMake(0.0, 0.0, view.size.width, 1.0)
+    top_border.backgroundColor = UIColor.colorWithRed(218/255.0, green:218/255.0, blue:220/255.0, alpha:1.0).CGColor
+    table_footer_view.layer.addSublayer top_border
+    
+    title_label = UILabel.alloc.init
+    title_label.textAlignment = NSTextAlignmentLeft
+    title_label.numberOfLines = 1
+    title_label.textColor = CBGrayColor
+    title_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
+    title_label.text = "Venue"
+    
+    detail_label = TTTAttributedLabel.alloc.init
+    detail_label.delegate = self
+    detail_label.textAlignment = NSTextAlignmentLeft
+    detail_label.numberOfLines = 1
+    detail_label.textColor = CBBlackColor
+    detail_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
+    detail_label.text = event_object[:venue_name]
+    
+    address_label = TTTAttributedLabel.alloc.init
+    address_label.delegate = self
+    address_label.textAlignment = NSTextAlignmentLeft
+    address_label.numberOfLines = 1
+    address_label.textColor = CBGrayColor
+    address_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
+    if event_object[:venue_location]
+      address_label.text = event_object[:venue_location][:city]
+    end
+    
+    title_label.frame  = [[CBDefaultMargin, CBDefaultMargin], [view.size.width-CBDefaultMargin*2, 20]]
+    detail_label.frame = [[CBDefaultMargin, title_label.origin.y+title_label.size.height+8], 
+      [view.size.width-CBDefaultMargin*2, 20]]
+    address_label.frame = [[CBDefaultMargin, detail_label.origin.y+detail_label.size.height], 
+      [view.size.width-CBDefaultMargin*2, 20]]
+      
+    map_view = MKMapView.alloc.initWithFrame [[0, address_label.origin.y+address_label.size.height+CBDefaultMargin],
+      [view.size.width, 150]]
+      
+    if event_object[:venue_location]
+      lat = event_object[:venue_location][:lat]
+      lng = event_object[:venue_location][:lng]
+      coordinate = CLLocationCoordinate2DMake(lat, lng)
+      
+      annotation = MKPointAnnotation.alloc.init
+      annotation.coordinate = coordinate
+      annotation.title      = detail_label.text
+      map_view.addAnnotation annotation
+      
+      region = MKCoordinateRegionMakeWithDistance(coordinate, 1600, 1600)
+      map_view.setRegion map_view.regionThatFits(region), animated:true
+    end
+    
+    table_footer_view.frame = [[0, 0], 
+      [view.size.width, address_label.origin.y+address_label.size.height+map_view.size.height+CBDefaultMargin]]
+    table_footer_view.addSubview title_label
+    table_footer_view.addSubview detail_label
+    table_footer_view.addSubview address_label
+    table_footer_view.addSubview map_view
+    @event_table_view.tableFooterView = table_footer_view
+  end
+  
   def add_action_bar_view
     @action_bar_view = UIView.alloc.initWithFrame [
       [0, view.size.height-CBDefaultButtonHeight-CBDefaultMargin*2],
       [view.size.width, CBDefaultButtonHeight+CBDefaultMargin*2]]
+    @action_bar_view.backgroundColor = UIColor.whiteColor
       
     top_border = CALayer.layer
     top_border.frame = CGRectMake(0.0, 0.0, @action_bar_view.frame.size.width, 2.0)

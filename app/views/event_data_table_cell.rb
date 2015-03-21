@@ -9,7 +9,7 @@ class EventDataTableCell < UITableViewCell
     @title_label = UILabel.alloc.init
     @title_label.textAlignment = NSTextAlignmentLeft
     @title_label.numberOfLines = 1
-    @title_label.textColor = CBLightGrayColor
+    @title_label.textColor = CBGrayColor
     @title_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
     
     self.addSubview @title_label
@@ -19,8 +19,12 @@ class EventDataTableCell < UITableViewCell
     @detail_label.enabledTextCheckingTypes = NSTextCheckingTypeLink
     @detail_label.textAlignment = NSTextAlignmentLeft
     @detail_label.numberOfLines = 0
-    @detail_label.textColor = UIColor.blackColor
+    @detail_label.textColor = CBBlackColor
     @detail_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
+    @detail_label.linkAttributes = { 
+      KCTForegroundColorAttributeName => CBLinkBlueColor,
+      KCTUnderlineStyleAttributeName => NSNumber.numberWithInt(NSUnderlineStyleNone) 
+    }
     
     self.addSubview @detail_label
     
