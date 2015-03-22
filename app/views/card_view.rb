@@ -424,7 +424,7 @@ class CardView < UIView
   end
   
   def update_source_button
-    if @song_object.source == 'spotify'
+    if @song_object.can_be_played_in_spotify?
       @media_source_button.setImage CBSpotifyIconImage, forState:UIControlStateNormal
     else
       @media_source_button.setImage CBYouTubeIconImage, forState:UIControlStateNormal

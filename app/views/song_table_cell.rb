@@ -46,15 +46,12 @@ class SongTableCell < UITableViewCell
   end
   
   def update_images_with_source(source)
-    if source == 'youtube'
-      @source_image_view.image = CBYouTubeIconImage
-      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 45]]
-    elsif source == 'spotify'
+    if source == 'spotify' && Player.instance.is_logged_in_spotify?
       @source_image_view.image = CBSpotifyIconImage
       @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
     else
-      @source_image_view.image = nil
-      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 60]]
+      @source_image_view.image = CBYouTubeIconImage
+      @image_view.frame = [[CBDefaultMargin, CBDefaultMargin], [60, 45]]
     end
   end
 end

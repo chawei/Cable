@@ -98,7 +98,7 @@ class PopUpView < UIView
   def self.share_via_whatsapp(song_object)
     title   = song_object.title
     videoID = song_object.video_id
-    link    = "#{CBSiteHost}/songs/#{videoID}"
+    link    = song_object.cable_link
     
     text    = "Check this out! #{title} - #{link}"
     escaped = CFURLCreateStringByAddingPercentEscapes(nil, text, nil, "!*'();:@&=+$,/?%#[]",
@@ -113,7 +113,7 @@ class PopUpView < UIView
     if MFMailComposeViewController.canSendMail
       title   = song_object.title
       videoID = song_object.video_id
-      link    = "#{CBSiteHost}/songs/#{videoID}"
+      link    = song_object.cable_link
       body    = "<div>I'm listening to \"#{title}\"</div><br><div>Listen here: <a href='#{link}'>#{link}</a></div>"
       
       compose_view_controller = MFMailComposeViewController.alloc.initWithNibName nil, bundle:nil
@@ -127,7 +127,7 @@ class PopUpView < UIView
   def self.share_via_sms(song_object) 
     title   = song_object.title
     videoID = song_object.video_id
-    link    = "#{CBSiteHost}/songs/#{videoID}"
+    link    = song_object.cable_link
     
     text    = "Check out this song on Cable!\n#{title} - #{link}"
     send_sms(text, to:nil, in_view_controller:App.home_view_controller)
@@ -156,7 +156,7 @@ class PopUpView < UIView
   def self.share_via_fb_dialog(song_object)
     title   = song_object.title
     videoID = song_object.video_id
-    link    = "#{CBSiteHost}/songs/#{videoID}"
+    link    = song_object.cable_link
     
     params      = FBLinkShareParams.alloc.init
     params.link = NSURL.URLWithString link
@@ -181,7 +181,7 @@ class PopUpView < UIView
   def self.compose_fb_message(song_object)
     title    = song_object.title
     videoID  = song_object.video_id
-    link     = "#{CBSiteHost}/songs/#{videoID}"
+    link     = song_object.cable_link
     imageUrl = song_object.image_url
     
     #action = FBGraphObject.graphObject

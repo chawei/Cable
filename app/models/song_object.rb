@@ -36,6 +36,10 @@ class SongObject
     self.source == 'spotify'
   end
   
+  def can_be_played_in_spotify?
+    is_from_spotify? && Player.instance.is_logged_in_spotify?
+  end
+  
   def youtube_id
     if is_from_youtube?
       video_id
@@ -67,16 +71,21 @@ class SongObject
     []
   end
   
-  def copy_link
+  def cable_link
     link = "#{CBSiteHost}"
     if spotify_id && is_from_spotify?
       link = "#{CBSiteHost}/songs/#{spotify_id}?source=spotify"
     elsif youtube_id && is_from_youtube?
       link = "#{CBSiteHost}/songs/#{youtube_id}?source=youtube"
     end
+    
+    link
+  end
+  
+  def copy_link
     #CableClient.instance.saveCopiedLinkObject(link, title:title)
     
     pasteboard = UIPasteboard.generalPasteboard
-    pasteboard.string = link
+    pasteboard.string = cable_link
   end
 end
