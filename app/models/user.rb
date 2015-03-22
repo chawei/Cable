@@ -1,6 +1,7 @@
 class User
   include FacebookAuth
   include TwitterAuth
+  include Validation
   
   @@current_user = nil
   
@@ -162,8 +163,7 @@ class User
   def add_favorite_song(song)
     @favorite_songs.insert(0, song)
     
-    @favorites_ref.setValue @favorite_songs
-    
+    save_favorites @favorite_songs
     Robot.instance.send_like_event_with_song(song)
   end
   
@@ -175,22 +175,27 @@ class User
       end
     end
     
-    @favorites_ref.setValue @favorite_songs
-    
+    save_favorites @favorite_songs
     Robot.instance.send_unlike_event_with_song(song)
+  end
+  
+  def save_favorites(favorites)
+    favorites = validate_objects favorites
+    @favorites_ref.setValue favorites
   end
   
   def has_favorited_song?(song)
     is_favorited = false
     @favorite_songs.each_index do |index|
-      favorite_song = @favorite_songs[index]
-      if song[:source] == 'youtube'
-        if favorite_song[:video_id] && favorite_song[:video_id] == song[:video_id]
-          is_favorited = true
-        end
-      elsif song[:source] == 'spotify'
-        if favorite_song[:spotify_id] && favorite_song[:spotify_id] == song[:spotify_id]
-          is_favorited = true
+      if favorite_song = @favorite_songs[index]
+        if song[:source] == 'youtube'
+          if favorite_song[:video_id] && favorite_song[:video_id] == song[:video_id]
+            is_favorited = true
+          end
+        elsif song[:source] == 'spotify'
+          if favorite_song[:spotify_id] && favorite_song[:spotify_id] == song[:spotify_id]
+            is_favorited = true
+          end
         end
       end
     end
@@ -202,7 +207,7 @@ class User
     @bookmarked_events_ref = @firebase_ref.childByAppendingPath "events/#{user_id}/bookmarked"
     @bookmarked_events_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
-        @bookmarked_events = snapshot.value.clone
+        @bookmarked_events = validate_objects snapshot.value.clone
       else
         @bookmarked_events = []
       end
@@ -219,7 +224,7 @@ class User
     unbookmark_event event
     @bookmarked_events.insert(0, event)
     
-    @bookmarked_events_ref.setValue @bookmarked_events
+    save_bookmark_events @bookmarked_events
   end
   
   def unbookmark_event(event)
@@ -230,7 +235,12 @@ class User
       end
     end
     
-    @bookmarked_events_ref.setValue @bookmarked_events
+    save_bookmark_events @bookmarked_events
+  end
+  
+  def save_bookmark_events(events)
+    events = validate_objects events
+    @bookmarked_events_ref.setValue events
   end
   
   def has_bookmarked_event?(event)
@@ -257,7 +267,7 @@ class User
     @nearby_events_ref = @firebase_ref.childByAppendingPath "nearby_events/#{user_id}/objects"
     @nearby_events_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
-        @nearby_events = snapshot.value.clone
+        @nearby_events = validate_objects snapshot.value.clone
       else
         @nearby_events = []
       end
@@ -274,7 +284,7 @@ class User
     @recommended_events_ref = @firebase_ref.childByAppendingPath "recommended_events/#{user_id}/objects"
     @recommended_events_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
-        @recommended_events = snapshot.value.clone
+        @recommended_events = validate_objects snapshot.value.clone
       else
         @recommended_events = []
       end

@@ -1,4 +1,5 @@
 class Stream
+  include Validation
   
   attr_accessor :songs
   
@@ -15,7 +16,7 @@ class Stream
     
     @songs_ref.observeEventType FEventTypeValue, withBlock:(lambda do |snapshot| 
       if snapshot.value
-        @songs = validate_songs snapshot.value.clone
+        @songs = validate_objects snapshot.value.clone
         
         if @is_initiated == false
           App.card_stack_view.reload_card_views_if_necessary
@@ -31,21 +32,12 @@ class Stream
     end)
   end
   
-  def validate_songs(songs)
-    validated_songs = []
-    songs.each do |song|
-      if song.class == Hash
-        validated_songs << song
-      end
-    end
-    validated_songs
-  end
-  
   def songs_updated
     @are_songs_updated = true
   end
   
   def save(songs)
+    songs = validate_objects songs
     @songs_ref.setValue songs
   end
   

@@ -44,12 +44,14 @@ class SongObject
   
   def hash
     {
-      :video_id  => video_id,
-      :title     => title,
-      :subtitle  => subtitle,
-      :source    => source,
-      :image_url => image_url,
-      :duration  => duration
+      :title      => title,
+      :subtitle   => subtitle,
+      :source     => source,
+      :video_id   => video_id,
+      :spotify_id => spotify_id,
+      :image_url  => image_url,
+      :duration   => duration,
+      :tag        => tag
     }
   end
   
@@ -66,7 +68,12 @@ class SongObject
   end
   
   def copy_link
-    link = "#{CBSiteHost}/songs/#{video_id}"
+    link = "#{CBSiteHost}"
+    if spotify_id && is_from_spotify?
+      link = "#{CBSiteHost}/songs/#{spotify_id}?source=spotify"
+    elsif youtube_id && is_from_youtube?
+      link = "#{CBSiteHost}/songs/#{youtube_id}?source=youtube"
+    end
     #CableClient.instance.saveCopiedLinkObject(link, title:title)
     
     pasteboard = UIPasteboard.generalPasteboard

@@ -58,8 +58,9 @@ module VideoPlayer
     target_result = nil
     
     results.each do |result|
-      duration = result['duration'].to_i
-      if duration < 60*10 # 10 mins
+      youtube_id = result['youtube_id']
+      duration   = result['duration'].to_i
+      if youtube_id && duration < 60*10 # 10 mins
         target_result = result
         break
       end
