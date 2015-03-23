@@ -40,6 +40,8 @@ CBMinTrackImage        = UIImage.imageNamed "assets/max_track.png", stretchableI
 CBPlayingNowIconImage  = UIImage.imageNamed "assets/playing_now"
 CBDefaultSongImage     = UIImage.imageNamed "assets/icon_music_default_small"
 CBDefaultEventImage    = UIImage.imageNamed "assets/icon_event_default_small"
+CBEmptyFavsImage       = UIImage.imageNamed "assets/img_default_fav"
+CBEmptyEventsImage     = UIImage.imageNamed "assets/img_default_event"
 
 CBSongTableCellReuseIdentifier  = "SONG_TABLE_CELL_IDENTIFIER"
 CBEventTableCellReuseIdentifier = "EVENT_TABLE_CELL_IDENTIFIER"
@@ -87,6 +89,10 @@ CBPlayingStatusIconHeight = 50
 CBYesNoButtonHeight = 32
 CBYesNoButtonWidth  = 50
 CBSettingsCellHeight = 50
+CBEmptyFavsImageHeight   = 165/2.0
+CBEmptyFavsImageWidth    = 128/2.0
+CBEmptyEventsImageHeight = 160/2.0
+CBEmptyEventsImageWidth  = 139/2.0
 
 CBShouldShowPageInFullScreen = true
 
