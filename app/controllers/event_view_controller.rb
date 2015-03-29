@@ -145,7 +145,9 @@ class EventViewController < CBUIViewController
     address_label.textColor = CBGrayColor
     address_label.setFont UIFont.fontWithName(CBRegularFontName, size:16.0)
     if event_object[:venue_location]
-      address_label.text = event_object[:venue_location][:city]
+      if event_object[:venue_location][:address]
+        address_label.text = event_object[:venue_location][:address]
+      end
     end
     
     title_label.frame  = [[CBDefaultMargin, CBDefaultMargin], [view.size.width-CBDefaultMargin*2, 20]]

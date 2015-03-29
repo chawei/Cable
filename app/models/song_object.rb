@@ -74,9 +74,9 @@ class SongObject
   def cable_link
     link = "#{CBSiteHost}"
     if spotify_id && is_from_spotify?
-      link = "#{CBSiteHost}/songs/#{spotify_id}?source=spotify"
+      link = "#{CBSiteHost}/songs/#{spotify_id}/source/spotify"
     elsif youtube_id && is_from_youtube?
-      link = "#{CBSiteHost}/songs/#{youtube_id}?source=youtube"
+      link = "#{CBSiteHost}/songs/#{youtube_id}/source/youtube"
     end
     
     link
