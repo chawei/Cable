@@ -84,7 +84,11 @@ class ProfileViewController < CBUIViewController
     font       = UIFont.fontWithName(CBRegularFontName, size:14.0)
     attributes = NSDictionary.dictionaryWithObject font, forKey:NSFontAttributeName
     tint_color = UIColor.colorWithRed 253/255.0, green:195/255.0, blue:0/255.0, alpha:1.0
-    item_array = ["FAVORITES", "EVENTS"]
+    if CBIsEventFeatureActive
+      item_array = ["FAVORITES", "EVENTS"]
+    else
+      item_array = ["FAVORITES"]
+    end
     @segmented_control = UISegmentedControl.alloc.initWithItems item_array
     @segmented_control.segmentedControlStyle = UISegmentedControlStylePlain
     @segmented_control.tintColor = tint_color

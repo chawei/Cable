@@ -76,6 +76,10 @@ class HomeViewController < CBUIViewController
     events_image = UIImage.imageNamed "assets/icon_events"
     events_button.setBackgroundImage events_image, forState:UIControlStateNormal
     events_button.alpha = CBInactiveAlphaValue
+    unless CBIsEventFeatureActive
+      events_button.userInteractionEnabled = false
+      events_button.alpha = 0.0
+    end
   end
   
   def add_messages_view_controller
@@ -243,7 +247,9 @@ class HomeViewController < CBUIViewController
   def reset_buttons
     logo_button.alpha    = CBInactiveAlphaValue
     profile_button.alpha = CBInactiveAlphaValue
-    events_button.alpha  = CBInactiveAlphaValue
+    if CBIsEventFeatureActive
+      events_button.alpha = CBInactiveAlphaValue
+    end
   end
   
   def show_views
