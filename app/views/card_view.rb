@@ -233,7 +233,7 @@ class CardView < UIView
       [action_button_width, action_button_height]]
     @share_button.setImage CBShareIconImage, forState:UIControlStateNormal
     @share_button.addTarget self, action:"press_share_button", forControlEvents:UIControlEventTouchUpInside
-    self.addSubview @share_button
+    #self.addSubview @share_button
   end
   
   def add_pan_recognizer
