@@ -1,42 +1,43 @@
 PODS:
-  - AFNetworking (2.5.1):
-    - AFNetworking/NSURLConnection (= 2.5.1)
-    - AFNetworking/NSURLSession (= 2.5.1)
-    - AFNetworking/Reachability (= 2.5.1)
-    - AFNetworking/Security (= 2.5.1)
-    - AFNetworking/Serialization (= 2.5.1)
-    - AFNetworking/UIKit (= 2.5.1)
-  - AFNetworking/NSURLConnection (2.5.1):
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.1):
+  - AFNetworking/NSURLSession (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.1)
-  - AFNetworking/Security (2.5.1)
-  - AFNetworking/Serialization (2.5.1)
-  - AFNetworking/UIKit (2.5.1):
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bolts (1.1.4)
-  - Facebook-iOS-SDK (3.23.1):
+  - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
-  - Firebase (2.2.0)
+  - Firebase (2.2.1)
   - HockeySDK (3.6.2)
   - KVOController (1.0.3)
-  - Parse (1.6.4):
+  - Parse (1.7.1):
     - Bolts (~> 1.1)
-  - ParseFacebookUtils (1.6.4):
-    - Facebook-iOS-SDK (~> 3.20)
-    - Parse (~> 1.6.4)
-  - SDWebImage (3.7.1):
-    - SDWebImage/Core (= 3.7.1)
-  - SDWebImage/Core (3.7.1)
+  - ParseFacebookUtils (1.7.1):
+    - Facebook-iOS-SDK (~> 3.23)
+    - Parse (~> 1.7.1)
+  - SDWebImage (3.7.2):
+    - SDWebImage/Core (= 3.7.2)
+  - SDWebImage/Core (3.7.2)
   - TOWebViewController (2.0.14)
-  - TTTAttributedLabel (1.13.2)
+  - TTTAttributedLabel (1.13.3)
   - XCDYouTubeKit (2.1.1)
+  - youtube-ios-player-helper (0.1.1)
 
 DEPENDENCIES:
   - AFNetworking
@@ -50,19 +51,21 @@ DEPENDENCIES:
   - TOWebViewController
   - TTTAttributedLabel
   - XCDYouTubeKit
+  - youtube-ios-player-helper (~> 0.1.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  Bolts: dd9fb8433d67f5acc3b6b4d1379bbc5513d716c1
-  Facebook-iOS-SDK: 89dae50e975ebab95a01b0962d27277fc9cf08fd
-  Firebase: e7a2ea2ffeff99f9c37028b354194dcc9718d36b
-  HockeySDK: bfd1f5ac75938b07499c4ac12932244b72a2e70b
-  KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
-  Parse: c2610f7a12ad0defc974803b819c4efe7746e6db
-  ParseFacebookUtils: 00833ccf6fec7d6429e2403fe457496a5089358b
-  SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  TOWebViewController: d3eee5342e5f8508cc87107c96544f5dff01b802
-  TTTAttributedLabel: 7c4592f9a806badb8b48dc634cb9800447c51594
-  XCDYouTubeKit: fd5bb231519645b2fa4f0b3e5f9b847228c3f953
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
+  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
+  Firebase: a3d54b42f090ca275b22dcdf103b8ab6ac6f353c
+  HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
+  Parse: fa8ec29de6d82035635986c11946299fb1b38316
+  ParseFacebookUtils: fa09adf78372b589163b5a71a34d6ebc7eb83395
+  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  TOWebViewController: 2cfd0032d781cabd88a0995fbca9692c11f0797e
+  TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
+  XCDYouTubeKit: 5f9bda3a51f2d8af80404b3377bc4696f650d856
+  youtube-ios-player-helper: d7350b9f9070edf482e5d0bd5e8948c0ba1437f3
 
 COCOAPODS: 0.35.0

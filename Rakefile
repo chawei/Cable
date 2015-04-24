@@ -12,7 +12,7 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name              = 'Cable'
   app.deployment_target = '7.0'
-  app.version           = '1.2.5'
+  app.version           = '1.2.6'
   app.identifier        = 'com.songio.Cabl'
   app.seed_id           = '88A5HCG4W3'
   
@@ -68,6 +68,7 @@ Motion::Project::App.setup do |app|
     pod 'HockeySDK'
     pod 'TTTAttributedLabel'
     pod 'TOWebViewController'
+    pod 'youtube-ios-player-helper', '~> 0.1.1'
   end
   
   app.info_plist['UIBackgroundModes'] = ['audio', 'remote-notification']

@@ -15,6 +15,8 @@ FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
 
 CBSiteHost   = "http://cabl.in"
 
+CBIsEventFeatureActive = false
+
 CBInstallationChannelsKey   = "channels"
 CBUserPrivateChannelKey     = "channel"
 CBFacebookPermissions = ["user_about_me", "user_birthday", "user_location", "user_friends", "user_actions.music"]
