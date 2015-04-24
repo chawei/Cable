@@ -304,6 +304,56 @@ module VideoPlayer
     query = query.urlEncodeUsingEncoding NSUTF8StringEncoding
     
     manager   = AFHTTPRequestOperationManager.manager
+    urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=#{query}&type=video&key=AIzaSyBs2bhIyg6LDVjhfFuEb1U0Rtntkxe5tN4"
+    manager.GET urlString, parameters:nil, success:(lambda { |operation, responseObject|
+      results = []
+      if responseObject
+        entries = responseObject['items']
+        entries.each do |entry|
+          if result = convertEntryToResult(entry)
+            results << result
+          end
+        end
+      end
+      
+      if block
+        block.call(results)
+      end
+    }).weak!, failure:(lambda { |operation, error|
+      NSLog("Error: %@", error)
+      }).weak!
+  end
+  
+  def convertEntryToResult(entry)
+    thumbnails = entry["snippet"]["thumbnails"]
+    if thumbnails.nil? # means this video might be private or not available
+      return nil
+    end
+    
+    if thumbnails["high"]
+      thumbnailUrl = thumbnails["high"]["url"]
+    else
+      thumbnailUrl = thumbnails["default"]["url"]
+    end
+    
+    title        = entry["snippet"]["title"]
+    description  = entry["snippet"]["description"]
+    youTubeId    = entry["id"]["videoId"]
+    
+    result = {
+      'title'         => title,
+      'description'   => description,
+      'thumbnails'    => thumbnails,
+      'thumbnail_url' => thumbnailUrl,
+      'image_url'     => thumbnailUrl,
+      'youtube_id'    => youTubeId,
+    }
+  end
+  
+  def search_v2(query, startIndex:startIndex, withBlock:block)
+    query = query.urlEncodeUsingEncoding NSUTF8StringEncoding
+    
+    manager   = AFHTTPRequestOperationManager.manager
     urlString = "https://gdata.youtube.com/feeds/api/videos?q=#{query}&start-index=#{startIndex}&max-results=10&v=2&alt=json"
     manager.GET urlString, parameters:nil, success:(lambda { |operation, responseObject|
       results = []
@@ -324,7 +374,7 @@ module VideoPlayer
       }).weak!
   end
   
-  def convertEntryToResult(entry)
+  def convertEntryToResult_v2(entry)
     if entry["media$group"]["media$description"].nil?
       return nil
     end
