@@ -239,5 +239,7 @@ class MessageViewCell < UICollectionViewCell
   def selectedTag(tagName, tagIndex:tagIndex)
     request  = { :message => tagName, :mode => 'tag', :user_id => User.current.user_id }
     Robot.instance.listen request
+    
+    User.current.session.current_tag = tagName
   end
 end

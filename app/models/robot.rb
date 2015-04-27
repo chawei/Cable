@@ -60,6 +60,8 @@ class Robot
     request[:local_time] = { :raw => current_time, 
       :hour => current_time.hour, :min => current_time.min, :wday => current_time.wday }
     
+    request = add_current_tag_info(request)
+    
     PFCloud.callFunctionInBackground "listen",
       withParameters: request,
       block:(lambda do |response, error|
@@ -74,6 +76,16 @@ class Robot
     # if request[:mode] == 'message'
     #   response = { :message => "ok #{request[:message]}", :streaming_songs => [], :function_name_to_execute => nil }
     # end
+  end
+  
+  def add_current_tag_info(request)
+    options = request[:options] || {}
+    if User.current.session.current_tag
+      options[:current_tag] = User.current.session.current_tag
+    end
+    request[:options] = options
+    
+    request
   end
   
   def loading

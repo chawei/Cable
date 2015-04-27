@@ -9,6 +9,7 @@ class User
   attr_accessor :bookmarked_events
   attr_accessor :nearby_events
   attr_accessor :recommended_events
+  attr_accessor :session
   attr_reader   :stream
   
   def self.current
@@ -41,6 +42,7 @@ class User
     @bookmarked_events  ||= []
     @recommended_events ||= []
     @nearby_events      ||= []
+    @session            ||= Session.new
     
     @firebase_ref = Firebase.alloc.initWithUrl FIREBASE_URL
     fetch_auth_data_and_establish_data_refs

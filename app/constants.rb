@@ -11,7 +11,7 @@ TWITTER_API_SECRET = "DUq7oeFTH77n4qL9MI3afONKnaQwxJEa1aycfMQPDhteHhxSWW"
 
 HOCKEY_CABLE_APP_ID  = "c6c0f340778311221a9b75cd020cf7ec"
 
-FIREBASE_URL = "https://burning-torch-7761.firebaseio.com"
+FIREBASE_URL = "https://cable.firebaseio.com"
 
 CBSiteHost   = "http://cabl.in"
 

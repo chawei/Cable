@@ -8,8 +8,7 @@ class Stream
     @stream_url ||= "#{FIREBASE_URL}/streams/#{user_id}"
     
     @stream_ref = Firebase.alloc.initWithUrl @stream_url
-    @songs_ref  = @stream_ref.childByAppendingPath "songs"
-    @swiped_ref = @stream_ref.childByAppendingPath "swiped"
+    @songs_ref  = @stream_ref.childByAppendingPath "objects"
     
     @is_initiated      = false
     @are_songs_updated = false
