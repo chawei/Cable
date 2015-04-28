@@ -9,6 +9,7 @@ class Cloud
     @@instance
   end
   
+  # was saving from client-side but now from server-side
   def save_played_song(song_object)
     save_custom_object("PlayedSong", song_object:song_object)
   end
@@ -28,7 +29,7 @@ class Cloud
       custom_object.setObject song_object.duration.to_i, forKey:'duration'
     end
     if song_object.image_url
-      custom_object.setObject song_object.image_url, forKey:'image_url'
+      custom_object.setObject song_object.image_url, forKey:'imageUrl'
     end
     if song_object.tag
       custom_object.setObject song_object.tag, forKey:'query'
