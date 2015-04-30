@@ -25,6 +25,8 @@ Motion::Project::App.setup do |app|
     app.codesign_certificate = 'iPhone Developer: David Hsu (PFBJ39PZ74)'
   end
   
+  app.target "./WatchApp", :extension
+  
   # Facebook
   app.info_plist['CFBundleURLTypes'] = [ { 'CFBundleURLSchemes' => ['fb964305206928472', 'cable-app'] } ] 
   app.info_plist['FacebookAppID']    = '964305206928472'
