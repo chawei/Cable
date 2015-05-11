@@ -20,23 +20,29 @@ PODS:
   - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Bolts (1.1.4)
+  - Bolts (1.1.5):
+    - Bolts/AppLinks (= 1.1.5)
+    - Bolts/Tasks (= 1.1.5)
+  - Bolts/AppLinks (1.1.5):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.1.5)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
-  - Firebase (2.2.1)
-  - HockeySDK (3.6.2)
+  - Firebase (2.2.2)
+  - HockeySDK (3.6.4)
   - KVOController (1.0.3)
-  - Parse (1.7.1):
-    - Bolts (~> 1.1)
-  - ParseFacebookUtils (1.7.1):
-    - Facebook-iOS-SDK (~> 3.23)
-    - Parse (~> 1.7.1)
+  - Parse (1.7.2.2):
+    - Bolts/Tasks (>= 1.1.5)
+  - ParseFacebookUtils (1.7.2.2):
+    - Bolts/Tasks (>= 1.1.5)
+    - Facebook-iOS-SDK (~> 3.23.2)
+    - Parse (~> 1.7.2)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
   - TOWebViewController (2.0.14)
   - TTTAttributedLabel (1.13.3)
-  - XCDYouTubeKit (2.1.1)
+  - XCDYouTubeKit (2.1.2)
   - youtube-ios-player-helper (0.1.1)
 
 DEPENDENCIES:
@@ -55,17 +61,17 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
-  Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
+  Bolts: aac24961496d504aa56fc267cde95162a71bac39
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
-  Firebase: a3d54b42f090ca275b22dcdf103b8ab6ac6f353c
-  HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
+  Firebase: e35cdd2561bf4fea9c1e384e9400a9c173d19e47
+  HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
-  Parse: fa8ec29de6d82035635986c11946299fb1b38316
-  ParseFacebookUtils: fa09adf78372b589163b5a71a34d6ebc7eb83395
+  Parse: 6187586a80eb7b4960d755f85e1353148a611f87
+  ParseFacebookUtils: 86d051b953fa5f493301b991e768be4da7b752e0
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   TOWebViewController: 2cfd0032d781cabd88a0995fbca9692c11f0797e
   TTTAttributedLabel: 6f3174aef8e738f44dff97c2eb7d8184f6ab6277
-  XCDYouTubeKit: 5f9bda3a51f2d8af80404b3377bc4696f650d856
+  XCDYouTubeKit: 4687c62d8c858ecaa5f42192820eabf59bb2b9d3
   youtube-ios-player-helper: d7350b9f9070edf482e5d0bd5e8948c0ba1437f3
 
 COCOAPODS: 0.35.0

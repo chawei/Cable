@@ -9,9 +9,8 @@ class AppDelegate
     BITHockeyManager.sharedHockeyManager.authenticator.authenticateInstallation
     
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @window.makeKeyAndVisible
-    
     @window.rootViewController = App.home_view_controller
+    @window.makeKeyAndVisible
 
     true
   end

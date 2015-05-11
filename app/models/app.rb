@@ -32,8 +32,7 @@ class App
   
   def self.home_view_controller
     if @home_view_controller.nil?
-      storyboard = UIStoryboard.storyboardWithName("main", bundle: nil)
-      @home_view_controller = storyboard.instantiateInitialViewController
+      @home_view_controller = HomeViewController.alloc.init
     end
     @home_view_controller
   end

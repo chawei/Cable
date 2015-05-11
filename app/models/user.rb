@@ -122,7 +122,8 @@ class User
       event_suffix = "event bookmarkers"
     end
     
-    "#{@favorite_songs.count} #{fav_suffix} / #{@bookmarked_events.count} #{event_suffix}"
+    #"#{@favorite_songs.count} #{fav_suffix} / #{@bookmarked_events.count} #{event_suffix}"
+    "#{@favorite_songs.count} #{fav_suffix}"
   end
   
   def facebook_id

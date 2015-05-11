@@ -12,7 +12,7 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name              = 'Cable'
   app.deployment_target = '7.0'
-  app.version           = '1.2.6'
+  app.version           = '1.3.1'
   app.identifier        = 'com.songio.Cabl'
   app.seed_id           = '88A5HCG4W3'
   
@@ -25,7 +25,15 @@ Motion::Project::App.setup do |app|
     app.codesign_certificate = 'iPhone Developer: David Hsu (PFBJ39PZ74)'
   end
   
-  app.target "./WatchApp", :extension
+  app.release do
+    app.entitlements['aps-environment'] = 'production'
+    app.entitlements['get-task-allow']  = false
+    app.provisioning_profile = '/Users/chawei/Library/MobileDevice/Provisioning Profiles/Team_Cabl.mobileprovision'
+    app.codesign_certificate = 'iPhone Distribution: David Hsu (88A5HCG4W3)'
+    app.entitlements['beta-reports-active'] = true
+  end
+  
+  #app.target "./WatchApp", :extension
   
   # Facebook
   app.info_plist['CFBundleURLTypes'] = [ { 'CFBundleURLSchemes' => ['fb964305206928472', 'cable-app'] } ] 

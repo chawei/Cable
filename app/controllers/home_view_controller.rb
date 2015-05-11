@@ -1,30 +1,23 @@
-class HomeViewController < CBUIViewController
-  extend IB
-  
+class HomeViewController < CBUIViewController  
   include RobotDelegate
   include ShareDelegate
   
-  outlet :logo_button
-  outlet :profile_button
-  outlet :events_button
+  attr_accessor :logo_button
+  attr_accessor :profile_button
+  attr_accessor :events_button
   
   attr_accessor :card_stack_view
   attr_accessor :messages_view_controller
   attr_accessor :profile_view_controller
   attr_accessor :events_view_controller
   
-  def viewWillAppear(animated)
-    super
-    
-  end
-  
   def viewDidLoad
     super
     
     self.view.backgroundColor = UIColor.colorWithPatternImage UIImage.imageNamed("assets/pattern_background.png")
     
-    add_card_stack_view
     set_buttons
+    add_card_stack_view
     
     add_messages_view_controller
     add_message_box
@@ -64,22 +57,41 @@ class HomeViewController < CBUIViewController
   end
   
   def set_buttons
+    top_margin = App.status_bar_height + CBDefaultMargin
+    
+    @logo_button = UIButton.buttonWithType UIButtonTypeCustom
+    @logo_button.frame = [[(view.size.width-CBDefaultButtonWidth)/2, top_margin], 
+      [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+    @logo_button.addTarget self, action:"press_logo_button", forControlEvents:UIControlEventTouchUpInside
+    
+    @profile_button = UIButton.buttonWithType UIButtonTypeCustom
+    @profile_button.frame = [[CBDefaultMargin, top_margin], [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+    @profile_button.addTarget self, action:"toggle_profile:", forControlEvents:UIControlEventTouchUpInside
+    
+    @events_button = UIButton.buttonWithType UIButtonTypeCustom
+    @events_button.frame = [[(view.size.width-CBDefaultMargin), top_margin], [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+    @events_button.addTarget self, action:"toggle_events:", forControlEvents:UIControlEventTouchUpInside
+    
     logo_image = UIImage.imageNamed "assets/icon_logo"
-    logo_button.setBackgroundImage logo_image, forState:UIControlStateNormal
-    logo_button.alpha = 1.0
-    logo_button.hidden = true
+    @logo_button.setBackgroundImage logo_image, forState:UIControlStateNormal
+    @logo_button.alpha = 1.0
+    @logo_button.hidden = true
     
     user_icon_image = UIImage.imageNamed "assets/icon_user_profile"
-    profile_button.setBackgroundImage user_icon_image, forState:UIControlStateNormal
-    profile_button.alpha = CBInactiveAlphaValue
+    @profile_button.setBackgroundImage user_icon_image, forState:UIControlStateNormal
+    @profile_button.alpha = CBInactiveAlphaValue
     
     events_image = UIImage.imageNamed "assets/icon_events"
-    events_button.setBackgroundImage events_image, forState:UIControlStateNormal
-    events_button.alpha = CBInactiveAlphaValue
+    @events_button.setBackgroundImage events_image, forState:UIControlStateNormal
+    @events_button.alpha = CBInactiveAlphaValue
     unless CBIsEventFeatureActive
-      events_button.userInteractionEnabled = false
-      events_button.alpha = 0.0
+      @events_button.userInteractionEnabled = false
+      @events_button.alpha = 0.0
     end
+    
+    view.addSubview @logo_button
+    view.addSubview @profile_button
+    view.addSubview @events_button
   end
   
   def add_messages_view_controller
