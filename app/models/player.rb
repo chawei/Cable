@@ -8,10 +8,6 @@ class Player
   def self.instance
     if @@instance.nil?
       @@instance = Player.new
-      
-      audio_session = AVAudioSession.sharedInstance
-      audio_session.setCategory AVAudioSessionCategoryPlayback, error:nil
-      audio_session.setActive true, error:nil
     end
     @@instance
   end
@@ -19,6 +15,7 @@ class Player
   def initialize
     super
     
+    set_audio_session
     @current_playing_object = nil
     @delegate = nil
     @slider   = nil
@@ -27,6 +24,36 @@ class Player
     @bg_task_id = UIBackgroundTaskInvalid
     
     @is_logged_in_spotify = false
+  end
+  
+  def set_audio_session
+    @audio_session = AVAudioSession.sharedInstance
+    @audio_session.setCategory AVAudioSessionCategoryPlayback, withOptions:AVAudioSessionCategoryOptionMixWithOthers, error:nil
+    @audio_session.setActive true, error:nil
+    
+    NSNotificationCenter.defaultCenter.addObserver self,
+                                             selector:"audio_interruption:",
+                                                 name:AVAudioSessionInterruptionNotification,
+                                               object:@audio_session
+  end
+  
+  def audio_interruption(notification)
+    #NSLog "audio_interruption"
+    interruption_dictionary = notification.userInfo
+    interruption_type       = interruption_dictionary.valueForKey AVAudioSessionInterruptionTypeKey
+    if interruption_type.intValue == AVAudioSessionInterruptionTypeBegan
+      #NSLog "Interruption started"
+      #if @was_playing
+      #  play
+      #end
+    elsif interruption_type.intValue == AVAudioSessionInterruptionTypeEnded
+      NSLog "Interruption ended"
+      if @was_playing
+        play
+      end
+    else
+      #NSLog "Something else happened"
+    end
   end
   
   def is_logged_in_spotify?
@@ -83,10 +110,12 @@ class Player
   end
   
   def play
+    @was_playing = true
     play_video
   end
   
   def pause
+    @was_playing = false
     pause_video
   end
   
