@@ -28,7 +28,9 @@ class Player
   
   def set_audio_session
     @audio_session = AVAudioSession.sharedInstance
-    @audio_session.setCategory AVAudioSessionCategoryPlayback, withOptions:AVAudioSessionCategoryOptionMixWithOthers, error:nil
+    # AVAudioSessionCategoryOptionMixWithOthers and AVAudioSessionCategoryOptionDuckOthers 
+    # will disable the remote control events.
+    @audio_session.setCategory AVAudioSessionCategoryPlayback, error:nil
     @audio_session.setActive true, error:nil
     
     NSNotificationCenter.defaultCenter.addObserver self,
@@ -42,13 +44,14 @@ class Player
     interruption_dictionary = notification.userInfo
     interruption_type       = interruption_dictionary.valueForKey AVAudioSessionInterruptionTypeKey
     if interruption_type.intValue == AVAudioSessionInterruptionTypeBegan
-      #NSLog "Interruption started"
+      NSLog "Interruption started"
       #if @was_playing
       #  play
       #end
     elsif interruption_type.intValue == AVAudioSessionInterruptionTypeEnded
       NSLog "Interruption ended"
       if @was_playing
+        @audio_session.setActive true, error:nil # Not sure if this is necessary
         play
       end
     else
