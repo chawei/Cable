@@ -18,7 +18,6 @@ class HomeViewController < CBUIViewController
     
     set_buttons
     add_card_stack_view
-    
     add_messages_view_controller
     add_message_box
     
@@ -54,6 +53,38 @@ class HomeViewController < CBUIViewController
     
     tap_recognizer = UITapGestureRecognizer.alloc.initWithTarget self, action:"tap_background"
     @card_stack_view.addGestureRecognizer tap_recognizer
+    
+    add_default_message_view
+  end
+  
+  def add_default_message_view
+    @default_message_view = UIView.alloc.initWithFrame view.frame
+    
+    image_width  = CBDefaultButtonWidth
+    image_height = CBDefaultButtonHeight
+    image_view   = UIImageView.alloc.initWithFrame [[(view.size.width-image_width)/2, 0], [image_width, image_height]]
+    image_view.image = CBLogoImage
+    
+    message_text = "No song cards on your desk.\nType what you want in the message box below."
+    
+    message_label               = UILabel.alloc.initWithFrame [[0, 0], [250, view.size.height]]
+    message_label.text          = message_text
+    message_label.textColor     = UIColor.whiteColor
+    message_label.numberOfLines = 0
+    message_label.textAlignment = NSTextAlignmentCenter
+    message_label.font = UIFont.fontWithName(CBRegularFontName, size:18.0)
+    message_label.sizeToFit
+    
+    origin_y = (view.size.height - image_view.size.height - message_label.size.height - 40)/2
+    image_view.origin   = [image_view.origin.x, origin_y]
+    message_label.frame = [[(view.size.width-message_label.size.width)/2, image_view.origin.y+image_view.size.height+10],
+      message_label.size]
+      
+    @default_message_view.addSubview image_view
+    @default_message_view.addSubview message_label
+    
+    view.addSubview @default_message_view
+    view.sendSubviewToBack @default_message_view
   end
   
   def set_buttons
@@ -72,7 +103,7 @@ class HomeViewController < CBUIViewController
     @events_button.frame = [[(view.size.width-CBDefaultMargin), top_margin], [CBDefaultButtonWidth, CBDefaultButtonHeight]]
     @events_button.addTarget self, action:"toggle_events:", forControlEvents:UIControlEventTouchUpInside
     
-    logo_image = UIImage.imageNamed "assets/icon_logo"
+    logo_image = CBLogoImage
     @logo_button.setBackgroundImage logo_image, forState:UIControlStateNormal
     @logo_button.alpha = 1.0
     @logo_button.hidden = true
@@ -130,6 +161,7 @@ class HomeViewController < CBUIViewController
     #logo_button.hidden    = true
     profile_button.hidden = true
     events_button.hidden  = true
+    @default_message_view.hidden = true
   end
   
   def hide_message_ui
@@ -140,6 +172,7 @@ class HomeViewController < CBUIViewController
     #logo_button.hidden    = false
     profile_button.hidden = false
     events_button.hidden  = false
+    @default_message_view.hidden = false
   end
   
   def tap_background

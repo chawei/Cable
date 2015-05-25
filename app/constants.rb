@@ -21,6 +21,7 @@ CBInstallationChannelsKey   = "channels"
 CBUserPrivateChannelKey     = "channel"
 CBFacebookPermissions = ["user_about_me", "user_birthday", "user_location", "user_friends", "user_actions.music"]
 
+CBLogoImage            = UIImage.imageNamed "assets/icon_logo"
 CBYouTubeIconImage     = UIImage.imageNamed "assets/icon_youtube_large"
 CBSpotifyIconImage     = UIImage.imageNamed "assets/icon_spotify_large"
 CBLikeIconImage        = UIImage.imageNamed "assets/button_icon_like"
