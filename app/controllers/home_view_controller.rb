@@ -125,15 +125,15 @@ class HomeViewController < CBUIViewController
     view.addSubview @profile_button
     view.addSubview @events_button
     
-    add_player_button
+    #add_player_indicator
   end
   
-  def add_player_button
+  def add_player_indicator
     top_margin = App.status_bar_height + CBDefaultMargin
-    @player_indicator = PlayerIndicator.instance.build [[(view.size.width-CBDefaultMargin-CBDefaultButtonWidth), top_margin], 
+    PlayerIndicator.instance.build [[(view.size.width-CBDefaultMargin-CBDefaultButtonWidth), top_margin], 
       [CBDefaultButtonWidth, CBDefaultButtonHeight]]
     
-    view.addSubview @player_indicator.view
+    view.addSubview PlayerIndicator.instance.view
   end
   
   def add_messages_view_controller
@@ -173,7 +173,7 @@ class HomeViewController < CBUIViewController
     profile_button.hidden = true
     events_button.hidden  = true
     @default_message_view.hidden = true
-    @player_indicator.show
+    PlayerIndicator.instance.show
   end
   
   def hide_message_ui
@@ -185,7 +185,7 @@ class HomeViewController < CBUIViewController
     profile_button.hidden = false
     events_button.hidden  = false
     @default_message_view.hidden = false
-    @player_indicator.hide
+    PlayerIndicator.instance.hide
   end
   
   def tap_background

@@ -24,8 +24,17 @@ class MessageBox < UIView
     apply_rounded_corner
     add_keyboard_observers
     add_tap_recognizer
+    add_player_indicator
     
     self
+  end
+  
+  def add_player_indicator
+    @player_indicator = PlayerIndicator.instance.build [
+      [(self.size.width-CBDefaultMargin-CBDefaultButtonWidth), (self.size.height-CBDefaultButtonHeight)/2], 
+      [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+    
+    self.addSubview @player_indicator.view
   end
   
   def add_tap_recognizer

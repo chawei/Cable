@@ -165,6 +165,22 @@ class MessageViewCell < UICollectionViewCell
     @background_view.frame = self.contentView.frame
     
     update_profile_image_view
+    update_loading_view
+  end
+  
+  def update_loading_view
+    if @message_object[:type] == 'responding'
+      @activity_view = UIActivityIndicatorView.alloc.initWithActivityIndicatorStyle UIActivityIndicatorViewStyleWhite
+      new_center = [@message_container.origin.x + @message_container.size.width + CBMessagePadding + @activity_view.size.width/2,
+        @message_container.size.height/2]
+      @activity_view.center = new_center
+      @activity_view.startAnimating
+      self.contentView.addSubview @activity_view
+    else
+      if @activity_view
+        @activity_view.removeFromSuperview
+      end
+    end
   end
   
   def update_label_color
