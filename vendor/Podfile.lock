@@ -31,6 +31,7 @@ PODS:
   - Firebase (2.2.2)
   - HockeySDK (3.6.4)
   - KVOController (1.0.3)
+  - NAKPlaybackIndicatorView (0.0.3)
   - Parse (1.7.3):
     - Bolts/Tasks (>= 1.1.5)
   - ParseFacebookUtils (1.7.3):
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - Firebase (>= 2.1.2)
   - HockeySDK
   - KVOController
+  - NAKPlaybackIndicatorView
   - Parse
   - ParseFacebookUtils
   - SDWebImage
@@ -66,6 +68,7 @@ SPEC CHECKSUMS:
   Firebase: e35cdd2561bf4fea9c1e384e9400a9c173d19e47
   HockeySDK: c07cdd580296737edcd0963e292c19885a53f563
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
+  NAKPlaybackIndicatorView: 794dd97576fe074bb1844c19ebcbf7509384a47f
   Parse: 0992f9d23cf47c32d646467d8badb814926c800a
   ParseFacebookUtils: 87b0e815396ac209d1c3a87758cce37e9a44e1e7
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29

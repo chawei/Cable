@@ -116,7 +116,7 @@ CBLightFontName   = "ProximaNova-Light"
 
 CBMaxNumOfTry = 20
 
-CBMessageBoxPlaceholderText = "Tell me what you want"
+CBMessageBoxPlaceholderText = "Type what you want here..."
 
 # Sharing Options
 CBShareToCableTitle       = "Cable friends"

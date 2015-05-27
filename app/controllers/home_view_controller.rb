@@ -100,7 +100,8 @@ class HomeViewController < CBUIViewController
     @profile_button.addTarget self, action:"toggle_profile:", forControlEvents:UIControlEventTouchUpInside
     
     @events_button = UIButton.buttonWithType UIButtonTypeCustom
-    @events_button.frame = [[(view.size.width-CBDefaultMargin), top_margin], [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+    @events_button.frame = [[(view.size.width-CBDefaultMargin-CBDefaultButtonWidth), top_margin], 
+      [CBDefaultButtonWidth, CBDefaultButtonHeight]]
     @events_button.addTarget self, action:"toggle_events:", forControlEvents:UIControlEventTouchUpInside
     
     logo_image = CBLogoImage
@@ -123,6 +124,16 @@ class HomeViewController < CBUIViewController
     view.addSubview @logo_button
     view.addSubview @profile_button
     view.addSubview @events_button
+    
+    add_player_button
+  end
+  
+  def add_player_button
+    top_margin = App.status_bar_height + CBDefaultMargin
+    @player_indicator = PlayerIndicator.instance.build [[(view.size.width-CBDefaultMargin-CBDefaultButtonWidth), top_margin], 
+      [CBDefaultButtonWidth, CBDefaultButtonHeight]]
+    
+    view.addSubview @player_indicator.view
   end
   
   def add_messages_view_controller
@@ -162,6 +173,7 @@ class HomeViewController < CBUIViewController
     profile_button.hidden = true
     events_button.hidden  = true
     @default_message_view.hidden = true
+    @player_indicator.show
   end
   
   def hide_message_ui
@@ -173,6 +185,7 @@ class HomeViewController < CBUIViewController
     profile_button.hidden = false
     events_button.hidden  = false
     @default_message_view.hidden = false
+    @player_indicator.hide
   end
   
   def tap_background

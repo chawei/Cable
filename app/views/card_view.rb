@@ -476,6 +476,7 @@ class CardView < UIView
   
   def update_playing_status
     if Player.instance.is_playing?
+      PlayerIndicator.instance.set_as_playing
       @playing_status_button.setBackgroundImage CBPlayerPauseIconImage, forState:UIControlStateNormal
       UIView.animateWithDuration(0.5,
                             delay:1.0,
@@ -486,6 +487,7 @@ class CardView < UIView
                        completion:(lambda do |finished|
                          end))
     else
+      PlayerIndicator.instance.set_as_pause
       @playing_status_button.alpha = 1.0
       @playing_status_button.setBackgroundImage CBPlayerPlayIconImage, forState:UIControlStateNormal
     end
