@@ -57,6 +57,11 @@ class App
     home_view_controller.message_box
   end
   
+  def self.show_login_view_controller
+    @login_vc = LoginViewController.alloc.init
+    home_view_controller.view.addSubview @login_vc.view
+  end
+  
   def self.play_object_by_user(object)
     Player.instance.end_and_clear_by_user
     play_object(object)

@@ -460,6 +460,11 @@ class CardView < UIView
   end
   
   def toggle_like_button
+    unless User.current.is_logged_in?
+      App.show_login_view_controller
+      return
+    end
+    
     current_state_image = @like_button.imageForState UIControlStateNormal
     if current_state_image == CBLikeIconImage
       if song_object

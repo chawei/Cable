@@ -45,6 +45,7 @@ CBDefaultSongImage     = UIImage.imageNamed "assets/icon_music_default_small"
 CBDefaultEventImage    = UIImage.imageNamed "assets/icon_event_default_small"
 CBEmptyFavsImage       = UIImage.imageNamed "assets/img_default_fav"
 CBEmptyEventsImage     = UIImage.imageNamed "assets/img_default_event"
+CBGuestImage           = UIImage.imageNamed "assets/img_default_guest"
 
 CBSongTableCellReuseIdentifier  = "SONG_TABLE_CELL_IDENTIFIER"
 CBEventTableCellReuseIdentifier = "EVENT_TABLE_CELL_IDENTIFIER"
@@ -96,6 +97,8 @@ CBEmptyFavsImageHeight   = 165/2.0
 CBEmptyFavsImageWidth    = 128/2.0
 CBEmptyEventsImageHeight = 160/2.0
 CBEmptyEventsImageWidth  = 139/2.0
+CBGuestImageWidth        = 128/2.0
+CBGuestImageHeight       = 129/2.0
 
 CBShouldShowPageInFullScreen = true
 
