@@ -58,8 +58,14 @@ class App
   end
   
   def self.show_login_view_controller
-    @login_vc = LoginViewController.alloc.init
-    home_view_controller.view.addSubview @login_vc.view
+    @login_view_controller = LoginViewController.alloc.init
+    @login_view_controller.view.origin = [0, home_view_controller.view.size.height]
+    home_view_controller.view.addSubview @login_view_controller.view
+    UIView.animateWithDuration 0.2, delay:0.0, options:UIViewAnimationOptionCurveEaseInOut, animations:(lambda do
+        @login_view_controller.view.origin = [0, 0]
+      end), 
+      completion:(lambda do |finished|
+      end)
   end
   
   def self.play_object_by_user(object)

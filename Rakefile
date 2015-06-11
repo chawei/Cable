@@ -12,7 +12,7 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name              = 'Cable'
   app.deployment_target = '7.0'
-  app.version           = '1.3.4'
+  app.version           = '1.3.5'
   app.identifier        = 'com.songio.Cabl'
   app.seed_id           = '88A5HCG4W3'
   

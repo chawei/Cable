@@ -16,6 +16,7 @@ module RobotDelegate
     
     if response[:are_songs_updated]
       User.current.stream.songs_updated
+      self.performSelector "hide_message_ui", withObject:nil, afterDelay:3.0
     end
     
     if response[:function_name_to_execute]
@@ -30,6 +31,10 @@ module RobotDelegate
   def waiting_for_response
     show_message_ui
     @messages_view_controller.show_responding_status
+  end
+  
+  def hide_message_ui
+    App.home_view_controller.hide_message_ui
   end
   
   def show_robot_message(message_object)

@@ -24,14 +24,16 @@ class LoginViewController < CBUIViewController
   end
   
   def add_subviews
+    top_margin   = 100
     image_height = CBGuestImageHeight
     image_width  = CBGuestImageWidth
-    image_view = UIImageView.alloc.initWithFrame [[(@alert_view.size.width-image_width)/2, 50], [image_width, image_height]]
+    image_view = UIImageView.alloc.initWithFrame [[(@alert_view.size.width-image_width)/2, top_margin], 
+      [image_width, image_height]]
     image_view.image = CBGuestImage
     
     message_label               = UILabel.alloc.initWithFrame [[0, 0], self.view.size]
     message_label.text          = "Login to Cable and\n start collecting your favorite songs!"
-    message_label.textColor     = CBLightGrayColor
+    message_label.textColor     = CBBlackColor
     message_label.numberOfLines = 0
     message_label.textAlignment = NSTextAlignmentCenter
     message_label.font = UIFont.fontWithName(CBRegularFontName, size:16.0)
@@ -89,6 +91,13 @@ class LoginViewController < CBUIViewController
     #@cancel_button.layer.borderWidth  = 0.5
     #@cancel_button.layer.cornerRadius = CBRoundedCornerRadius
     @cancel_button.addTarget self, action:"press_close_button", forControlEvents:UIControlEventTouchUpInside
+    
+    keys    = NSArray.alloc.initWithObjects NSForegroundColorAttributeName, NSUnderlineStyleAttributeName, nil
+    objects = NSArray.alloc.initWithObjects @cancel_button.titleLabel.textColor, NSNumber.numberWithInt(NSUnderlineStyleSingle), nil
+    linkAttributes   = NSDictionary.alloc.initWithObjects objects, forKeys:keys
+    attributedString = NSAttributedString.alloc.initWithString @cancel_button.titleLabel.text, attributes:linkAttributes
+    @cancel_button.titleLabel.setAttributedText attributedString
+    
     @alert_view.addSubview @cancel_button
   end
   
