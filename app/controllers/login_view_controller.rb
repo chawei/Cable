@@ -94,9 +94,9 @@ class LoginViewController < CBUIViewController
     
     keys    = NSArray.alloc.initWithObjects NSForegroundColorAttributeName, NSUnderlineStyleAttributeName, nil
     objects = NSArray.alloc.initWithObjects @cancel_button.titleLabel.textColor, NSNumber.numberWithInt(NSUnderlineStyleSingle), nil
-    linkAttributes   = NSDictionary.alloc.initWithObjects objects, forKeys:keys
-    attributedString = NSAttributedString.alloc.initWithString @cancel_button.titleLabel.text, attributes:linkAttributes
-    @cancel_button.titleLabel.setAttributedText attributedString
+    link_attributes   = NSDictionary.alloc.initWithObjects objects, forKeys:keys
+    attributed_string = NSAttributedString.alloc.initWithString @cancel_button.titleLabel.text, attributes:link_attributes
+    @cancel_button.titleLabel.setAttributedText attributed_string
     
     @alert_view.addSubview @cancel_button
   end

@@ -8,9 +8,10 @@ class CardStackView < UIView
       subview.removeFromSuperview
       
       User.current.stream.remove_first_song
-      reload_card_views_if_necessary(3)
       
-      play_top_card_view
+      # Move this logic into Stream model
+      #reload_card_views_if_necessary(3)
+      #play_top_card_view
     end
   end
   

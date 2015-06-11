@@ -20,11 +20,15 @@ class Stream
         if @is_initiated == false
           App.card_stack_view.reload_card_views_if_necessary
           @is_initiated = true
-        elsif @are_songs_updated == true
-          update_and_play_card_views
         else
-          update_card_views
+          update_and_play_card_views
         end
+        #elsif @are_songs_updated == true
+        #  update_and_play_card_views
+        #  @are_songs_updated = false
+        #else
+        #  update_card_views
+        #end
       end
     end), withCancelBlock:(lambda do |error|
       NSLog("%@", error.description) 
